@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import router from "./routes/weatherAPI.js";
+import router from "./routes/profileAPI.js";
 import { sequelize } from "./db/index.js";
 import LOCAL_API from "../src/data/localAPI.mjs"
 

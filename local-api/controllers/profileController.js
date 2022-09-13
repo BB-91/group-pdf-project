@@ -1,18 +1,18 @@
-import { WeatherHistory } from "../models/weatherModel.js";    
+import { Profile } from "../models/profileModel.js";    
 import validator from "../../src/data/patchValidator.mjs";
 
-export const getWeatherHistory = (req, res) => {
-    WeatherHistory.findAll()
-        .then(history => {
-            res.status(200).send(history)
+export const getProfiles = (req, res) => {
+    Profile.findAll()
+        .then(profile => {
+            res.status(200).send(profile)
         })
         .catch(err => {
             console.log(err)
         })
 };
 
-export const addWeatherHistory = (req, res) => {
-    WeatherHistory.create(req.body)
+export const addProfile = (req, res) => {
+    Profile.create(req.body)
         .then(() => {
             res.status(201).send({ message: "Created" })
         })
@@ -21,7 +21,7 @@ export const addWeatherHistory = (req, res) => {
         })
 };
 
-export const updateWeatherHistory = (req, res) => {
+export const updateProfile = (req, res) => {
     const { body } = req;
     const { getUpdateKey, getUpdateValue, getWhereKey, getWhereValue, WHERE } = validator;
 
@@ -31,12 +31,7 @@ export const updateWeatherHistory = (req, res) => {
     const whereKey = getWhereKey(body)
     const whereValue = getWhereValue(body);
 
-    console.log("updateKey: ", updateKey)
-    console.log("updateValue: ", updateValue)
-    console.log("whereKey: ", whereKey)
-    console.log("whereValue: ", whereValue)
-
-    WeatherHistory.update(
+    Profile.update(
         { [updateKey]: updateValue},
         { [WHERE]: {[whereKey]: whereValue}}
     )
