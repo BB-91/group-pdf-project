@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import "./FileUploader.scss";
-import { STATE_OPTIONS_ELEMENTS } from "../../data/alphabeticalStates.mjs";
+import { COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
 import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
@@ -8,6 +8,7 @@ const KEY = {
     pdf: 'pdf',
     firstName: 'firstName',
     lastName: 'lastName',
+    country: 'country',
     city: 'city',
     state: 'state',
     zipCode: 'zipCode',
@@ -95,7 +96,7 @@ const FileUploader = (props) => {
         }
     }
 
-    const getNewTextInputElement = (key, isRequired = true, placeholderSuffix = "") => {
+    const getNewTextInputElement = (key, placeholderSuffix = "", isRequired = true) => {
         const suffixedPlaceholder = getPlaceholder(key) + placeholderSuffix;
         if (isRequired) {
             return <input type="text" name={key} id={key} placeholder={suffixedPlaceholder} required />
@@ -131,12 +132,13 @@ const FileUploader = (props) => {
                 </div>
 
                 <div id="location-row" className="row">
+                    {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
                     {getNewTextInputElement(KEY.city)}
                     {getNewSelectElement(KEY.state, STATE_OPTIONS_ELEMENTS)}
                     {getNewTextInputElement(KEY.zipCode)}
                 </div>
 
-                {getNewTextInputElement(KEY.keywords, true, " (comma-separated)")}
+                {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
                 <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>
             </form>
         </div>
