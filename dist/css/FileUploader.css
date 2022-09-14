@@ -1,7 +1,16 @@
 :root {
   --row-gap: 5px;
-  --column-gap: 10px;
-  --column-width: 200px;
+  --column-gap: 3%;
+  --column-width: 30%;
+  --scaled-column-width: clamp( 200px, 50%, 300px );
+  --column-count: 1;
+  --padding: 0.2rem;
+}
+
+input,
+select {
+  height: 1.5rem;
+  padding-left: var(--padding);
 }
 
 .file-uploader {
@@ -11,25 +20,53 @@
   border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
-  width: 700px;
+  width: clamp(280px, 30%, 800px);
 }
-.file-uploader #file-upload-form {
+
+#file-upload-form {
   display: grid;
   grid-template-columns: 1fr;
   row-gap: var(--row-gap);
   justify-content: flex-start;
   width: 100%;
 }
-.file-uploader #file-upload-form button {
+
+button {
   width: var(--column-width);
+  padding: var(--padding) 0;
 }
-.file-uploader #file-upload-form #name-row,
-.file-uploader #file-upload-form #location-row {
+
+#name-row,
+#location-row {
   display: grid;
-  grid-template-columns: repeat(3, var(--column-width));
+  grid-template-columns: var(--scaled-column-width);
+  row-gap: var(--row-gap);
   justify-content: left;
-  column-gap: var(--column-gap);
 }
-.file-uploader #file-upload-form #keywords {
-  width: calc(var(--column-width) * 3 + var(--column-gap) * 2);
+
+#keywords {
+  width: var(--scaled-column-width);
+}
+
+@media screen and (min-width: 1100px) {
+  :root {
+    --column-width: 40%;
+    --column-count: 2;
+  }
+  #name-row,
+#location-row {
+    display: grid;
+    grid-template-columns: repeat(var(--column-count), var(--column-width));
+    justify-content: left;
+    column-gap: var(--column-gap);
+  }
+  #keywords {
+    width: calc(var(--column-width) * var(--column-count) + var(--column-gap) * (var(--column-count) - 1));
+  }
+}
+@media screen and (min-width: 1660px) {
+  :root {
+    --column-width: 30%;
+    --column-count: 3;
+  }
 }/*# sourceMappingURL=FileUploader.css.map */

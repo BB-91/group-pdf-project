@@ -32,7 +32,7 @@ const FileUploader = () => {
                 </div>
 
                 <input type="text" name="keywords" id="keywords" placeholder="Keywords (comma-separated)" />
-                <button type="submit" onClick={handleSubmitButtonClick}>Upload File</button>
+                <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>
             </form>
         </div>
     )
