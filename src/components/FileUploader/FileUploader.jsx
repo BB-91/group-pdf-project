@@ -3,6 +3,7 @@ import "./FileUploader.scss";
 import { STATE_OPTIONS_ELEMENTS } from "../../data/alphabeticalStates.mjs";
 import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
 
+// keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
     pdf: 'pdf',
     firstName: 'firstName',
@@ -13,7 +14,7 @@ const KEY = {
     keywords: 'keywords',
 }
 
-const OPTIONAL_KEYS = [KEY.keywords];
+const OPTIONAL_KEYS = [KEY.keywords]; // 'allowNull: true' in Sequelize model
 
 const getPlaceholder = (key) => {
     return getTitleCaseFromCamelCase(key);
@@ -23,23 +24,13 @@ const bulletedList = (strings, symbol = "•") => {
     return strings.map(str => `${symbol} ${str}`).join("\n")
 }
 
+// file uploader allows selecting multiple files, saved as an array. pdfs[0] is the first file selected.
 const getPDF = async () => {
     const pdfs = await document.getElementById(KEY.pdf).files;
     if (pdfs) {
         return pdfs[0];
     }
 }
-
-const PLACEHOLDER = {
-    pdf: getPlaceholder(KEY.pdf),
-    firstName: getPlaceholder(KEY.firstName),
-    lastName: getPlaceholder(KEY.lastName),
-    city: getPlaceholder(KEY.city),
-    state: getPlaceholder(KEY.state),
-    zipCode: getPlaceholder(KEY.zipCode),
-    keywords: getPlaceholder(KEY.keywords),    
-}
-
 
 
 const FileUploader = (props) => {
@@ -79,7 +70,7 @@ const FileUploader = (props) => {
         })
 
         if (keysWithUndefinedValues.length) {
-            const placeholders = keysWithUndefinedValues.filter(key => key !== KEY.pdf).map(key => PLACEHOLDER[key]);
+            const placeholders = keysWithUndefinedValues.filter(key => key !== KEY.pdf).map(key => getPlaceholder(key));
             let alertMsg = "";
 
             const pdf = await getPDF()
@@ -104,6 +95,30 @@ const FileUploader = (props) => {
         }
     }
 
+    const getNewTextInputElement = (key, isRequired = true, placeholderSuffix = "") => {
+        const suffixedPlaceholder = getPlaceholder(key) + placeholderSuffix;
+        if (isRequired) {
+            return <input type="text" name={key} id={key} placeholder={suffixedPlaceholder} required />
+        } else {
+            return <input type="text" name={key} id={key} placeholder={suffixedPlaceholder} />
+        }
+    }
+
+    const getNewSelectElement = (key, optionsElements, isRequired = true) => {
+        const optionsWithDisabledDefault = (
+            <>
+                <option disabled={false} value="">{getPlaceholder(key)}</option>
+                {STATE_OPTIONS_ELEMENTS}
+            </>
+        )
+
+        if (isRequired) {
+            return (<select name={key} id={key} required>{optionsWithDisabledDefault}</select>)
+        } else {
+            return (<select name={key} id={key}>{optionsWithDisabledDefault}</select>)
+        }
+    }
+
     return (
         <div className='file-uploader'>
             <h5>Upload a profile PDF</h5>
@@ -111,20 +126,17 @@ const FileUploader = (props) => {
                 <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" />
                 
                 <div id="name-row" className="row">
-                    <input type="text" name={KEY.firstName} id={KEY.firstName} placeholder={PLACEHOLDER.firstName} required />
-                    <input type="text" name={KEY.lastName} id={KEY.lastName} placeholder={PLACEHOLDER.lastName} required />
+                    {getNewTextInputElement(KEY.firstName)}
+                    {getNewTextInputElement(KEY.lastName)}
                 </div>
 
                 <div id="location-row" className="row">
-                    <input type="text" name={KEY.city} id={KEY.city} placeholder={PLACEHOLDER.city} required />
-                    <select name={KEY.state} id={KEY.state} required>
-                        <option disabled={false} value=""> State </option>
-                        {STATE_OPTIONS_ELEMENTS}
-                    </select>
-                    <input type="text" name={KEY.zipCode} id={KEY.zipCode} placeholder={PLACEHOLDER.zipCode} required />
+                    {getNewTextInputElement(KEY.city)}
+                    {getNewSelectElement(KEY.state, STATE_OPTIONS_ELEMENTS)}
+                    {getNewTextInputElement(KEY.zipCode)}
                 </div>
 
-                <input type="text" name={KEY.keywords} id={KEY.keywords} placeholder={PLACEHOLDER.keywords + " (comma-separated)"} />
+                {getNewTextInputElement(KEY.keywords, true, " (comma-separated)")}
                 <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>
             </form>
         </div>
