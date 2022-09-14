@@ -108,7 +108,7 @@ const FileUploader = (props) => {
         const optionsWithDisabledDefault = (
             <>
                 <option disabled={false} value="">{getPlaceholder(key)}</option>
-                {STATE_OPTIONS_ELEMENTS}
+                {optionsElements}
             </>
         )
 
