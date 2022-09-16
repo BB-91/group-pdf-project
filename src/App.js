@@ -1,5 +1,6 @@
 import './App.scss';
 import FileUploader from './components/FileUploader/FileUploader';
+import FileUploaderController from './controllers/FileUploaderController/FileUploaderController';
 import LOCAL_API from "./data/localAPI.mjs";
 import validator from './data/patchValidator.mjs';
 
@@ -31,7 +32,8 @@ function App() {
 
     return (
         <div className="App">
-            <FileUploader postProfile={postProfile} getProfiles={getProfiles}/>
+            <FileUploaderController postProfile={postProfile} getProfiles={getProfiles}/>
+            {/* <FileUploader postProfile={postProfile} getProfiles={getProfiles}/> */}
 
         </div>
     );

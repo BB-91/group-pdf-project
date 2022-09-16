@@ -2,8 +2,6 @@ import React, { useRef } from 'react';
 import "./FileUploader.scss";
 import { COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
 import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
-// var pdf2img = require('pdf-img-convert');
-// import pdf2img from "pdf-img-convert";
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
@@ -12,12 +10,12 @@ const KEY = {
     lastName: 'lastName',
     country: 'country',
     city: 'city',
-    state: 'state',
+    region: 'region',
     zipCode: 'zipCode',
     keywords: 'keywords',
 }
 
-const OPTIONAL_KEYS = [KEY.keywords]; // 'allowNull: true' in Sequelize model
+const OPTIONAL_KEYS = [KEY.zipCode, KEY.keywords]; // 'allowNull: true' in Sequelize model
 
 const getPlaceholder = (key) => {
     return getTitleCaseFromCamelCase(key);
@@ -27,46 +25,71 @@ const bulletedList = (strings, symbol = "•") => {
     return strings.map(str => `${symbol} ${str}`).join("\n")
 }
 
-// file uploader allows selecting multiple files, saved as an array. pdfs[0] is the first file selected.
-const getPDF = async () => {
-    const pdfs = await document.getElementById(KEY.pdf).files;
-    if (pdfs) {
-        return pdfs[0];
-    }
-}
-
-
 const FileUploader = (props) => {
     const { postProfile, getProfiles } = props;
 
-    const pdfRef = useRef(null);
-    const pdfUrlRef = useRef('');
+    const pdfRef = useRef(props.pdf);
     const pdfEmbedRef = useRef(null);
+    const fileInputElementRef = useRef(null);
+
+    const firstNameRef = useRef(null);
+    const lastNameRef = useRef(null);
+    const countryRef = useRef(null);
+    const cityRef = useRef(null);
+    const regionRef = useRef(null);
+    const zipCodeRef = useRef(null);
+    const keywordsRef = useRef(null);
+
+    const keyRefObj = {
+        [KEY.firstName]: firstNameRef,
+        [KEY.lastName]: lastNameRef,
+        [KEY.country]: countryRef,
+        [KEY.city]: cityRef,
+        [KEY.region]: regionRef,
+        [KEY.zipCode]: zipCodeRef,
+        [KEY.keywords]: keywordsRef,
+    }
+
+
+    const getPDF = async () => {
+        const fileInputElement = fileInputElementRef.current;
+
+        if (!fileInputElement) {
+            if (!pdfRef.current) {
+                throw new Error("fileInputElement and pdfRef.current are undefined/null");
+            } else {
+                return pdfRef.current;
+            }
+
+        } else {
+            const pdfs = await fileInputElement.files;
+            if (pdfs) {
+                return pdfs[pdfs.length - 1]; // get the most recently uploaded file
+            }
+        }
+    }
 
     const getFormValuesAsObj = async () => {
         const keys = Object.values(KEY);
-        const elements = keys.map(key => document.getElementById(key));
-        const values = elements.map(element => element.value);
+        const elements = Object.values(keyRefObj).map(ref => ref.current);
+        console.log("elements: ", elements);
+
+        const values = elements.map(element => element.value.trim());
         const obj = {};
         keys.forEach((key, index) => {
             obj[key] = values[index];
         });
 
         obj[KEY.pdf] = await getPDF();
-        obj[KEY.zipCode] = parseInt(values[keys.indexOf(KEY.zipCode)])
         return obj;
     }
 
+
     const handleSubmitButtonClick = async (event) => {
         event.preventDefault();
-        console.log("Submit button clicked.")
         const formValuesObj = await getFormValuesAsObj();
-        console.log("formValuesObj: ", formValuesObj);
-
-        const zipCode = formValuesObj[KEY.zipCode];
-        const zipCodeStr = String(zipCode);
-
         const keysWithUndefinedValues = [];
+
         Object.keys(formValuesObj).forEach(key => {
             const value = formValuesObj[key];
             if (value === "" || value === undefined || value == null) {
@@ -76,68 +99,75 @@ const FileUploader = (props) => {
             }
         })
 
+
+        let alertMsg = "";
+
         if (keysWithUndefinedValues.length) {
             const placeholders = keysWithUndefinedValues.filter(key => key !== KEY.pdf).map(key => getPlaceholder(key));
-            let alertMsg = "";
-
-            const pdf = await getPDF();
-            if (pdf) {
-                pdfRef.current = pdf;
-                console.log("pdf: ", pdf);
-    
-                console.log("pdf instanceof File: ", pdf instanceof File);
-                console.log("pdf instanceof Blob: ", pdf instanceof Blob);
-                console.log("testing file download.");
-                
-                const pdfUrl = URL.createObjectURL(pdf);
-                console.log("pdfUrl: ", pdfUrl)
-                pdfUrlRef.current = pdfUrl;
-
-                const link = document.createElement("a");
-                link.download = "test_pdf_thumbnail_image.pdf";
-                link.href = pdfUrl;
-                link.click();
-                URL.revokeObjectURL(pdfUrl);
-
-                const fileReader = new FileReader();
-
-                fileReader.addEventListener("load", () => {
-                    pdfEmbedRef.current.setAttribute("src", fileReader.result);
-                  }, false);
-
-
-                fileReader.readAsDataURL(pdf);
-            }
-
-
             
-
             if (keysWithUndefinedValues.includes(KEY.pdf)) {
                 alertMsg += "Please upload a profile PDF.\n\n"
             }
             if (placeholders.length) {
                 alertMsg += `Please fill out required fields:\n${bulletedList(placeholders)}`
             }
-            alertMsg = alertMsg.trimEnd();
-            alert(alertMsg)
-        } else if (isNaN(zipCode) || zipCodeStr.length !== 5) {
-            alert("Please enter a 5-digit zip code");
+        }
+        
+        if (alertMsg) {
+            alert(alertMsg);
         } else {
-            console.log("formValuesObj: ", formValuesObj);
             const postResponse = await postProfile(formValuesObj);
-            console.log("postResponse: ", postResponse);
             const profiles = await getProfiles();
+
+            console.log("postResponse: ", postResponse);
             console.log("profiles: ", profiles);
         }
     }
 
+
+    const showForm = async () => {
+        const pdf = await getPDF();
+        if (pdf) {
+            pdfRef.current = pdf;
+            const pdfUrl = URL.createObjectURL(pdf);
+
+            const link = document.createElement("a");
+            link.download = "test_pdf_thumbnail_image.pdf";
+            link.href = pdfUrl;
+            // link.click();
+            URL.revokeObjectURL(pdfUrl);
+
+            const fileReader = new FileReader();
+
+            fileReader.addEventListener("load", () => {
+                const embedElement = pdfEmbedRef.current;
+                if (embedElement && embedElement instanceof HTMLElement) {
+                    embedElement.setAttribute("src", fileReader.result);
+                }
+                }, false);
+
+
+            fileReader.readAsDataURL(pdf);
+        }
+    }
+
+    const handleFileInputChange = async (event) => {
+        fileInputElementRef.current = event.target;
+        showForm();
+    }
+
+
     const getNewTextInputElement = (key, placeholderSuffix = "", isRequired = true) => {
         const suffixedPlaceholder = getPlaceholder(key) + placeholderSuffix;
+        let textInputElement = null;
+
         if (isRequired) {
-            return <input type="text" name={key} id={key} placeholder={suffixedPlaceholder} required />
+            textInputElement = <input ref={keyRefObj[key]} type="text" name={key} className={key} placeholder={suffixedPlaceholder} required />
         } else {
-            return <input type="text" name={key} id={key} placeholder={suffixedPlaceholder} />
+            textInputElement = <input ref={keyRefObj[key]} type="text" name={key} className={key} placeholder={suffixedPlaceholder} />
         }
+
+        return textInputElement;
     }
 
     const getNewSelectElement = (key, optionsElements, isRequired = true) => {
@@ -148,36 +178,67 @@ const FileUploader = (props) => {
             </>
         )
 
+        let selectElement = null;
+
         if (isRequired) {
-            return (<select name={key} id={key} required>{optionsWithDisabledDefault}</select>)
+            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} required>{optionsWithDisabledDefault}</select>)
         } else {
-            return (<select name={key} id={key}>{optionsWithDisabledDefault}</select>)
+            selectElement = (<select ref={keyRefObj[key]} name={key} className={key}>{optionsWithDisabledDefault}</select>)
         }
+
+        return selectElement;
+    }
+
+    const getNewFileInputElement = () => { // REACT ELEMENT VERSION
+        const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onChange={handleFileInputChange} />;
+        if (!pdfRef.current) { throw new Error(`pdfRef not set`); }
+        return fileInputElement;
+    }
+
+
+    const getNewEmbedElement = () => {
+        const embedElement = <embed ref={element => pdfEmbedRef.current = element} src='' type="application/pdf" width="70px" height="90px"/>
+        pdfEmbedRef.current = embedElement;
+        showForm();
+        return embedElement;
+    }
+
+    const getChildComponentTreeAndSetProperties = () => {
+        const childComponents = (
+            <>
+                <h5>Upload a profile PDF</h5>
+                <form className='file-upload-form'>
+                    {getNewFileInputElement()}
+                    
+                    <>
+                        <div className="row name-row">
+                            {getNewTextInputElement(KEY.firstName)}
+                            {getNewTextInputElement(KEY.lastName)}
+                        </div>
+
+                        <div className="row location-row">
+                            {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
+                            {getNewTextInputElement(KEY.city)}
+                            {getNewSelectElement(KEY.region, STATE_OPTIONS_ELEMENTS)}
+                            {getNewTextInputElement(KEY.zipCode)}
+                            {getNewEmbedElement()}
+                        </div>
+
+                        {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
+                        <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                    
+                    </>
+                    
+                </form>
+            </>
+        )
+        return childComponents;
+
     }
 
     return (
         <div className='file-uploader'>
-            <h5>Upload a profile PDF</h5>
-            <form id='file-upload-form'>
-                <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf"/>
-                
-                <div id="name-row" className="row">
-                    {getNewTextInputElement(KEY.firstName)}
-                    {getNewTextInputElement(KEY.lastName)}
-                </div>
-
-                <div id="location-row" className="row">
-                    {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
-                    {getNewTextInputElement(KEY.city)}
-                    {getNewSelectElement(KEY.state, STATE_OPTIONS_ELEMENTS)}
-                    {getNewTextInputElement(KEY.zipCode)}
-                    <embed ref={pdfEmbedRef} src='' type="application/pdf" width="70px" height="90px"/>
-
-                </div>
-
-                {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
-                <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>
-            </form>
+            {getChildComponentTreeAndSetProperties()}
+            
         </div>
     )
 }

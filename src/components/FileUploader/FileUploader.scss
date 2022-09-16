@@ -25,8 +25,7 @@ select {
     width: clamp(280px, 30%, 800px);
 }
 
-
-#file-upload-form{ 
+.file-upload-form{ 
     display: grid;
     grid-template-columns: 1fr;
     row-gap: var(--row-gap);
@@ -41,15 +40,15 @@ button {
     padding: var(--padding) 0;
 }
 
-#name-row,
-#location-row {
+.name-row,
+.location-row {
     display: grid;
     grid-template-columns: var(--scaled-column-width);
     row-gap: var(--row-gap);
     justify-content: left;
 }
 
-#keywords {
+.keywords {
     width: var(--scaled-column-width);
 }
 
@@ -59,15 +58,15 @@ button {
         --column-count: 2;
     }
 
-    #name-row,
-    #location-row {
+    .name-row,
+    .location-row {
         display: grid;
         grid-template-columns: repeat(var(--column-count), var(--column-width));
         justify-content: left;
         column-gap: var(--column-gap);
     }
         
-    #keywords {
+    .keywords {
         width: calc(
                     ( var(--column-width) * var(--column-count) )
                     +
