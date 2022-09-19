@@ -1,12 +1,14 @@
 import "./SearchResults.scss";
 import {useState, useEffect} from 'react';
 import SearchBar from "../../components/SearchBar/SearchBar";
+import FilterCheckboxes from "../../components/FilterCheckBoxes/FilterCheckBoxes";
 
 
 const SearchResults = () => {
 
     const [files, setFiles] = useState([])
     const [returnResults, setReturnResults] = useState("")
+    const [checkResults, setCheckResults] = useState([])
 
     const getData = () => {
         fetch("http://192.168.56.1:3020/pdf")
@@ -25,7 +27,7 @@ const SearchResults = () => {
         setReturnResults(cleanInput)
     }
 
-    const filteredFiles = files.filter((file) => {
+    const filteredFiles = checkResults.filter((file) => {
         return (
             file.firstName.toLowerCase().includes(returnResults) ||
             file.lastName.toLowerCase().includes(returnResults) ||
@@ -37,14 +39,6 @@ const SearchResults = () => {
     })
 
     const mappedFiles = filteredFiles.map((file) => {
-        // if (file.firstName.includes(returnResults)
-        //     || file.lastName.includes(returnResults)
-        //     || file.lastName.includes(returnResults)
-        //     || file.country.includes(returnResults)
-        //     || file. state.includes(returnResults)
-        //     || file.zipCode.includes(returnResults)) {
-
-        //     }
         return (
             <>
                 <p>{file.firstName} {file.lastName}</p>
@@ -57,6 +51,10 @@ const SearchResults = () => {
     return (
         <>
             <SearchBar handleSearchInput={handleSearchInput}/>
+            {files && <FilterCheckboxes 
+            checkResults={checkResults}
+            files={files}
+            setCheckResults={setCheckResults}/>}
             {mappedFiles}
         </>
     )
