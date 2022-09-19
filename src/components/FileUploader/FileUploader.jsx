@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import "./FileUploader.scss";
 import { COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
 import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
+// import { downloadFile } from '../../data/util.mjs';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
-    pdf: 'pdf',
     firstName: 'firstName',
     lastName: 'lastName',
     country: 'country',
@@ -81,6 +81,8 @@ const FileUploader = (props) => {
         });
 
         obj[KEY.pdf] = await getPDF();
+        console.log("getFormValuesAsObj obj: ", obj);
+
         return obj;
     }
 
@@ -121,6 +123,9 @@ const FileUploader = (props) => {
 
             console.log("postResponse: ", postResponse);
             console.log("profiles: ", profiles);
+
+            // const TEST_PDF = profiles[0].pdf;
+            // downloadFile(TEST_PDF, "TEST_PDF.pdf");
         }
     }
 
@@ -129,14 +134,6 @@ const FileUploader = (props) => {
         const pdf = await getPDF();
         if (pdf) {
             pdfRef.current = pdf;
-            const pdfUrl = URL.createObjectURL(pdf);
-
-            const link = document.createElement("a");
-            link.download = "test_pdf_thumbnail_image.pdf";
-            link.href = pdfUrl;
-            // link.click();
-            URL.revokeObjectURL(pdfUrl);
-
             const fileReader = new FileReader();
 
             fileReader.addEventListener("load", () => {
