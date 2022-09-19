@@ -25,10 +25,39 @@ const SearchResults = () => {
         setReturnResults(cleanInput)
     }
 
+    const filteredFiles = files.filter((file) => {
+        return (
+            file.firstName.toLowerCase().includes(returnResults) ||
+            file.lastName.toLowerCase().includes(returnResults) ||
+            file.lastName.toLowerCase().includes(returnResults) ||
+            file.country.toLowerCase().includes(returnResults) ||
+            file.state.toLowerCase().includes(returnResults) ||
+            file.zipCode.toLowerCase().includes(returnResults)
+            )
+    })
+
+    const mappedFiles = filteredFiles.map((file) => {
+        // if (file.firstName.includes(returnResults)
+        //     || file.lastName.includes(returnResults)
+        //     || file.lastName.includes(returnResults)
+        //     || file.country.includes(returnResults)
+        //     || file. state.includes(returnResults)
+        //     || file.zipCode.includes(returnResults)) {
+
+        //     }
+        return (
+            <>
+                <p>{file.firstName} {file.lastName}</p>
+                <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
+            </>
+        )
+    })
+
     console.log(returnResults)
     return (
         <>
             <SearchBar handleSearchInput={handleSearchInput}/>
+            {mappedFiles}
         </>
     )
 }
