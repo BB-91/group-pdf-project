@@ -33,32 +33,35 @@ const FilterCheckboxes = (props) => {
 
     const USAUKProfiles = files.filter((file) => {
         return (
-            file.country.includes("USA") &&
+            file.country.includes("USA") ||
             file.country.includes("UK")
         )
     })
 
     const USAAUSProfiles = files.filter((file) => {
         return (
-            file.country.includes("USA") &&
+            file.country.includes("USA") ||
             file.country.includes("AUS")
         )
     })
 
     const UKAUSProfiles = files.filter((file) => {
         return (
-            file.country.includes("UK") &&
+            file.country.includes("UK") ||
             file.country.includes("AUS")
         )
     })
 
-    console.log(files)
+    // console.log(files)
 
     const countryProfiles = () => {
+        console.log("being run")
         if (isUSA == false && isUK == false && isAUS == false) {
             setCheckResults(files)
+            console.log("its all false")
         } else if (isUSA == true && isUK == false && isAUS == false) {
             setCheckResults(USAProfiles)
+            console.log(checkResults)
         } else if (isUK == true && isUSA == false && isAUS == false) {
             setCheckResults(UKProfiles) 
         } else if (isAUS == true && isUSA == false && isUK == false) {
@@ -69,29 +72,59 @@ const FilterCheckboxes = (props) => {
             setCheckResults(USAAUSProfiles)
         } else if (isUK == true && isAUS == true && isUSA == false) {
             setCheckResults(UKAUSProfiles)
-        } else {
+        } else if (isUK == true && isAUS == true && isUSA == true) {
             setCheckResults(files)
         }
     }
 
     useEffect((countryProfiles), [])
 
+    console.log(isUSA)
+    console.log(isUK)
+    console.log(isAUS)
+
     const handleIsUSA = () => {
         setIsUSA(!isUSA)
         countryProfiles()
+        console.log(isUSA)
     }
     const handleIsUK = () => {
         setIsUK(!isUK)
         countryProfiles()
+        console.log(isUK)
     }
     const handleIsAUS = () => {
         setIsAUS(!isAUS)
         countryProfiles()
+        console.log(isAUS)
     }
+
+    const changeTrueFalse = () => {
+        return new Promise((resolve) => {
+            setIsUSA(!isUSA)
+            resolve()
+        })
+    }
+
+    const runCountryProfiles = () => {
+        countryProfiles()
+    }
+
+    const comboFunc = () => {
+        changeTrueFalse().then(runCountryProfiles)
+    }
+
+    // const changeTrueFalse = () => {
+    //     setIsUSA(!isUSA)
+    // }
+
+    // const runCountryProfiles = (changeTrueFalse) => {
+    //     changeTrueFalse()
+    // }
 
     return (
         <>
-            <input type="checkbox" onClick={handleIsUSA}/>USA
+            <input type="checkbox" onClick={comboFunc}/>USA
             <input type="checkbox" onClick={handleIsUK}/>UK
             <input type="checkbox" onClick={handleIsAUS}/>AUS
         </>

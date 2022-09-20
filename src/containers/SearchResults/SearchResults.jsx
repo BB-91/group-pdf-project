@@ -6,7 +6,7 @@ import FilterCheckboxes from "../../components/FilterCheckBoxes/FilterCheckBoxes
 
 const SearchResults = () => {
 
-    const [files, setFiles] = useState([])
+    const [files, setFiles] = useState()
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
 
@@ -16,7 +16,7 @@ const SearchResults = () => {
             return response.json()
         }) .then((data) => {
             setFiles(data)
-            console.log(data)
+            // console.log(data)
         })
     }
 
