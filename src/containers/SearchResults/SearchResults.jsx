@@ -31,7 +31,7 @@ const SearchResults = () => {
         return (
             file.firstName.toLowerCase().includes(returnResults) ||
             file.lastName.toLowerCase().includes(returnResults) ||
-            file.lastName.toLowerCase().includes(returnResults) ||
+            file.city.toLowerCase().includes(returnResults) ||
             file.country.toLowerCase().includes(returnResults) ||
             file.state.toLowerCase().includes(returnResults) ||
             file.zipCode.toLowerCase().includes(returnResults)
