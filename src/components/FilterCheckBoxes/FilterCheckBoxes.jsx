@@ -5,9 +5,9 @@ const FilterCheckboxes = (props) => {
 
     const {checkResults, setCheckResults, files} = props;
 
-    const [isUSA, setIsUSA] = useState(false)
-    const [isUK, setIsUK] = useState(false)
-    const [isAUS, setIsAUS] = useState(false)
+    const [isUSA, setIsUSA] = useState(true)
+    const [isUK, setIsUK] = useState(true)
+    const [isAUS, setIsAUS] = useState(true)
 
     const allProfiles = files.filter((file) => {
         return file
@@ -79,26 +79,20 @@ const FilterCheckboxes = (props) => {
     }
 }
 
-    useEffect((countryProfiles), [])
-
-    console.log(isUSA)
-    console.log(isUK)
-    console.log(isAUS)
-
     const handleIsUSA = () => {
         setIsUSA(!isUSA)
         countryProfiles()
-        console.log(isUSA)
+        // console.log(isUSA)
     }
     const handleIsUK = () => {
         setIsUK(!isUK)
         countryProfiles()
-        console.log(isUK)
+        // console.log(isUK)
     }
     const handleIsAUS = () => {
         setIsAUS(!isAUS)
         countryProfiles()
-        console.log(isAUS)
+        // console.log(isAUS)
     }
 
     const changeTrueFalse = () => {
@@ -113,14 +107,20 @@ const FilterCheckboxes = (props) => {
     }
 
     const comboFunc = () => {
-        changeTrueFalse().then(runCountryProfiles)
+        changeTrueFalse().then(runCountryProfiles).then(console.log(isUSA))
     }
+
+    useEffect((countryProfiles), [])
+    // useEffect((handleIsUSA), [])
+    // useEffect((handleIsUK), [])
+    // useEffect((handleIsAUS), [])
+
 
     return (
         <>
-            <input type="checkbox" onClick={comboFunc}/>USA
-            <input type="checkbox" onClick={handleIsUK}/>UK
-            <input type="checkbox" onClick={handleIsAUS}/>AUS
+            <input type="checkbox" onClick={comboFunc} defaultChecked={true}/>USA
+            <input type="checkbox" onClick={handleIsUK} defaultChecked={true}/>UK
+            <input type="checkbox" onClick={handleIsAUS} defaultChecked={true}/>AUS
         </>
     )
 }
