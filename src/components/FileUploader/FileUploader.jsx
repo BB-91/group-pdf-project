@@ -6,6 +6,7 @@ import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
+    // pdf: 'pdf',
     firstName: 'firstName',
     lastName: 'lastName',
     country: 'country',
@@ -28,10 +29,10 @@ const bulletedList = (strings, symbol = "•") => {
 const FileUploader = (props) => {
     const { postProfile, getProfiles } = props;
 
-    const pdfRef = useRef(props.pdf);
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
 
+    const pdfRef = useRef(props.pdf);
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
     const countryRef = useRef(null);
@@ -41,6 +42,7 @@ const FileUploader = (props) => {
     const keywordsRef = useRef(null);
 
     const keyRefObj = {
+        // [KEY.pdf]: pdfRef,
         [KEY.firstName]: firstNameRef,
         [KEY.lastName]: lastNameRef,
         [KEY.country]: countryRef,
@@ -68,6 +70,7 @@ const FileUploader = (props) => {
             }
         }
     }
+
 
     const getFormValuesAsObj = async () => {
         const keys = Object.values(KEY);

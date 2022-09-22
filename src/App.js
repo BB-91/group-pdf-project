@@ -16,6 +16,8 @@ function App() {
     const postProfile = async (profile) => {
         validator.assertNonArrayObj(profile);
 
+        console.log("profile ABOUT TO BE POSTED: ", profile)
+
         const postResponse = await fetch(customApiURL, {
             method: 'POST',
             headers: {
