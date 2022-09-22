@@ -2,6 +2,7 @@ import "./SearchResults.scss";
 import {useState, useEffect} from 'react';
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterCheckboxes from "../../components/FilterCheckBoxes/FilterCheckBoxes";
+import DateDropdown from "../../components/DateDropdown/DateDropdown";
 
 
 const SearchResults = () => {
@@ -9,6 +10,7 @@ const SearchResults = () => {
     const [files, setFiles] = useState()
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
+    const [dateResults, setDateResults] = useState([])
 
     const getData = () => {
         fetch("http://192.168.56.1:3020/pdf")
@@ -34,7 +36,8 @@ const SearchResults = () => {
             file.city.toLowerCase().includes(returnResults) ||
             file.country.toLowerCase().includes(returnResults) ||
             file.state.toLowerCase().includes(returnResults) ||
-            file.zipCode.toLowerCase().includes(returnResults)
+            file.zipCode.toLowerCase().includes(returnResults) ||
+            file.cohort_year.includes(returnResults)
             )
     })
 
@@ -43,6 +46,7 @@ const SearchResults = () => {
             <>
                 <p>{file.firstName} {file.lastName}</p>
                 <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
+                <p>{file.cohort_year}</p>
             </>
         )
     })
@@ -55,6 +59,10 @@ const SearchResults = () => {
             checkResults={checkResults}
             files={files}
             setCheckResults={setCheckResults}/>}
+            <DateDropdown 
+            files={files}
+            dateResults={dateResults}
+            setDateResults={setDateResults}/>
             {mappedFiles}
         </>
     )
