@@ -8,7 +8,9 @@ const KEY = {
 
 const FileUploaderController = (props) => {
     const [cards, setCards] = useState([])
-    const { postProfile, getProfiles } = props;
+    // const { postProfile, getProfiles } = props;
+    // getAwsFileNames={getAwsFileNames}
+    const { postProfile, getProfiles, getAwsFileNames } = props;
     const controllerFileInputRef = useRef(null);
 
     // file uploader allows selecting multiple files, saved as an array.
@@ -34,8 +36,17 @@ const FileUploaderController = (props) => {
         setCards(profileCards);
     }
 
+    const handleTestButtonClick = async () => {
+        console.log("clicked the test button.");
+        console.log("--- ATTEMPTING TO GET AWS FILENAMES ----");
+        const awsFileNames = await getAwsFileNames();
+        console.log("awsFileNames: ", awsFileNames);
+
+    }
+
     return (
         <div className='file-uploader-controller'>
+            <input type="button" value="test-btn" onClick={handleTestButtonClick}/>
             <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
             {cards.length > 0 && cards}
         </div>

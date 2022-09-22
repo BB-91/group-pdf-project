@@ -2,14 +2,22 @@ import './App.scss';
 import FileUploader from './components/FileUploader/FileUploader';
 import FileUploaderController from './controllers/FileUploaderController/FileUploaderController';
 import LOCAL_API from "./data/localAPI.mjs";
+import AWS_API from './data/awsAPI.mjs';
 import validator from './data/patchValidator.mjs';
 
-const customApiURL = LOCAL_API.getURL();
+const localApiURL = LOCAL_API.getURL();
+const awsApiURL = AWS_API.getURL();
+
 
 function App() {
 
+    const getAwsFileNames = async () => {
+        const awsFileNames = await fetch(awsApiURL + "/list").then(res => { return res.json(); })
+        return awsFileNames;
+    }
+
     const getProfiles = async () => {
-        const profiles = await fetch(customApiURL).then(res => { return res.json(); })
+        const profiles = await fetch(localApiURL).then(res => { return res.json(); })
         return profiles;
     }
 
@@ -18,7 +26,7 @@ function App() {
 
         console.log("profile ABOUT TO BE POSTED: ", profile)
 
-        const postResponse = await fetch(customApiURL, {
+        const postResponse = await fetch(localApiURL, {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -34,7 +42,7 @@ function App() {
 
     return (
         <div className="App">
-            <FileUploaderController postProfile={postProfile} getProfiles={getProfiles}/>
+            <FileUploaderController postProfile={postProfile} getProfiles={getProfiles} getAwsFileNames={getAwsFileNames}/>
             {/* <FileUploader postProfile={postProfile} getProfiles={getProfiles}/> */}
 
         </div>
