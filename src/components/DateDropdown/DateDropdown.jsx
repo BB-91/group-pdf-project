@@ -4,11 +4,9 @@ const DateDropdown = (props) => {
 
     const {files, dateResults, setDateResults} = props
 
-    console.log(files)
-
-    // const Profiles2019 = files.filter((file) => {
-    //     return file.cohort_year == 2019
-    // })
+    const Profiles2019 = files.filter((file) => {
+        return file.cohort_year = 2019
+    })
 
     // const Profiles2020 = files.filter((file) => {
     //     return file.cohort_year.includes(2020)

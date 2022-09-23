@@ -51,7 +51,6 @@ const SearchResults = () => {
         )
     })
 
-    console.log(returnResults)
     return (
         <>
             <SearchBar handleSearchInput={handleSearchInput}/>
@@ -59,10 +58,10 @@ const SearchResults = () => {
             checkResults={checkResults}
             files={files}
             setCheckResults={setCheckResults}/>}
-            <DateDropdown 
+            {files && <DateDropdown 
             files={files}
             dateResults={dateResults}
-            setDateResults={setDateResults}/>
+            setDateResults={setDateResults}/>}
             {mappedFiles}
         </>
     )
