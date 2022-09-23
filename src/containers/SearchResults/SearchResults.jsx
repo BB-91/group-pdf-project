@@ -11,6 +11,7 @@ const SearchResults = () => {
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
+    const [profileYear, setProfileYear] = useState()
 
     const getData = () => {
         fetch("http://192.168.56.1:3020/pdf")
@@ -29,6 +30,8 @@ const SearchResults = () => {
         setReturnResults(cleanInput)
     }
 
+
+
     const filteredFiles = checkResults.filter((file) => {
         return (
             file.firstName.toLowerCase().includes(returnResults) ||
@@ -37,11 +40,19 @@ const SearchResults = () => {
             file.country.toLowerCase().includes(returnResults) ||
             file.state.toLowerCase().includes(returnResults) ||
             file.zipCode.toLowerCase().includes(returnResults) ||
-            file.cohort_year.includes(returnResults)
+            file.cohort_year == returnResults
             )
     })
 
-    const mappedFiles = filteredFiles.map((file) => {
+    const doubleFilteredFiles = filteredFiles.filter((filteredFile) => {
+        return (
+            filteredFile.cohort_Year == dateResults
+        )
+
+        
+    })
+
+    const mappedFiles = doubleFilteredFiles.map((file) => {
         return (
             <>
                 <p>{file.firstName} {file.lastName}</p>
@@ -61,7 +72,9 @@ const SearchResults = () => {
             {files && <DateDropdown 
             files={files}
             dateResults={dateResults}
-            setDateResults={setDateResults}/>}
+            setDateResults={setDateResults}
+            profileYear={profileYear}
+            setProfileYear={setProfileYear}/>}
             {mappedFiles}
         </>
     )

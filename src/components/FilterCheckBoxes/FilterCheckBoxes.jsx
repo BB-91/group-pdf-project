@@ -55,11 +55,8 @@ const FilterCheckboxes = (props) => {
     // console.log(files)
 
     const countryProfiles = () => {
-        console.log(isUSA, isUK, isAUS)
-        console.log("being run")
         if (isUSA == true && isUK == false && isAUS == false) {
             setCheckResults(USAProfiles)
-            console.log("isUSA is true")
         } else if (isUK == true && isUSA == false && isAUS == false) {
             setCheckResults(UKProfiles) 
         } else if (isAUS == true && isUSA == false && isUK == false) {
@@ -72,10 +69,8 @@ const FilterCheckboxes = (props) => {
             setCheckResults(UKAUSProfiles)
         } else if (isUK == true && isAUS == true && isUSA == true) {
             setCheckResults(files)
-            console.log("all true")
         } else if (isUSA == false && isUK == false && isAUS == false) {
             setCheckResults(files)
-            console.log("all false")
         }
     }
 
