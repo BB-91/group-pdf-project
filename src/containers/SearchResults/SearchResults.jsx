@@ -11,10 +11,9 @@ const SearchResults = () => {
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
-    const [profileYear, setProfileYear] = useState()
 
     const getData = () => {
-        fetch("http://192.168.56.1:3020/pdf")
+        fetch("http://192.168.1.129:3020/pdf")
         .then((response) => {
             return response.json()
         }) .then((data) => {
@@ -44,15 +43,13 @@ const SearchResults = () => {
             )
     })
 
-    const doubleFilteredFiles = filteredFiles.filter((filteredFile) => {
-        return (
-            filteredFile.cohort_Year == dateResults
-        )
 
-        
+   
+    console.log("Date result " + dateResults);
+    const searchYearFilter = filteredFiles.filter((file) => {
+        return file.cohort_year == dateResults
     })
-
-    const mappedFiles = doubleFilteredFiles.map((file) => {
+    const mappedFiles = searchYearFilter.map((file) => {
         return (
             <>
                 <p>{file.firstName} {file.lastName}</p>
@@ -61,7 +58,6 @@ const SearchResults = () => {
             </>
         )
     })
-
     return (
         <>
             <SearchBar handleSearchInput={handleSearchInput}/>
@@ -75,6 +71,10 @@ const SearchResults = () => {
             setDateResults={setDateResults}
             profileYear={profileYear}
             setProfileYear={setProfileYear}/>}
+            <DateDropdown 
+            files={files}
+            dateResults={dateResults}
+            setDateResults={setDateResults}/>
             {mappedFiles}
         </>
     )
