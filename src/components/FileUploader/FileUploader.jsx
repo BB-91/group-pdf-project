@@ -73,18 +73,19 @@ const FileUploader = (props) => {
     }
 
     const getFormValuesAsObj = async () => {
-        const keys = Object.values(KEY);
-        // const postKeys = keys.filter(key => !(NON_POSTED_KEYS.includes(key)));
-        let elements = Object.values(keyRefObj).map(ref => ref.current);
+        const postKeys = Object.values(KEY).filter(key => !(NON_POSTED_KEYS.includes(key)));
+        let elements = postKeys.map(postKey => {
+            const elementRef = keyRefObj[postKey];
+            return elementRef.current;
+        });
+
         const values = elements.map(element => {
             let value = element.value || "";
             return value.trim();
         });
 
-        console.log("values: ", values)
-
         const obj = {};
-        keys.forEach((key, index) => {
+        postKeys.forEach((key, index) => {
             obj[key] = values[index];
         });
 
@@ -93,28 +94,6 @@ const FileUploader = (props) => {
 
         return obj;
     }
-
-
-    // const getFormValuesAsObj = async () => {
-    //     const keys = Object.values(KEY);
-    //     let elements = Object.values(keyRefObj).map(ref => ref.current);
-    //     console.log("elements before filter: ", elements);
-    //     // elements = elements.filter(element => element.value)
-    //     elements = elements.filter(element => element.value)
-    //     console.log("elements after filter: ", elements);
-
-    //     const values = elements.map(element => element.value.trim());
-    //     const obj = {};
-    //     keys.forEach((key, index) => {
-    //         obj[key] = values[index];
-    //     });
-
-    //     obj[KEY.pdf] = await getPDF();
-    //     console.log("getFormValuesAsObj obj: ", obj);
-
-    //     return obj;
-    // }
-
 
     const handleSubmitButtonClick = async (event) => {
         event.preventDefault();
