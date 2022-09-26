@@ -11,10 +11,79 @@ const awsApiURL = AWS_API.getURL();
 
 function App() {
 
+    // app.get("/download/:filename", async (req, res) => {
+    //     const filename = req.params.filename;
+    //     let result = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
+    //     res.send(result.Body);
+    // })
+
+
+    // const getAwsSignedURL = async () => {
+    //     const signedURL = await fetch(awsApiURL + `/download/horse.jpg`).then(res => { return res.json(); })
+    //     return signedURL;
+    // }
+
+
+    // app.get("/getsignedurl/:filename", async (req, res) => {
+    //     const filename = req.params.filename;
+    //     let result = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
+    //     const preSignedUrl = await getPresignedURL(filename);
+    //     res.send(preSignedUrl);
+    // })
+
+    // app.get("/getsignedurl/:filename", async (req, res) => {
+    //     const filename = req.params.filename;
+    //     const preSignedUrl = await getPresignedURL(filename);
+    //     // res.send("you tried to get signed url for " + filename);
+    
+    //     // let result = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
+    //     // const preSignedUrl = await getPresignedURL(filename);
+    //     res.send(preSignedUrl);
+    // })
+
+    const getAwsSignedURL = async (filename) => {
+        // const signedURL = await fetch(awsApiURL + `/getsignedurl/` + filename).then(res => { return res.json(); })
+        // const signedURL = await fetch(awsApiURL + `/getsignedurl/` + filename).then(res => { return res.json(); })
+        const signedURL = await fetch('http://localhost:3050/getsignedurl/horse.jpg').then(res => { return res.json(); })
+        console.log("signedURL: ", signedURL);
+        return signedURL;
+    }
+
     const getAwsFileNames = async () => {
         const awsFileNames = await fetch(awsApiURL + "/list").then(res => { return res.json(); })
         return awsFileNames;
     }
+
+    const getAwsFile = async (filename) => {
+        while (filename.startsWith("/")) {
+            filename = filename.slice(1);
+        }
+
+        while (filename.endsWith("/")) {
+            filename = filename.slice(0, -1);
+        }
+
+        const filePath = awsApiURL + `/download/` + filename;
+        console.log("attempting download of file at path: " + filePath);
+
+        window.location = filePath;
+
+        // let result = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
+        // res.send(result.Body);
+
+        // const awsFile = await fetch(filePath).then(res => { return res.json(); })
+        // return awsFile;
+
+        // const filePath = awsApiURL + `/download/` + filename;
+        // console.log("attempting download of file at path: " + filePath);
+        // const awsFile = await fetch(filePath).then(res => { return res.json(); })
+        // return awsFile;
+    }
+
+    // const getAwsFile = async (filename) => {
+    //     const awsFileNames = await fetch(awsApiURL + `/download/${filename}`).then(res => { return res.json(); })
+    //     return awsFileNames;
+    // }
 
     const getProfiles = async () => {
         const profiles = await fetch(localApiURL).then(res => { return res.json(); })
@@ -42,7 +111,14 @@ function App() {
 
     return (
         <div className="App">
-            <FileUploaderController postProfile={postProfile} getProfiles={getProfiles} getAwsFileNames={getAwsFileNames}/>
+            {/* <FileUploaderController postProfile={postProfile} getProfiles={getProfiles} getAwsFileNames={getAwsFileNames}/> */}
+            <FileUploaderController
+                postProfile={postProfile}
+                getProfiles={getProfiles}
+                getAwsFileNames={getAwsFileNames}
+                getAwsFile={getAwsFile}
+                getAwsSignedURL={getAwsSignedURL}
+            />
             {/* <FileUploader postProfile={postProfile} getProfiles={getProfiles}/> */}
 
         </div>

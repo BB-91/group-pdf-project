@@ -6,7 +6,7 @@ import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
-    // pdf: 'pdf',
+    pdf: 'pdf',
     firstName: 'firstName',
     lastName: 'lastName',
     country: 'country',
@@ -16,6 +16,7 @@ const KEY = {
     keywords: 'keywords',
 }
 
+const NON_POSTED_KEYS = [KEY.pdf];
 const OPTIONAL_KEYS = [KEY.zipCode, KEY.keywords]; // 'allowNull: true' in Sequelize model
 
 const getPlaceholder = (key) => {
@@ -42,7 +43,7 @@ const FileUploader = (props) => {
     const keywordsRef = useRef(null);
 
     const keyRefObj = {
-        // [KEY.pdf]: pdfRef,
+        [KEY.pdf]: pdfRef,
         [KEY.firstName]: firstNameRef,
         [KEY.lastName]: lastNameRef,
         [KEY.country]: countryRef,
@@ -71,13 +72,17 @@ const FileUploader = (props) => {
         }
     }
 
-
     const getFormValuesAsObj = async () => {
         const keys = Object.values(KEY);
-        const elements = Object.values(keyRefObj).map(ref => ref.current);
-        console.log("elements: ", elements);
+        // const postKeys = keys.filter(key => !(NON_POSTED_KEYS.includes(key)));
+        let elements = Object.values(keyRefObj).map(ref => ref.current);
+        const values = elements.map(element => {
+            let value = element.value || "";
+            return value.trim();
+        });
 
-        const values = elements.map(element => element.value.trim());
+        console.log("values: ", values)
+
         const obj = {};
         keys.forEach((key, index) => {
             obj[key] = values[index];
@@ -88,6 +93,27 @@ const FileUploader = (props) => {
 
         return obj;
     }
+
+
+    // const getFormValuesAsObj = async () => {
+    //     const keys = Object.values(KEY);
+    //     let elements = Object.values(keyRefObj).map(ref => ref.current);
+    //     console.log("elements before filter: ", elements);
+    //     // elements = elements.filter(element => element.value)
+    //     elements = elements.filter(element => element.value)
+    //     console.log("elements after filter: ", elements);
+
+    //     const values = elements.map(element => element.value.trim());
+    //     const obj = {};
+    //     keys.forEach((key, index) => {
+    //         obj[key] = values[index];
+    //     });
+
+    //     obj[KEY.pdf] = await getPDF();
+    //     console.log("getFormValuesAsObj obj: ", obj);
+
+    //     return obj;
+    // }
 
 
     const handleSubmitButtonClick = async (event) => {
