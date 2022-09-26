@@ -52,8 +52,6 @@ const FilterCheckboxes = (props) => {
         )
     })
 
-    // console.log(files)
-
     const countryProfiles = () => {
         if (isUSA == true && isUK == false && isAUS == false) {
             setCheckResults(USAProfiles)
@@ -79,44 +77,22 @@ const FilterCheckboxes = (props) => {
 
     const handleIsUSA = () => {
         setIsUSA(!isUSA)
-        // countryProfiles()
-        // console.log(isUSA)
     }
     const handleIsUK = () => {
         setIsUK(!isUK)
-        // countryProfiles()
-        // console.log(isUK)
     }
     const handleIsAUS = () => {
         setIsAUS(!isAUS)
-        // countryProfiles()
-        // console.log(isAUS)
     }
 
     useEffect(countryProfiles, [isUSA, isUK, isAUS])
 
-    // const changeTrueFalse = () => {
-    //     return new Promise((resolve) => {
-    //         setIsUSA(!isUSA)
-    //         resolve()
-    //     })
-    // }
-
-    // const runCountryProfiles = () => {
-    //     countryProfiles()
-    // }
-
-    // const comboFunc = () => {
-    //     changeTrueFalse().then(runCountryProfiles).then(console.log(isUSA))
-    // }
-
-
     return (
-        <>
+        <div title="checkBoxes">
             <input type="checkbox" onClick={handleIsUSA}/>USA
             <input type="checkbox" onClick={handleIsUK}/>UK
             <input type="checkbox" onClick={handleIsAUS}/>AUS
-        </>
+        </div>
     )
 }
 

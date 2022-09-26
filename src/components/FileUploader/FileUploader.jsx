@@ -18,7 +18,7 @@ const FileUploader = () => {
 
     return (
         <div className='file-uploader'>
-            <form id='file-upload-form'>
+            <form id='file-upload-form' name="form">
                 <h1>Upload a profile PDF</h1>
                 <input type="file" name="file-input" id="file-input" accept=".pdf" />
                 {/* <input type="text" name="file-comments" id="file-comments" placeholder="File Comments" /> */}
