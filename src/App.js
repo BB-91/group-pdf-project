@@ -11,7 +11,7 @@ function App() {
         <div className="App">
             <UploadForm/>
             <SearchResults ShoppingCartArr = {ShoppingCartArr} />
-            <ShoppingCart/>
+            <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/>
         </div>
     );
 }
