@@ -1,4 +1,4 @@
-import "./SearchBar.scss"
+// import "./SearchBar.scss"
 
 const SearchBar = (props) => {
 

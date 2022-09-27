@@ -1,4 +1,4 @@
-import "./ShoppingCart.scss"
+// import "./ShoppingCart.scss"
 import { useState } from "react"
 
 const ShoppingCart = (props) =>{
@@ -16,4 +16,4 @@ const ShoppingCart = (props) =>{
     )
 }
 
-export default ShoppingCart
+export default ShoppingCart;
