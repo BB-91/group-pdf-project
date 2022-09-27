@@ -255,8 +255,14 @@ const COUNTRIES = [
     // "Zimbabwe",
 ]
 
+const COUNTRY_ABBREVIATIONS = {
+    "United States of America": "US",
+    "Australia": "AU",
+    "United Kingdom": "UK"
+}
+
 const COUNTRY_OPTIONS_ELEMENTS = COUNTRIES.map((country, index) => {
     return <option value={country} key={index}>{country}</option>
 })
 
-export { STATES, STATE_OPTIONS_ELEMENTS, COUNTRIES, COUNTRY_OPTIONS_ELEMENTS };
+export { STATES, STATE_OPTIONS_ELEMENTS, COUNTRIES, COUNTRY_ABBREVIATIONS, COUNTRY_OPTIONS_ELEMENTS };

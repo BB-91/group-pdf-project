@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import "./FileUploader.scss";
-import { COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
+import { COUNTRY_ABBREVIATIONS, COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
 import { getTitleCaseFromCamelCase } from '../../data/util.mjs';
-// import { downloadFile } from '../../data/util.mjs';
+
+import s3Uploader from '../../data/s3Uploader.mjs';
+import { getFileCopyWithRandomName } from '../../data/randomFileNameGenerator.mjs';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
@@ -28,7 +30,7 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    const { postProfile, getProfiles } = props;
+    const { postProfile, getProfiles, signedIn } = props;
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
@@ -95,6 +97,18 @@ const FileUploader = (props) => {
         return obj;
     }
 
+    const getUploadFileNamePrefix = (formValuesObj) => {
+        const { firstName, lastName, city, region, zipCode, country, keywords } = formValuesObj;
+        const countryAbbreviation = COUNTRY_ABBREVIATIONS[country];
+        if (!countryAbbreviation) {
+            throw new Error(`No abbreviation found for country: '${country}'`);
+        }
+
+        const uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, countryAbbreviation].join("_");
+        // console.log("uploadFileName: ", uploadFileName);
+        return uploadFileNamePrefix;
+    }
+
     const handleSubmitButtonClick = async (event) => {
         event.preventDefault();
         const formValuesObj = await getFormValuesAsObj();
@@ -108,7 +122,6 @@ const FileUploader = (props) => {
                 }
             }
         })
-
 
         let alertMsg = "";
 
@@ -126,14 +139,22 @@ const FileUploader = (props) => {
         if (alertMsg) {
             alert(alertMsg);
         } else {
-            const postResponse = await postProfile(formValuesObj);
-            const profiles = await getProfiles();
+            if (!signedIn) {
+                alert("You must be signed in to upload a pdf")
+            } else {
+                const pdf = await getPDF();
+                const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
+                console.log("pdfCopy: ", pdfCopy);
 
-            console.log("postResponse: ", postResponse);
-            console.log("profiles: ", profiles);
+                const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+                console.log("s3UploadResponse: ", s3UploadResponse);
 
-            // const TEST_PDF = profiles[0].pdf;
-            // downloadFile(TEST_PDF, "TEST_PDF.pdf");
+                const mysqlPostResponse = await postProfile(formValuesObj);
+                console.log("mysqlPostResponse: ", mysqlPostResponse);
+
+                const profiles = await getProfiles();
+                console.log("profiles: ", profiles);
+            }
         }
     }
 

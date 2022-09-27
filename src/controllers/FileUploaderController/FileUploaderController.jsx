@@ -12,7 +12,7 @@ const FileUploaderController = (props) => {
     // getAwsFileNames={getAwsFileNames}
     // const { postProfile, getProfiles, getAwsFileNames } = props;
     // const { postProfile, getProfiles, getAwsFileNames, getAwsFile } = props;
-    const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getAwsSignedURL } = props;
+    const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getAwsSignedURL, signedIn } = props;
     const controllerFileInputRef = useRef(null);
 
     // file uploader allows selecting multiple files, saved as an array.
@@ -26,7 +26,7 @@ const FileUploaderController = (props) => {
 
     const getProfileCardsFromPDF = (pdfs) => {
         return pdfs.map((pdf, index) => {
-            return <FileUploader postProfile={postProfile} getProfiles={getProfiles} pdf={pdf} key={index}/>
+            return <FileUploader postProfile={postProfile} getProfiles={getProfiles} pdf={pdf} key={index} signedIn={signedIn}/>
         })   
     }   
 
@@ -74,10 +74,10 @@ const FileUploaderController = (props) => {
     //     return awsFileNames;
     // }
 
-    const handleShowMeSignedURLBtnClick = async () => {
-        const signedURL = await getAwsSignedURL("horse.jpg");
-        console.log("signedURL in handler: ", signedURL)
-    }
+    // const handleShowMeSignedURLBtnClick = async () => {
+    //     const signedURL = await getAwsSignedURL("horse.jpg");
+    //     console.log("signedURL in handler: ", signedURL)
+    // }
 
     // const handleShowMeSignedURLBtnClick = async () => {
     //     const TEST_FILENAME = "horse.jpg";

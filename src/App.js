@@ -5,8 +5,15 @@ import LOCAL_API from "./data/localAPI.mjs";
 import AWS_API from './data/awsAPI.mjs';
 import validator from './data/patchValidator.mjs';
 
+import { isValidSignInToken } from "./data/signInTokenValidator.mjs";
+
+const TEST_SIGN_IN_TOKEN = "xyz789";
+let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
+
 const localApiURL = LOCAL_API.getURL();
 const awsApiURL = AWS_API.getURL();
+
+
 
 
 function App() {
@@ -118,6 +125,7 @@ function App() {
                 getAwsFileNames={getAwsFileNames}
                 getAwsFile={getAwsFile}
                 getAwsSignedURL={getAwsSignedURL}
+                signedIn={signedIn}
             />
             {/* <FileUploader postProfile={postProfile} getProfiles={getProfiles}/> */}
 
