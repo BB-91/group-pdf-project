@@ -8,13 +8,13 @@ import DateDropdown from "../../components/DateDropdown/DateDropdown";
 const SearchResults = (props) => {
 
     const {ShoppingCartArr} = props;
-
     const [files, setFiles] = useState()
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
     const [profileYear, setProfileYear] = useState([])
 
+    
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
         .then((response) => {
@@ -56,8 +56,8 @@ const SearchResults = (props) => {
     })
 
 
-    const addToArray = () =>{
-        ShoppingCartArr.push("test")
+    const addToArray = (file) =>{
+        ShoppingCartArr.push(file)
         console.log(ShoppingCartArr)
     }
 
@@ -67,7 +67,7 @@ const SearchResults = (props) => {
                 <p>{file.firstName} {file.lastName}</p>
                 <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
                 <p>{file.cohort_year}</p>
-                <button onClick={addToArray}>add to cart</button>
+                <button onClick={addToArray(file)}>add to cart</button>
             </>
         )
     })

@@ -1,5 +1,6 @@
 // import "./ShoppingCart.scss"
 import { useState } from "react"
+import ProfileCard from "../ProfileCard/ProfileCard"
 
 const ShoppingCart = (props) =>{
     const {ShoppingCartArr} = props
@@ -11,26 +12,29 @@ const ShoppingCart = (props) =>{
     
 
 
-    const shoppingCartDisplay = () =>{
-        ShoppingCartArr.array.forEach(file => {
+    const ShoppingCartDisplay = ShoppingCartArr.map(file => {
         return (
-            <>
-                <p index = {ShoppingCartArr[file]}>{file.firstName} {file.lastName}</p>
-                <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
-                <p>{file.cohort_year}</p>
-                <button onClick={removeFromCart}>Remove</button>
-            </>
+         <ProfileCard 
+         index = {ShoppingCartDisplay.indexOf()}
+         firstName = {file.firstName} 
+         lastName = {file.lastName} 
+         city = {file.city} 
+         state = {file.state}
+         zipcode = {file.zipcode}
+         country = {file.country}
+         cohort_year = {file.cohort_year}
+         />
         )
     });
-}
+
 ////container for each profile line
 //render with button to take out of cart
 // togle 
 
 
     return (
-        <button onClick={shoppingCartDisplay}>Cart</button>
-        <
+        <div>      {ShoppingCartDisplay}
+        </div>
     )
 }
 
