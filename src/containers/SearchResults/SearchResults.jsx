@@ -7,7 +7,7 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
 
-    const {ShoppingCartArr, files} = props;
+    const {ShoppingCartArr, setShoppingCartArr, files} = props;
     
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
@@ -36,11 +36,11 @@ const SearchResults = (props) => {
         
     })
 
-    const addToArray = (file) =>{
-        ShoppingCartArr.push(file)
-        console.log(ShoppingCartArr)
-        console.log("added to array")
-    }
+    // const addToArray = (file) =>{
+    //     ShoppingCartArr.push(file)
+    //     console.log(ShoppingCartArr)
+    //     console.log("added to array")
+    // }
 
     const mappedFiles = searchYearFilter.map((file) => {
         return (
@@ -54,8 +54,12 @@ const SearchResults = (props) => {
                 zipcode = {file.zipcode}
                 country = {file.country}
                 cohort_year = {file.cohort_year}
+                // addToArray={addToArray}
+                file={file}
+                ShoppingCartArr={ShoppingCartArr}
+                setShoppingCartArr={setShoppingCartArr}
                 />
-                <button onClick={addToArray(file)}>add to cart</button>
+                {/* <button onClick={addToArray(file)}>add to cart</button> */}
             </>
         )
     })

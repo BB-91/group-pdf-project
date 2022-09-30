@@ -5,11 +5,10 @@ import SearchResults from './containers/SearchResults/SearchResults';
 import UploadForm from './containers/UploadForm/UploadForm';
 import {useEffect, useState} from 'react';
 
-let ShoppingCartArr = []
-
 function App() {
 
     const [files, setFiles] = useState()
+    const [ShoppingCartArr, SetShoppingCartArr] = useState([])
 
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
@@ -27,7 +26,8 @@ function App() {
         <div className="App">
             <UploadForm/>
             {files && <SearchResults 
-            ShoppingCartArr = {ShoppingCartArr} 
+            ShoppingCartArr = {ShoppingCartArr}
+            SetShoppingCartArr={SetShoppingCartArr}
             files={files}/>}
             <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/>
         </div>
