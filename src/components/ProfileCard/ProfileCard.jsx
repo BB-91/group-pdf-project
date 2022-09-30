@@ -1,26 +1,24 @@
 const ProfileCard = (props) =>{
-    const {ShoppingCartArr, setShoppingCartArr, file, city, state, zipCode, country, cohort_year, firstName, lastName } = props;
+    const {ShoppingCartArr, setShoppingCartArr, id, file, city, state, zipCode, country, cohort_year, firstName, lastName } = props;
 
-    const addToArray = () =>{
-        // ShoppingCartArr.push(file)
+    const addToArray = () => {
         setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, file])
-        // setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr.pop()])
         console.log("added to array")
     }
 
     const removeFromArray = (event) => {
-        const name = event.target.getAttribute("name")
-        setShoppingCartArr(ShoppingCartArr.filter(profile => profile.firstName !== name))
+        const profileId = event.target.getAttribute("id")
+        setShoppingCartArr(ShoppingCartArr.filter(profile => profile.id != profileId))
     }
-
 
 return (
     <>
                 <p>{firstName} {lastName}</p>
                 <p>{city}, {state}, {zipCode}, {country}</p>
                 <p>{cohort_year}</p>
+                <p>{id}</p>
                 <button onClick={addToArray}>add to cart</button>
-                <button name={firstName} onClick={removeFromArray}>Remove</button>
+                <button id={id} onClick={removeFromArray}>Remove</button>
     </>
 )
 

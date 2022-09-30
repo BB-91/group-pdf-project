@@ -48,6 +48,7 @@ const SearchResults = (props) => {
                 zipcode = {file.zipcode}
                 country = {file.country}
                 cohort_year = {file.cohort_year}
+                id = {file.id}
                 // addToArray={addToArray}
                 file={file}
                 ShoppingCartArr={ShoppingCartArr}
