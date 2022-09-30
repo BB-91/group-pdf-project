@@ -19,7 +19,6 @@ const SearchResults = () => {
             return response.json()
         }) .then((data) => {
             setFiles(data)
-            // console.log(data)
         })
     }
 
@@ -29,8 +28,6 @@ const SearchResults = () => {
         const cleanInput = event.target.value.toLowerCase()
         setReturnResults(cleanInput)
     }
-
-
 
     const filteredFiles = checkResults.filter((file) => {
         return (
