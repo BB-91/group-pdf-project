@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 function App() {
 
     const [files, setFiles] = useState()
-    const [ShoppingCartArr, SetShoppingCartArr] = useState([])
+    const [ShoppingCartArr, setShoppingCartArr] = useState([])
 
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
@@ -19,6 +19,13 @@ function App() {
         })
     }
 
+    const testFunc = () => {
+        setShoppingCartArr("helloo")
+    }
+
+    useEffect(testFunc, [])
+    
+
     useEffect(getData, [])
 
 
@@ -27,9 +34,9 @@ function App() {
             <UploadForm/>
             {files && <SearchResults 
             ShoppingCartArr = {ShoppingCartArr}
-            SetShoppingCartArr={SetShoppingCartArr}
+            setShoppingCartArr={setShoppingCartArr}
             files={files}/>}
-            <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/>
+            {/* <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/> */}
         </div>
     );
 }

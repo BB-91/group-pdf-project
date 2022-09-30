@@ -5,10 +5,12 @@ const ProfileCard = (props) =>{
 
     const addToArray = (file) =>{
         // ShoppingCartArr.push(file)
-        setShoppingCartArr("hello")
+        setShoppingCartArr(file)
         console.log(ShoppingCartArr)
         console.log("added to array")
     }
+
+    console.log(ShoppingCartArr)
 
 return (
     <>
