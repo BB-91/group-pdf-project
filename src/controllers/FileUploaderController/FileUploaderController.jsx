@@ -22,7 +22,17 @@ const FileUploaderController = (props) => {
 
     const getProfileCardsFromPDF = (pdfs) => {
         return pdfs.map((pdf, index) => {
-            return <FileUploader postProfile={postProfile} getProfiles={getProfiles} pdf={pdf} key={index} signedIn={signedIn}/>
+            return (
+                <FileUploader
+                    postProfile={postProfile}
+                    getProfiles={getProfiles}
+                    pdf={pdf}
+                    key={index}
+                    signedIn={signedIn}
+                    getAwsSignedURL={getAwsSignedURL}
+                />
+            )
+
         })   
     }   
 

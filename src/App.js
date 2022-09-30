@@ -8,6 +8,9 @@ import validator from './data/patchValidator.mjs';
 import { isValidSignInToken } from "./data/signInTokenValidator.mjs";
 import S3DownloadComponent from './components/S3DownloadComponent/S3DownloadComponent';
 
+import LoginButton from './components/LoginButton/LoginButton';
+import LogoutButton from './components/LogoutButton/LogoutButton';
+
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
 
@@ -18,12 +21,103 @@ const awsApiURL = AWS_API.getURL();
 
 
 function App() {
+
+    // const getAwsSignedURL = async (filename) => {
+    //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
+    //     console.log("signedURL: ", signedURL);
+    //     return signedURL;
+    // }
+
+    // const getAwsSignedURL = async (filename) => {
+    //     console.log("filename: ", filename)
+    //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`).then(res => { return res.json(); })
+    //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
+    //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
+    //     console.log("signedURL: ", signedURL);
+    //     // const jsFromJson = await signedURL.json();
+    //     // console.log("jsFromJson: ", jsFromJson);
+    //     // console.log()
+    //     return signedURL;
+    // }
+
     const getAwsSignedURL = async (filename) => {
-        // --- DEBUG ONLY ---
-        const signedURL = await fetch('http://localhost:3050/getsignedurl/horse.jpg').then(res => { return res.json(); })
-        console.log("signedURL: ", signedURL);
-        return signedURL;
+        console.log("filename: ", filename)
+        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`).then(res => { return res.json(); })
+        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
+        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+
+        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Accept': '*/*',
+        //         'Content-Length': '<calculated when request is sent>',
+        //         'Host': '<calculated when request is sent>',
+        //         'Accept': '*/*',
+        //         'Accept-Encoding': 'gzip, deflate, br',
+        //         'Connection': 'keep-alive'
+        //     },
+        //     // body: formData
+        // })
+        // .then(res => { return res.json(); });
+
+        // const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+        //     method: 'GET',
+        //     headers: {
+        //         // 'Accept': '*/*',
+        //         'Content-Type': 'application/json',
+        //         'Content-Length': '<calculated when request is sent>',
+        //         'Host': '<calculated when request is sent>',
+        //         // 'Accept': '*/*',
+        //         'Accept': 'application/json',
+        //         'Accept-Encoding': 'gzip, deflate, br',
+        //         'Connection': 'keep-alive'
+        //     },
+        //     // body: formData
+        // })
+
+        const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+            method: 'GET',
+            headers: {
+                // 'Accept': '*/*',
+                'Content-Type': 'application/json',
+                'Content-Length': '<calculated when request is sent>',
+                'Host': '<calculated when request is sent>',
+                // 'Accept': '*/*',
+                'Accept': 'application/json',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Connection': 'keep-alive'
+            },
+            // body: formData
+        })
+        // .then(res => res.json());
+
+        console.log("res:", res);
+
+        const resObj = await res.json();
+
+        console.log("resObj: ", resObj);
+
+        const preSignedUrl = resObj.preSignedUrl;
+
+        console.log("preSignedUrl: ", preSignedUrl);
+
+        // const { signedUrl } = resObj;
+
+        // const signedUrl = await res.json();
+        // console.log("signedUrl: ", signedUrl)
+        // .then(res => { return res.json(); });
+
+
+        // console.log("signedURL: ", signedURL);
+        // const jsFromJson = await signedURL.json();
+        // console.log("jsFromJson: ", jsFromJson);
+        // console.log()
+        // return res;
+        // return signedUrl;
+        return preSignedUrl;
     }
+
+
 
     const getAwsFileNames = async () => {
         const awsFileNames = await fetch(awsApiURL + "/list").then(res => { return res.json(); })
@@ -71,6 +165,9 @@ function App() {
 
     return (
         <div className="App">
+            <LoginButton />
+            <LogoutButton />
+
             <FileUploaderController
                 postProfile={postProfile}
                 getProfiles={getProfiles}

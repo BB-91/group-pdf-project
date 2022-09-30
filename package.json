@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "assert": "^2.0.0",
+    "auth0": "^2.42.0",
     "canvas": "^2.10.1",
     "dotenv": "^16.0.2",
     "fs-extra": "^10.1.0",

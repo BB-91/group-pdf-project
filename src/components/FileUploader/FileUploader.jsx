@@ -30,7 +30,7 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    const { postProfile, getProfiles, signedIn } = props;
+    const { postProfile, getProfiles, signedIn, getAwsSignedURL } = props;
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
@@ -147,8 +147,21 @@ const FileUploader = (props) => {
                 const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
                 console.log("pdfCopy: ", pdfCopy);
 
+
+                // use s3 presigned url here.
+                const filename = pdfCopy.name;
+                // const s3PresignedURL = await getAwsSignedURL(filename);
+                // const s3UploadResponse = await s3Uploader.upload(pdfCopy, s3PresignedURL);
+
+                
                 const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+
+
                 console.log("s3UploadResponse: ", s3UploadResponse);
+
+                
+
+                formValuesObj["s3FileName"] = pdfCopy.name;
 
                 const mysqlPostResponse = await postProfile(formValuesObj);
                 console.log("mysqlPostResponse: ", mysqlPostResponse);
