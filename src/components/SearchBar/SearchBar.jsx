@@ -2,9 +2,13 @@
 
 const SearchBar = (props) => {
 
-    const {handleSearchInput} = props;
-    
+    const {setReturnResults} = props;
 
+    const handleSearchInput = (event) => {
+        const cleanInput = event.target.value.toLowerCase()
+        setReturnResults(cleanInput)
+    }
+    
     return (
         <>
             <input type="search" 

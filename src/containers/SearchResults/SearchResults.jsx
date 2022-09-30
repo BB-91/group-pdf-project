@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterCheckboxes from "../../components/FilterCheckBoxes/FilterCheckBoxes";
 import DateDropdown from "../../components/DateDropdown/DateDropdown";
-
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
 
@@ -13,11 +13,6 @@ const SearchResults = (props) => {
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
     const [profileYear, setProfileYear] = useState([])
-
-    const handleSearchInput = (event) => {
-        const cleanInput = event.target.value.toLowerCase()
-        setReturnResults(cleanInput)
-    }
 
     const filteredFiles = checkResults.filter((file) => {
         return (
@@ -41,25 +36,33 @@ const SearchResults = (props) => {
         
     })
 
-
     const addToArray = (file) =>{
         ShoppingCartArr.push(file)
         console.log(ShoppingCartArr)
+        console.log("added to array")
     }
 
     const mappedFiles = searchYearFilter.map((file) => {
         return (
             <>
-                <p>{file.firstName} {file.lastName}</p>
-                <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
-                <p>{file.cohort_year}</p>
+                <ProfileCard 
+                //  index = {ShoppingCartDisplay.indexOf()}
+                firstName = {file.firstName} 
+                lastName = {file.lastName} 
+                city = {file.city} 
+                state = {file.state}
+                zipcode = {file.zipcode}
+                country = {file.country}
+                cohort_year = {file.cohort_year}
+                />
                 <button onClick={addToArray(file)}>add to cart</button>
             </>
         )
     })
     return (
         <>
-            <SearchBar handleSearchInput={handleSearchInput}/>
+            <SearchBar 
+            setReturnResults={setReturnResults}/>
             {files && <FilterCheckboxes 
             checkResults={checkResults}
             files={files}

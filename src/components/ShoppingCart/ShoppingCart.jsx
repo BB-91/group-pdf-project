@@ -14,16 +14,18 @@ const ShoppingCart = (props) =>{
 
     const ShoppingCartDisplay = ShoppingCartArr.map(file => {
         return (
-         <ProfileCard 
-        //  index = {ShoppingCartDisplay.indexOf()}
-         firstName = {file.firstName} 
-         lastName = {file.lastName} 
-         city = {file.city} 
-         state = {file.state}
-         zipcode = {file.zipcode}
-         country = {file.country}
-         cohort_year = {file.cohort_year}
-         />
+        <div>
+            <ProfileCard 
+            //  index = {ShoppingCartDisplay.indexOf()}
+            firstName = {file.firstName} 
+            lastName = {file.lastName} 
+            city = {file.city} 
+            state = {file.state}
+            zipcode = {file.zipcode}
+            country = {file.country}
+            cohort_year = {file.cohort_year}
+            />
+         </div>
         )
     });
 
@@ -33,7 +35,8 @@ const ShoppingCart = (props) =>{
 
 
     return (
-        <div>      
+        <div>
+            <h1>CART</h1>      
             {ShoppingCartDisplay}
         </div>
     )

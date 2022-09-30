@@ -1,5 +1,5 @@
 const ProfileCard = (props) =>{
-    const {city,state, zipCode, country, cohort_year, firstName, lastName } = props;
+    const {city, state, zipCode, country, cohort_year, firstName, lastName } = props;
 
 
 return (
