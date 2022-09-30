@@ -30,7 +30,7 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    const { postProfile, getProfiles, signedIn, getAwsSignedURL } = props;
+    const { postProfile, getProfiles, signedIn, getSignedDownloadURL, getSignedUploadURL } = props;
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
@@ -150,11 +150,13 @@ const FileUploader = (props) => {
 
                 // use s3 presigned url here.
                 const filename = pdfCopy.name;
-                // const s3PresignedURL = await getAwsSignedURL(filename);
+                // const s3PresignedURL = await getSignedDownloadURL(filename);
                 // const s3UploadResponse = await s3Uploader.upload(pdfCopy, s3PresignedURL);
-
                 
-                const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+                const signedUploadURL = await getSignedUploadURL(filename);
+                
+                // const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+                const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
 
 
                 console.log("s3UploadResponse: ", s3UploadResponse);

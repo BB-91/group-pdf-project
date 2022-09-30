@@ -2,6 +2,7 @@
 
 *secret*
 *.env*
+*.env
 
 # local api
 local-api/node_modules

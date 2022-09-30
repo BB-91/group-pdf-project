@@ -22,13 +22,13 @@ const awsApiURL = AWS_API.getURL();
 
 function App() {
 
-    // const getAwsSignedURL = async (filename) => {
+    // const getSignedDownloadURL = async (filename) => {
     //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
     //     console.log("signedURL: ", signedURL);
     //     return signedURL;
     // }
 
-    // const getAwsSignedURL = async (filename) => {
+    // const getSignedDownloadURL = async (filename) => {
     //     console.log("filename: ", filename)
     //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`).then(res => { return res.json(); })
     //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
@@ -40,42 +40,52 @@ function App() {
     //     return signedURL;
     // }
 
-    const getAwsSignedURL = async (filename) => {
-        console.log("filename: ", filename)
-        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`).then(res => { return res.json(); })
-        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
-        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+    // const getSignedDownloadURL = async (filename) => {
+    //     console.log("filename: ", filename)
 
-        // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Accept': '*/*',
-        //         'Content-Length': '<calculated when request is sent>',
-        //         'Host': '<calculated when request is sent>',
-        //         'Accept': '*/*',
-        //         'Accept-Encoding': 'gzip, deflate, br',
-        //         'Connection': 'keep-alive'
-        //     },
-        //     // body: formData
-        // })
-        // .then(res => { return res.json(); });
+    //     const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             // 'Accept': '*/*',
+    //             'Content-Type': 'application/json',
+    //             'Content-Length': '<calculated when request is sent>',
+    //             'Host': '<calculated when request is sent>',
+    //             // 'Accept': '*/*',
+    //             'Accept': 'application/json',
+    //             'Accept-Encoding': 'gzip, deflate, br',
+    //             'Connection': 'keep-alive'
+    //         },
+    //         // body: formData
+    //     })
+    //     // .then(res => res.json());
+
+    //     console.log("res:", res);
+
+    //     const resObj = await res.json();
+
+    //     console.log("resObj: ", resObj);
+
+    //     const preSignedUrl = resObj.preSignedUrl;
+
+    //     console.log("preSignedUrl: ", preSignedUrl);
+    //     return preSignedUrl;
+    // }
+
+
+    const ENDPOINT = {
+        upload: 'getSignedUploadUrl/',
+        download: 'getSignedDownloadUrl/',
+    }
+
+    const _getSignedURL = async (filename, endpoint) => {
+        if (!Object.values(ENDPOINT).includes(endpoint)) {
+            throw new Error(`Invalid endpoint: ${endpoint}`)
+        }
+
+        console.log("filename: ", filename)
 
         // const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
-        //     method: 'GET',
-        //     headers: {
-        //         // 'Accept': '*/*',
-        //         'Content-Type': 'application/json',
-        //         'Content-Length': '<calculated when request is sent>',
-        //         'Host': '<calculated when request is sent>',
-        //         // 'Accept': '*/*',
-        //         'Accept': 'application/json',
-        //         'Accept-Encoding': 'gzip, deflate, br',
-        //         'Connection': 'keep-alive'
-        //     },
-        //     // body: formData
-        // })
-
-        const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
+        const res = await fetch(`http://localhost:3050/${endpoint}${filename}`, {
             method: 'GET',
             headers: {
                 // 'Accept': '*/*',
@@ -92,31 +102,23 @@ function App() {
         // .then(res => res.json());
 
         console.log("res:", res);
-
         const resObj = await res.json();
-
         console.log("resObj: ", resObj);
-
-        const preSignedUrl = resObj.preSignedUrl;
-
-        console.log("preSignedUrl: ", preSignedUrl);
-
-        // const { signedUrl } = resObj;
-
-        // const signedUrl = await res.json();
-        // console.log("signedUrl: ", signedUrl)
-        // .then(res => { return res.json(); });
-
-
-        // console.log("signedURL: ", signedURL);
-        // const jsFromJson = await signedURL.json();
-        // console.log("jsFromJson: ", jsFromJson);
-        // console.log()
-        // return res;
-        // return signedUrl;
-        return preSignedUrl;
+        const signedUrl = resObj.signedUrl;
+        console.log("signedUrl: ", signedUrl);
+        return signedUrl;
     }
 
+
+    const getSignedDownloadURL = async (filename) => {
+        const signedURL = await _getSignedURL(filename, ENDPOINT.download);
+        return signedURL
+    }
+
+    const getSignedUploadURL = async (filename) => {
+        const signedURL = await _getSignedURL(filename, ENDPOINT.upload)
+        return signedURL;
+    }
 
 
     const getAwsFileNames = async () => {
@@ -173,7 +175,8 @@ function App() {
                 getProfiles={getProfiles}
                 getAwsFileNames={getAwsFileNames}
                 getAwsFile={getAwsFile}
-                getAwsSignedURL={getAwsSignedURL}
+                getSignedDownloadURL={getSignedDownloadURL}
+                getSignedUploadURL={getSignedUploadURL}
                 signedIn={signedIn}
             />
 
