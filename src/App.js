@@ -6,6 +6,7 @@ import AWS_API from './data/awsAPI.mjs';
 import validator from './data/patchValidator.mjs';
 
 import { isValidSignInToken } from "./data/signInTokenValidator.mjs";
+import S3DownloadComponent from './components/S3DownloadComponent/S3DownloadComponent';
 
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
@@ -128,6 +129,8 @@ function App() {
                 signedIn={signedIn}
             />
             {/* <FileUploader postProfile={postProfile} getProfiles={getProfiles}/> */}
+
+            <S3DownloadComponent signedIn={signedIn}/>
 
         </div>
     );

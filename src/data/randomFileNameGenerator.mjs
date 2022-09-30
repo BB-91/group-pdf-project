@@ -5,9 +5,15 @@
 
 const SECTION = {
     MIN_LENGTH: 4,
-    MAX_LENGTH: 8,
-    COUNT: 6,
+    MAX_LENGTH: 5,
+    COUNT: 2,
 }
+
+// const SECTION = {
+//     MIN_LENGTH: 4,
+//     MAX_LENGTH: 8,
+//     COUNT: 6,
+// }
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
