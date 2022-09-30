@@ -5,24 +5,14 @@ import FilterCheckboxes from "../../components/FilterCheckBoxes/FilterCheckBoxes
 import DateDropdown from "../../components/DateDropdown/DateDropdown";
 
 
-const SearchResults = () => {
+const SearchResults = (props) => {
 
-    const [files, setFiles] = useState()
+    const {ShoppingCartArr, files} = props;
+    
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
     const [profileYear, setProfileYear] = useState([])
-
-    const getData = () => {
-        fetch("http://192.168.56.1:3020/pdf")
-        .then((response) => {
-            return response.json()
-        }) .then((data) => {
-            setFiles(data)
-        })
-    }
-
-    useEffect(getData, [])
 
     const handleSearchInput = (event) => {
         const cleanInput = event.target.value.toLowerCase()
@@ -50,12 +40,20 @@ const SearchResults = () => {
         }
         
     })
+
+
+    const addToArray = (file) =>{
+        ShoppingCartArr.push(file)
+        console.log(ShoppingCartArr)
+    }
+
     const mappedFiles = searchYearFilter.map((file) => {
         return (
             <>
                 <p>{file.firstName} {file.lastName}</p>
                 <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
                 <p>{file.cohort_year}</p>
+                <button onClick={addToArray(file)}>add to cart</button>
             </>
         )
     })
