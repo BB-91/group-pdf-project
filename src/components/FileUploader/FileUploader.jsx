@@ -143,6 +143,7 @@ const FileUploader = (props) => {
                 alert("You must be signed in to upload a pdf")
             } else {
                 const pdf = await getPDF();
+                // const prefix = getUploadFileNamePrefix(formValuesObj);
                 const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
                 console.log("pdfCopy: ", pdfCopy);
 
