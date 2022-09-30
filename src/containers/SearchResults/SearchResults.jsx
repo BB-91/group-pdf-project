@@ -36,12 +36,6 @@ const SearchResults = (props) => {
         
     })
 
-    // const addToArray = (file) =>{
-    //     ShoppingCartArr.push(file)
-    //     console.log(ShoppingCartArr)
-    //     console.log("added to array")
-    // }
-
     const mappedFiles = searchYearFilter.map((file) => {
         return (
             <>

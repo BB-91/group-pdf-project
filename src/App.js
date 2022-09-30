@@ -19,14 +19,16 @@ function App() {
         })
     }
 
-    const testFunc = () => {
-        setShoppingCartArr("helloo")
-    }
+    // const testFunc = () => {
+    //     setShoppingCartArr("helloo")
+    // }
 
-    useEffect(testFunc, [])
+    // useEffect(testFunc, [])
     
 
     useEffect(getData, [])
+
+    console.log(ShoppingCartArr)
 
 
     return (
