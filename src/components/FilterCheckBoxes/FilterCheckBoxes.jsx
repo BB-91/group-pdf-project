@@ -1,99 +1,35 @@
 import "./FilterCheckBoxes.scss";
-import {useState, useEffect, useRef} from 'react';
+import {useRef} from 'react';
 
 const FilterCheckboxes = (props) => {
-
     const {checkResults, setCheckResults, profiles} = props;
+    const checkboxesWrapper = useRef(null);
+    const checkboxesRef = useRef([]);
 
-    const [isUSA, setIsUSA] = useState(false)
-    const [isUK, setIsUK] = useState(false)
-    const [isAUS, setIsAUS] = useState(false)
+    const handleCheckboxClick = () => {
+        if (!checkboxesRef.current.length) {
+            checkboxesRef.current = Array.from(checkboxesWrapper.current.children).filter(element => element.type === "checkbox");
+        }
 
-    const allProfiles = profiles.filter((profile) => {
-        return profile
-    })
-    
-    const USAProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("US")
-        )
-    })
+        const checkboxes = checkboxesRef.current;
+        const _checkedCountryNames = checkboxes.filter(checkbox => checkbox.checked).map(checkbox => checkbox.name);
 
-    const UKProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("UK")
-        )
-    })
-
-    const AUSProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("AU")
-        )
-    })
-
-    const USAUKProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("US") ||
-            profile.country.includes("UK")
-        )
-    })
-
-    const USAAUSProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("US") ||
-            profile.country.includes("AU")
-        )
-    })
-
-    const UKAUSProfiles = profiles.filter((profile) => {
-        return (
-            profile.country.includes("UK") ||
-            profile.country.includes("AU")
-        )
-    })
-
-    const countryProfiles = () => {
-        if (isUSA == true && isUK == false && isAUS == false) {
-            setCheckResults(USAProfiles)
-        } else if (isUK == true && isUSA == false && isAUS == false) {
-            setCheckResults(UKProfiles) 
-        } else if (isAUS == true && isUSA == false && isUK == false) {
-            setCheckResults(AUSProfiles)
-        } else if (isUSA == true && isUK == true && isAUS == false) {
-            setCheckResults(USAUKProfiles)
-        } else if (isUSA == true && isAUS == true && isUK == false) {
-            setCheckResults(USAAUSProfiles)
-        } else if (isUK == true && isAUS == true && isUSA == false) {
-            setCheckResults(UKAUSProfiles)
-        } else if (isUK == true && isAUS == true && isUSA == true) {
-            setCheckResults(profiles)
-        } else if (isUSA == false && isUK == false && isAUS == false) {
-            setCheckResults(profiles)
-            console.log("all false")
+        if (!_checkedCountryNames.length) {
+            setCheckResults(profiles);
+        } else {
+            const filteredProfiles = profiles.filter(profile => _checkedCountryNames.includes(profile.country))
+            setCheckResults(filteredProfiles);
         }
     }
 
-    useEffect(countryProfiles, [])
-
-    const handleIsUSA = () => {
-        setIsUSA(!isUSA)
-    }
-    const handleIsUK = () => {
-        setIsUK(!isUK)
-    }
-    const handleIsAUS = () => {
-        setIsAUS(!isAUS)
-    }
-
-    useEffect(countryProfiles, [isUSA, isUK, isAUS])
-
     return (
-        <div title="checkBoxes">
-            <input type="checkbox" onClick={handleIsUSA}/>US
-            <input type="checkbox" onClick={handleIsUK}/>UK
-            <input type="checkbox" onClick={handleIsAUS}/>AU
+        <div ref={checkboxesWrapper} title="checkBoxes">
+            <input name="US" type="checkbox" onClick={handleCheckboxClick}/>US
+            <input name="UK" type="checkbox" onClick={handleCheckboxClick}/>UK
+            <input name="AU" type="checkbox" onClick={handleCheckboxClick}/>AU
         </div>
     )
+
 }
 
 export default FilterCheckboxes;

@@ -17,6 +17,7 @@ const ProfileCard = (props) =>{
     const addToArray = () => {
         setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, profile])
         console.log("added to array")
+        // console.log("ShoppingCartArr: ", ShoppingCartArr);
         setRemoveButton(!removeButton)
     }
 
