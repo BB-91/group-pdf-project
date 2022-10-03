@@ -6,7 +6,6 @@ import DateDropdown from "../../components/DateDropdown/DateDropdown";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
-
     const {ShoppingCartArr, setShoppingCartArr, profiles} = props;
     
     const [returnResults, setReturnResults] = useState("")
@@ -15,42 +14,49 @@ const SearchResults = (props) => {
     const [profileYear, setProfileYear] = useState([])
 
     const filteredProfiles = checkResults.filter((profile) => {
-        // const { firstName, lastName, city, country, region, zipCode, cohortYear } = profile;
-        const _lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
-        const lowerProfileValuesStr = _lowerProfileValues.join(" & ");
-        console.log("returnResults: ", returnResults)
-        console.log("lowerProfileValuesStr: ", lowerProfileValuesStr);
-        return lowerProfileValuesStr.includes(returnResults.toLowerCase());
-    })
+        const lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
+        const splitResults = returnResults.split(" ");
+        let allSplitResultsMatch = true;
 
-    // const filteredProfiles = checkResults.filter((profile) => {
-    //     return (
-    //         profile.firstName.toLowerCase().includes(returnResults) ||
-    //         profile.lastName.toLowerCase().includes(returnResults) ||
-    //         profile.city.toLowerCase().includes(returnResults) ||
-    //         profile.country.toLowerCase().includes(returnResults) ||
-    //         profile.state.toLowerCase().includes(returnResults) ||
-    //         profile.zipCode.toLowerCase().includes(returnResults) ||
-    //         profile.cohortYear == returnResults
-    //     )
-    // })
+        for (let i=0; i<splitResults.length; i++) {
+            const splitResult = splitResults[i];
+            let matchFound = false;
+
+            for (let n=0; n<lowerProfileValues.length; n++) {
+                const value = lowerProfileValues[n];
+                if (value.includes(splitResult)) {
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (!matchFound) {
+                allSplitResultsMatch = false;
+                break;
+            }
+
+        }
+
+        return allSplitResultsMatch;
+    })
 
     console.log("Date result " + dateResults);
     const searchYearFilter = filteredProfiles.filter((profile) => {
         if (dateResults === "all" || dateResults === "") {
-            return profile
+            return profile;
         } else {
-            return profile.cohortYear == dateResults
+            return profile.cohortYear === dateResults;
         }
     })
 
-    const mappedProfiles = searchYearFilter.map((profile) => {
+    const mappedProfiles = searchYearFilter.map((profile, index) => {
         return (
             <>
                 <ProfileCard
                     profile={profile}
                     ShoppingCartArr={ShoppingCartArr}
                     setShoppingCartArr={setShoppingCartArr}
+                    key={index}
                 />
                 {/* <button onClick={addToArray(profile)}>add to cart</button> */}
             </>

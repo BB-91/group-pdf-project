@@ -1,11 +1,17 @@
 import {useState} from 'react';
 
 const ProfileCard = (props) =>{
-    // const { id, cohortYear, firstName, lastName, country, city, region, zipCode, ShoppingCartArr, setShoppingCartArr } = profile;
-    // const {ShoppingCartArr, setShoppingCartArr, id, profile, city, region, zipCode, country, cohortYear, firstName, lastName } = props;
     const { profile, ShoppingCartArr, setShoppingCartArr } = props;
-    const { id, cohortYear, firstName, lastName, country, city, region, zipCode } = profile;
+    const formattedProfile = {...profile};
 
+    Object.keys(profile).forEach(key => {
+        const value = profile[key];
+        if (typeof value === "string" && (key !== "zipCode")) {
+            formattedProfile[key] = value.replaceAll("-", " ") // spaces replaced with hyphen when uploading to S3 bucket
+        }
+    })
+
+    const { id, cohortYear, firstName, lastName, country, city, region, zipCode } = formattedProfile;
     const [removeButton, setRemoveButton] = useState(false);
 
     const addToArray = () => {
