@@ -112,7 +112,7 @@ function App() {
 
     const getSignedDownloadURL = async (filename) => {
         const signedURL = await _getSignedURL(filename, ENDPOINT.download);
-        return signedURL
+        return signedURL;
     }
 
     const getSignedUploadURL = async (filename) => {
