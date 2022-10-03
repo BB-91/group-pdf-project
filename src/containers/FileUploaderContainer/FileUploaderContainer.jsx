@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import FileUploader from '../../components/FileUploader/FileUploader';
-import "./FileUploaderController.scss";
+import "./FileUploaderContainer.scss";
 
 const KEY = {
     pdf: 'pdf',
 }
 
-const FileUploaderController = (props) => {
+const FileUploaderContainer = (props) => {
     const [cards, setCards] = useState([])
     const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getSignedDownloadURL, getSignedUploadURL, signedIn } = props;
     const controllerFileInputRef = useRef(null);
@@ -67,4 +67,4 @@ const FileUploaderController = (props) => {
     )
 }
 
-export default FileUploaderController;
+export default FileUploaderContainer;

@@ -83,7 +83,8 @@ const FileUploader = (props) => {
         const values = elements.map(element => {
             let value = element.value || "";
             value = value.replaceAll("_", "-");
-            value = doubleCharsRemoved(value.trim(), [" ", "-"])
+            value = value.replaceAll(" ", "-");
+            value = doubleCharsRemoved(value.trim(), ["-"]);
             return value;
         });
 

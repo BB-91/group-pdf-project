@@ -1,6 +1,6 @@
 import './App.scss';
 import FileUploader from './components/FileUploader/FileUploader';
-import FileUploaderController from './controllers/FileUploaderController/FileUploaderController';
+import FileUploaderContainer from './containers/FileUploaderContainer/FileUploaderContainer';
 import LOCAL_API from "./data/localAPI.mjs";
 import AWS_API from './data/awsAPI.mjs';
 import validator from './data/patchValidator.mjs';
@@ -170,7 +170,7 @@ function App() {
             <LoginButton />
             <LogoutButton />
 
-            <FileUploaderController
+            <FileUploaderContainer
                 postProfile={postProfile}
                 getProfiles={getProfiles}
                 getAwsFileNames={getAwsFileNames}
