@@ -8,6 +8,7 @@ import { getFileCopyWithRandomName } from '../../data/randomFileNameGenerator.mj
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
     pdf: 'pdf',
+    cohortYear: 'cohortYear',
     firstName: 'firstName',
     lastName: 'lastName',
     country: 'country',
@@ -35,6 +36,7 @@ const FileUploader = (props) => {
     const fileInputElementRef = useRef(null);
 
     const pdfRef = useRef(props.pdf);
+    const cohortYearRef = useRef(null);
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
     const countryRef = useRef(null);
@@ -45,6 +47,7 @@ const FileUploader = (props) => {
 
     const keyRefObj = {
         [KEY.pdf]: pdfRef,
+        [KEY.cohortYear]: cohortYearRef,
         [KEY.firstName]: firstNameRef,
         [KEY.lastName]: lastNameRef,
         [KEY.country]: countryRef,
@@ -271,6 +274,25 @@ const FileUploader = (props) => {
         return embedElement;
     }
 
+    const getYearRangeOptions = (minYear, maxYear) => {
+        if (maxYear <= minYear) {
+            throw new Error(`maxYear (${maxYear}) not greater than minYear (${minYear})`);
+        }
+        const diff = maxYear - minYear;
+        const years = [];
+
+        for (let i=0; i<diff; i++) {
+            years.push(minYear + i);
+        }
+
+        const yearOptions = years.map((year, index) => {
+            const yearStr = String(year);
+            return <option disabled={false} value={yearStr} key={index}>{yearStr}</option>
+        })
+
+        return yearOptions;
+    }
+
     const getChildComponentTreeAndSetProperties = () => {
         const childComponents = (
             <>
@@ -279,6 +301,10 @@ const FileUploader = (props) => {
                     {getNewFileInputElement()}
                     
                     <>
+                        <div className="row cohort-row">
+                            {getNewSelectElement(KEY.cohortYear, getYearRangeOptions(2019, 2023))}
+                        </div>
+
                         <div className="row name-row">
                             {getNewTextInputElement(KEY.firstName)}
                             {getNewTextInputElement(KEY.lastName)}
@@ -288,7 +314,7 @@ const FileUploader = (props) => {
                             {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
                             {getNewTextInputElement(KEY.city)}
                             {/* {getNewSelectElement(KEY.region, STATE_OPTIONS_ELEMENTS)} */}
-                            {getNewSelectElement(KEY.region, [] )}
+                            {getNewSelectElement(KEY.region, [])}
                             {getNewTextInputElement(KEY.zipCode)}
                             {getNewEmbedElement()}
                         </div>

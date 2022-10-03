@@ -11,6 +11,11 @@ import S3DownloadComponent from './components/S3DownloadComponent/S3DownloadComp
 import LoginButton from './components/LoginButton/LoginButton';
 import LogoutButton from './components/LogoutButton/LogoutButton';
 
+import SearchResults from './containers/SearchResults/SearchResults';
+import { useEffect, useRef, useState } from 'react';
+// import UploadForm from './containers/UploadForm/UploadForm';
+
+
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
 
@@ -21,6 +26,15 @@ const awsApiURL = AWS_API.getURL();
 
 
 function App() {
+    const [profiles, setProfiles] = useState([])
+    const [ShoppingCartArr, setShoppingCartArr] = useState([])
+
+
+
+    
+
+   
+
 
     // const getSignedDownloadURL = async (filename) => {
     //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
@@ -162,8 +176,49 @@ function App() {
         })
         .then(res => res.json())
 
-        return postResponse
+        return postResponse;
     }
+
+    const effectRan = useRef(false);
+
+    useEffect(() => {
+        const effect = async () => {
+            const profiles = await getProfiles();
+            console.log("running effect. setting profiles to: ", profiles);
+            setProfiles(profiles);
+
+            console.log("ShoppingCartArr: ", ShoppingCartArr)
+        }
+
+        if (!effectRan.current) {
+            effectRan.current = true;
+            effect();
+        }
+    })
+
+    // const initShoppingCartData = async () => {
+    //     const profiles = await getProfiles();
+
+
+    //     fetch("http://localhost:3010/api/profiles")
+    //     .then((response) => {
+    //         return response.json()
+    //     }) .then((data) => {
+    //         setFiles(data)
+    //     })
+    // }
+
+
+    // return (
+    //     <div className="App">
+    //         <UploadForm/>
+    //         {files && <SearchResults 
+    //         ShoppingCartArr = {ShoppingCartArr}
+    //         setShoppingCartArr={setShoppingCartArr}
+    //         files={files}/>}
+    //         {/* <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/> */}
+    //     </div>
+    // );
 
     return (
         <div className="App">
@@ -179,6 +234,15 @@ function App() {
                 getSignedUploadURL={getSignedUploadURL}
                 signedIn={signedIn}
             />
+
+            {profiles && 
+                    <SearchResults 
+                        ShoppingCartArr = {ShoppingCartArr}
+                        setShoppingCartArr={setShoppingCartArr}
+                        profiles={profiles}
+                    />
+            }
+
 
             <S3DownloadComponent signedIn={signedIn}/>
 
