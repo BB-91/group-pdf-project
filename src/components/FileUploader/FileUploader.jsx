@@ -10,11 +10,20 @@ const FileUploader = () => {
 
     return (
         <div className='file-uploader'>
-            <form id='file-upload-form'>
+            <form className='file-upload-form'>
                 <h1>Upload a profile PDF</h1>
+                {/* <input type="text" name="file-comments" id="file-comments" placeholder="File Comments" /> */}
+                <input className='name_input' type="text" name="name" placeholder="Name on Profile" />
+                {/* <div className="dropdown">
+                    <button className="dropbtn">Location</button>
+                    <div id="myDropdown" className="dropdown-content" onClick={addShowClassToDropDown}>
+                        <p>USA</p>
+                        <p>UK</p>
+                        <p>AUS</p>
+                    </div>
+                </div> */}
                 <input type="file" name="file-input" id="file-input" accept=".pdf" />
-                <input type="text" name="file-comments" id="file-comments" placeholder="File Comments" />
-                <button type="submit" onClick={handleSubmitButtonClick}>Upload File</button>
+                <button className='submit_button' type="submit" onClick={handleSubmitButtonClick}>Upload File</button>
             </form>
         </div>
     )
