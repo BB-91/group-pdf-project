@@ -1,14 +1,9 @@
 import React, { useRef } from 'react';
 import "./FileUploader.scss";
-// import { COUNTRY_ABBREVIATIONS_OBJ, COUNTRY_OPTIONS_ELEMENTS, STATE_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
-// export { COUNTRIES_OBJ, COUNTRY_NAMES, COUNTRY_ABBREVIATIONS, COUNTRY_OPTIONS_ELEMENTS };
-// import { COUNTRIES_OBJ, COUNTRY_NAMES, COUNTRY_ABBREVIATIONS, COUNTRY_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
-import { COUNTRIES_OBJ, COUNTRY_ABBREVIATIONS, COUNTRY_OPTIONS_ELEMENTS, getRegionElements } from "../../data/statesAndCountries.mjs";
+import { COUNTRIES_OBJ, COUNTRY_OPTIONS_ELEMENTS } from "../../data/statesAndCountries.mjs";
 import { getTitleCaseFromCamelCase, doubleCharsRemoved } from '../../data/util.mjs';
-
 import s3Uploader from '../../data/s3Uploader.mjs';
 import { getFileCopyWithRandomName } from '../../data/randomFileNameGenerator.mjs';
-import { useState } from 'react';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
@@ -35,10 +30,6 @@ const bulletedList = (strings, symbol = "•") => {
 
 const FileUploader = (props) => {
     const { postProfile, getProfiles, signedIn, getSignedDownloadURL, getSignedUploadURL } = props;
-
-    // const [selectedCountry, setSelectedCountry] = useState();
-
-
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
@@ -82,11 +73,6 @@ const FileUploader = (props) => {
         }
     }
 
-    // let uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, country].join("_").trim();
-    // uploadFileNamePrefix = doubleCharsRemoved(uploadFileNamePrefix, [" ", "-"]);
-    // uploadFileNamePrefix = uploadFileNamePrefix.replaceAll(" ", "-");
-
-
     const getFormValuesAsObj = async () => {
         const postKeys = Object.values(KEY).filter(key => !(NON_POSTED_KEYS.includes(key)));
         let elements = postKeys.map(postKey => {
@@ -96,9 +82,9 @@ const FileUploader = (props) => {
 
         const values = elements.map(element => {
             let value = element.value || "";
+            value = value.replaceAll("_", "-");
             value = doubleCharsRemoved(value.trim(), [" ", "-"])
             return value;
-            // return value.trim();
         });
 
         const obj = {};
@@ -113,44 +99,13 @@ const FileUploader = (props) => {
     }
 
 
-
-    // const doubleCharsRemoved = (str, char) => {
-    //     if (char.length !== 1) {
-    //         throw new Error(`Not a 1-char string: ${char}`)
-    //     }
-    //     const doubledChar = char + char;
-    //     let fStr = str;
-    //     while (fStr.includes(doubledChar)) {
-    //         fStr = fStr.replaceAll(doubledChar, char);
-    //     }
-
-    //     return fStr;
-    // }
-
     const getUploadFileNamePrefix = (formValuesObj) => {
         const { firstName, lastName, city, region, zipCode, country, keywords } = formValuesObj;
-        // const uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, country].join("_");
-        // const uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, country].join("_").trim().replaceAll(" ", "-");
         let uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, country].join("_").trim();
         uploadFileNamePrefix = doubleCharsRemoved(uploadFileNamePrefix, [" ", "-"]);
         uploadFileNamePrefix = uploadFileNamePrefix.replaceAll(" ", "-");
-
-        // console.log("uploadFileName: ", uploadFileName);
         return uploadFileNamePrefix;
     }
-
-    // const getUploadFileNamePrefix = (formValuesObj) => {
-    //     const { firstName, lastName, city, region, zipCode, country, keywords } = formValuesObj;
-    //     // const countryAbbreviation = COUNTRY_ABBREVIATIONS_OBJ[country];
-    //     const countryAbbreviation = COUNTRIES_OBJ[country];
-    //     if (!countryAbbreviation) {
-    //         throw new Error(`No abbreviation found for country: '${country}'`);
-    //     }
-
-    //     const uploadFileNamePrefix = [firstName, lastName, city, region, zipCode, countryAbbreviation].join("_");
-    //     // console.log("uploadFileName: ", uploadFileName);
-    //     return uploadFileNamePrefix;
-    // }
 
     const handleSubmitButtonClick = async (event) => {
         event.preventDefault();
@@ -186,19 +141,10 @@ const FileUploader = (props) => {
                 alert("You must be signed in to upload a pdf")
             } else {
                 const pdf = await getPDF();
-                // const prefix = getUploadFileNamePrefix(formValuesObj);
                 const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
                 console.log("pdfCopy: ", pdfCopy);
 
-
-                // use s3 presigned url here.
-                // const filename = pdfCopy.name;
-                // const s3PresignedURL = await getSignedDownloadURL(filename);
-                // const s3UploadResponse = await s3Uploader.upload(pdfCopy, s3PresignedURL);
-                
-                
                 const s3UploadResponse = await s3Uploader.upload(pdfCopy);
-
                 // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
                 // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
 
@@ -271,111 +217,27 @@ const FileUploader = (props) => {
         return getRefElement(key) === event.target;
     }
 
-    // const isRefEvent = (key, event) => {
-    //     assertValidKey(key);
-    //     return event.target === keyRefObj[key].current;
-    // }
-
     const handleOptionSelected = (event) => {
         const element = event.target;
         const value = element.value;
-        console.log("SELECTED OPTION: ", value);
-        // const countryNames = Object.keys(COUNTRY_ABBREVIATIONS_OBJ);
-        // const countryAbbreviations = Object.values(COUNTRY_ABBREVIATIONS_OBJ);
-        // const combinedCountrySelectionOptions = countryNames + countryAbbreviations; // prevent breakage when switching between name & abbreviation
-
-        // if (element == keyRefObj[KEY.country].current) {
-        // if (element === keyRefObj[KEY.country]) {
         if (isRefEvent(KEY.country, event)) {
-            // const regionElement = keyRefObj[KEY.region].current;
             const country = value;
             const regionElement = getRefElement(KEY.region);
-            console.log("regionElement:", regionElement);
-
-            console.log("is a country name or abbreviation.");
-
             regionElement.style.display = value ? "inline-block" : "none";
 
             if (value) {
                 regionElement.options.length = 0;
                 const regions = COUNTRIES_OBJ[country].regions;
-                console.log("regions: ", regions);
                 regionElement.options[0] = new Option(COUNTRIES_OBJ[country].regionAlias, "", true);
 
                 regions.forEach((region, index) => {
                     regionElement.options[index + 1] = new Option(region, region);
                 });
             }
-
-            // setSelectedCountry(value);
-
-            // const regionsElement = getRefElement(KEY.region);
-
-
         }
-        
-
-        // if (combinedCountrySelectionOptions.includes(value)) {
-            
-        // }
     }
 
-    // const handleOptionSelected = (event) => {
-    //     const element = event.target;
-    //     const value = element.value;
-    //     console.log("SELECTED OPTION: ", value);
-    //     const countryNames = Object.keys(COUNTRY_ABBREVIATIONS_OBJ);
-    //     const countryAbbreviations = Object.values(COUNTRY_ABBREVIATIONS_OBJ);
-    //     const combinedCountrySelectionOptions = countryNames + countryAbbreviations; // prevent breakage when switching between name & abbreviation
-
-
-
-    //     if (combinedCountrySelectionOptions.includes(value)) {
-    //         console.log("is a country name or abbreviation.")
-    //     }
-    // }
-
-
-
     const getNewSelectElement = (key, optionsElements, isRequired = true) => {
-        // let usedElements = []
-
-        // switch (key) {
-        //     case KEY.region:
-        //         usedElements = selectedCountry ? getRegionElements(selectedCountry) : [];
-        //         break;
-        //     default:
-        //         usedElements = optionsElements;
-        // }
-
-        // switch (key) {
-        //     case KEY.region:
-        //         usedElements = selectedCountry ? getRegionElements(selectedCountry) : [];
-        //         break;
-        //     default:
-        //         usedElements = optionsElements;
-        // }
-
-        // switch (key) {
-        //     case KEY.region:
-        //         const countryElement = getRefElement(KEY.country);
-        //         if (countryElement) {
-        //             const country = countryElement.value;
-        //             usedElements = country ? getRegionElements(country) : [];
-        //         }
-        //         break;
-        //     default:
-        //         usedElements = optionsElements;
-        // }
-
-        // if (key == KEY.region) {
-        //     console.log("LOOKING FOR REGION!");
-        // } else {
-
-        // }
-        
-        
-        
         const optionsWithDisabledDefault = (
             <>
                 <option disabled={false} value="">{getPlaceholder(key)} </option>
@@ -383,21 +245,13 @@ const FileUploader = (props) => {
             </>
         )
 
-
-
         let selectElement = null;
 
         if (isRequired) {
             selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected} required>{optionsWithDisabledDefault}</select>)
         } else {
-            selectElement = (<select ref={keyRefObj[key]} name={key} className={key}> onChange={handleOptionSelected}{optionsWithDisabledDefault}</select>)
+            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected}> {optionsWithDisabledDefault}</select>)
         }
-
-        // if (isRequired) {
-        //     selectElement = (<select ref={keyRefObj[key]} name={key} className={key} required>{optionsWithDisabledDefault}</select>)
-        // } else {
-        //     selectElement = (<select ref={keyRefObj[key]} name={key} className={key}>{optionsWithDisabledDefault}</select>)
-        // }
 
         return selectElement;
     }
