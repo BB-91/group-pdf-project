@@ -1,10 +1,25 @@
+.file-uploader-container {
+  height: 300px;
+}
+
 input[type=file] {
   background-color: greenyellow;
   display: none;
 }
 
 .custom-file-upload {
-  padding: 10px;
+  --padding: 10px;
+  position: relative;
+  top: var(--padding);
+  padding: var(--padding);
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  width: 150px;
+  cursor: pointer;
 }
 
 .upload-wrapper {

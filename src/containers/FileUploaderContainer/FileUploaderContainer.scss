@@ -1,7 +1,9 @@
 
-// .file-uploader-container {
-//     background-color: red;
-// }
+.file-uploader-container {
+    // background-color: black;
+    height: 300px;
+    // margin-bottom: 20px;
+}
 
 input[type="file"] {
     background-color: greenyellow;
@@ -11,16 +13,45 @@ input[type="file"] {
     // margin-bottom: 10px;
 }
 
-.custom-file-upload {
-    // margin-top: 10px;
-    padding: 10px;
-    // margin: 0 10px;
+// .button {
+//     background-color: red;
+//     color: white;
+//     border-radius: 10px;
+//     font-size: 20px;
+//     font-weight: bold;
+//     width: 150px;
+//     border: none;
+//     cursor: pointer;    
+// }
 
-    // margin-bottom: 200px;
+
+
+.custom-file-upload {
+    --padding: 10px;
+    position: relative;
+    top: var(--padding);
+    padding: var(--padding);
+
+    background-color: red;
+    color: white;
+
+    border-radius: 10px;
+    border: none;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    width: 150px;
+    // height: 2000px;
+    cursor: pointer;    
+
+
+
 }
 
 .upload-wrapper {
     margin-top: 10px;
+    // margin-bottom: 200px;
 }
 
 // .custom-file-upload {

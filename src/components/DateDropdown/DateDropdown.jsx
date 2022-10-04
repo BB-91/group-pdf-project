@@ -1,12 +1,24 @@
+import { useEffect } from 'react';
 import './DateDropdown.scss'
 
 const DateDropdown = (props) => {
 
     const { profiles, dateResults, setDateResults, profileYear, setProfileYear } = props
 
-    const handleChange = (event) => {
-        setDateResults(event.target.value);
+    const update = (year) => {
+        console.log("updating year")
+        setDateResults(year);
     }
+
+    const handleChange = (event) => {
+        // setDateResults(event.target.value);
+        update(event.target.value)
+        
+    }
+
+    useEffect(() => {
+        update(2022);
+    })
 
     return (
         <>

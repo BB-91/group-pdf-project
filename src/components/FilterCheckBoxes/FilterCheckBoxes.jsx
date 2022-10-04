@@ -1,14 +1,21 @@
 import "./FilterCheckBoxes.scss";
 import {useRef} from 'react';
+import { useEffect } from "react";
 
 const FilterCheckboxes = (props) => {
     const {checkResults, setCheckResults, profiles} = props;
     const checkboxesWrapper = useRef(null);
     const checkboxesRef = useRef([]);
 
+    const initCheckboxes = () => {
+        checkboxesRef.current = Array.from(checkboxesWrapper.current.children).filter(element => element.type === "checkbox");
+    }
+
+
     const handleCheckboxClick = () => {
         if (!checkboxesRef.current.length) {
-            checkboxesRef.current = Array.from(checkboxesWrapper.current.children).filter(element => element.type === "checkbox");
+            // checkboxesRef.current = Array.from(checkboxesWrapper.current.children).filter(element => element.type === "checkbox");
+            initCheckboxes();
         }
 
         const checkboxes = checkboxesRef.current;
@@ -21,6 +28,11 @@ const FilterCheckboxes = (props) => {
             setCheckResults(filteredProfiles);
         }
     }
+
+    useEffect(() => {
+        initCheckboxes();
+        handleCheckboxClick();
+    })
 
     return (
         <div ref={checkboxesWrapper} title="checkBoxes">
