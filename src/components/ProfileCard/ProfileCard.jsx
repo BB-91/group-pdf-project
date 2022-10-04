@@ -6,19 +6,24 @@ const ProfileCard = (props) =>{
     const [removeButton, setRemoveButton] = useState(false)
 
     const addToArray = () => {
-        setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, file])
+        setRemoveButton(!removeButton)
+        if (!ShoppingCartArr.includes(file)) {
+            setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, file])
+        }
         console.log("added to array")
-        setRemoveButton(!removeButton)
     }
 
-    const removeFromArray = (event) => {
-        const profileId = event.target.getAttribute("id")
-        setShoppingCartArr(ShoppingCartArr.filter(profile => profile.id != profileId))
-        setRemoveButton(!removeButton)
-    }
+    // const removeFromArray = (event) => {
+    //     const profileId = event.target.getAttribute("id")
+    //     setRemoveButton(!removeButton)
+    //     setShoppingCartArr(ShoppingCartArr.filter(profile => profile.id != profileId))
+    // }
 
-    const addCard = (<button onClick={addToArray}>add to cart</button>)
-    const removeCard = (<button id={id} onClick={removeFromArray}>Remove</button>)
+    const addCard = (<button onClick={addToArray}>Add To Cart</button>)
+    // const removeCard = (<button id={id} onClick={removeFromArray}>Remove</button>)
+
+    
+
 
 return (
     <>
@@ -26,7 +31,7 @@ return (
         <p>{city}, {state}, {zipCode}, {country}</p>
         <p>{cohort_year}</p>
         <p>{id}</p>
-        {removeButton ? removeCard : addCard}
+        {addCard}
         {/* <button onClick={addToArray}>add to cart</button>
         <button id={id} onClick={removeFromArray}>Remove</button> */}
     </>

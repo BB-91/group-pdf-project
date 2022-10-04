@@ -7,7 +7,7 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
 
-    const {ShoppingCartArr, setShoppingCartArr, files} = props;
+    const {removeButton, setRemoveButton, ShoppingCartArr, setShoppingCartArr, files} = props;
     
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
@@ -53,6 +53,8 @@ const SearchResults = (props) => {
                 file={file}
                 ShoppingCartArr={ShoppingCartArr}
                 setShoppingCartArr={setShoppingCartArr}
+                removeButton={removeButton}
+                setRemoveButton={setRemoveButton}
                 />
                 {/* <button onClick={addToArray(file)}>add to cart</button> */}
             </>

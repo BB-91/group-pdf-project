@@ -38,7 +38,10 @@ function App() {
             ShoppingCartArr = {ShoppingCartArr}
             setShoppingCartArr={setShoppingCartArr}
             files={files}/>}
-            {/* <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/> */}
+            <ShoppingCart 
+            ShoppingCartArr = {ShoppingCartArr}
+            setShoppingCartArr={setShoppingCartArr}
+            files={files}/>
         </div>
     );
 }
