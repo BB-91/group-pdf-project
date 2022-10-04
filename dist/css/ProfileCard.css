@@ -1,6 +1,7 @@
 .profile-card {
+  background-color: white;
   border: 2px solid black;
-  width: 35vw;
+  width: 30vw;
   margin: 10px 0;
   border-radius: 10px;
   padding: 10px;
@@ -8,23 +9,27 @@
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 0.05rem;
-  justify-content: center;
   justify-items: center;
+}
+
+.profile-card__name-row {
+  width: 100%;
+  background-color: greenyellow;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  justify-content: center;
   align-items: center;
   align-content: center;
 }
-
-.name-row {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 0.5rem;
+.profile-card__name-row span {
+  margin: 0 4px;
 }
 
-.address-row,
-.cohort-row {
+.profile-card__address-row,
+.profile-card__cohort-row {
   font-size: 16px;
   text-align: center;
   display: grid;

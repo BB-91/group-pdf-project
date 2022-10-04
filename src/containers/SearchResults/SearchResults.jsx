@@ -20,9 +20,9 @@ const SearchResults = (props) => {
             file.lastName.toLowerCase().includes(returnResults) ||
             file.city.toLowerCase().includes(returnResults) ||
             file.country.toLowerCase().includes(returnResults) ||
-            file.state.toLowerCase().includes(returnResults) ||
+            file.region.toLowerCase().includes(returnResults) ||
             file.zipCode.toLowerCase().includes(returnResults) ||
-            file.cohort_year == returnResults
+            file.cohortYear == returnResults
             )
     })
 
@@ -31,7 +31,7 @@ const SearchResults = (props) => {
         if (dateResults == "all" || dateResults == "") {
             return file
         } else {
-            return file.cohort_year == dateResults
+            return file.cohortYear == dateResults
         }
         
     })
@@ -43,10 +43,12 @@ const SearchResults = (props) => {
                     firstName = {file.firstName} 
                     lastName = {file.lastName} 
                     city = {file.city} 
-                    state = {file.state}
-                    zipcode = {file.zipcode}
+                    region = {file.region}
+                    // zipCode = {file.zipCode}
+                    zipCode = {file.zipCode}
                     country = {file.country}
-                    cohort_year = {file.cohort_year}
+                    // cohortYear = {file.cohortYear}
+                    cohortYear = {file.cohortYear}
                     id = {file.id}
                     file={file}
                     ShoppingCartArr={ShoppingCartArr}
@@ -65,10 +67,10 @@ const SearchResults = (props) => {
     //                 firstName = {file.firstName} 
     //                 lastName = {file.lastName} 
     //                 city = {file.city} 
-    //                 state = {file.state}
-    //                 zipcode = {file.zipcode}
+    //                 region = {file.region}
+    //                 zipCode = {file.zipCode}
     //                 country = {file.country}
-    //                 cohort_year = {file.cohort_year}
+    //                 cohortYear = {file.cohortYear}
     //                 id = {file.id}
     //                 file={file}
     //                 ShoppingCartArr={ShoppingCartArr}
@@ -104,7 +106,11 @@ const SearchResults = (props) => {
                         />
                     }
             </div>
-            {mappedFiles}
+            
+            <div className="profile-card-wrapper">
+                {mappedFiles}
+            </div>
+
         </div>
     )
 }

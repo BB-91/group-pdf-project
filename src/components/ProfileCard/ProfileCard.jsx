@@ -1,7 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import "./ProfileCard.scss";
 
-const ProfileCard = (props) =>{
-    const {ShoppingCartArr, setShoppingCartArr, id, file, city, state, zipCode, country, cohort_year, firstName, lastName } = props;
+const ProfileCard = (props) => {
+    
+
+    const { ShoppingCartArr, setShoppingCartArr, id, file, city, region, zipCode, country, cohortYear, firstName, lastName } = props;
 
     const [removeButton, setRemoveButton] = useState(false)
 
@@ -12,16 +15,69 @@ const ProfileCard = (props) =>{
         }
         console.log("added to array")
     }
-    
-return (
-    <>
-        <p>{firstName} {lastName}</p>
-        <p>{city}, {state}, {zipCode}, {country}</p>
-        <p>{cohort_year}</p>
-        <p>{id}</p>
-        <button onClick={addToArray}>Add To Cart</button>
-    </>
-)
+
+
+    console.log("cohortYear: ", cohortYear)
+
+    return (
+        <div className='profile-card'>
+            <div className='profile-card__name-row'>
+                <span>{firstName}</span>
+                <span>{lastName}</span>
+            </div>
+            <div className='profile-card__address-row'>
+                <span>{city},</span>
+                <span>{region},</span>
+                <span>{zipCode},</span>
+                <span>{country}</span>
+            </div>
+            <div className='profile-card__cohort-row'>
+                {cohortYear}
+            </div>
+            {/* <p>{id}</p> */}
+
+            <button onClick={addToArray}>Add To Cart</button>
+
+            {/* {removeButton ? removeCard : addCard} */}
+            {/* <button onClick={addToArray}>add to cart</button>
+            <button id={id} onClick={removeFromArray}>Remove</button> */}
+        </div>
+    )
+
+    // return (
+    //     <div className='profile-card'>
+    //         <div className='name-row'>
+    //             <span>{firstName}</span>
+    //             <span>{lastName}</span>
+    //         </div>
+    //         <div className='address-row'>
+    //             <span>{city},</span>
+    //             <span>{region},</span>
+    //             <span>{zipCode},</span>
+    //             <span>{country}</span>
+    //         </div>
+    //         <div className='cohort-row'>
+    //             {cohortYear}
+    //         </div>
+    //         {/* <p>{id}</p> */}
+
+    //         <button onClick={addToArray}>Add To Cart</button>
+
+    //         {/* {removeButton ? removeCard : addCard} */}
+    //         {/* <button onClick={addToArray}>add to cart</button>
+    //         <button id={id} onClick={removeFromArray}>Remove</button> */}
+    //     </div>
+    // )
+
+    // return (
+    //     <>
+    //         <p>{firstName} {lastName}</p>
+    //         <p>{city}, {region}, {zipCode}, {country}</p>
+    //         <p>{cohortYear}</p>
+    //         <p>{id}</p>
+    //         <button onClick={addToArray}>Add To Cart</button>
+    //     </>
+    // )
 
 }
 

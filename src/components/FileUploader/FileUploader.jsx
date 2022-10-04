@@ -30,7 +30,8 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    const { postProfile, getProfiles, signedIn, getSignedDownloadURL, getSignedUploadURL } = props;
+    // const { postProfile, getProfiles, signedIn, getSignedDownloadURL, getSignedUploadURL } = props;
+    const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL } = props;
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
@@ -137,35 +138,58 @@ const FileUploader = (props) => {
                 alertMsg += `Please fill out required fields:\n${bulletedList(placeholders)}`
             }
         }
-        
+
         if (alertMsg) {
             alert(alertMsg);
         } else {
-            if (!signedIn) {
-                alert("You must be signed in to upload a pdf")
-            } else {
-                const pdf = await getPDF();
-                const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
-                console.log("pdfCopy: ", pdfCopy);
+            const pdf = await getPDF();
+            const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
+            console.log("pdfCopy: ", pdfCopy);
 
-                const s3UploadResponse = await s3Uploader.upload(pdfCopy);
-                // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
-                // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
+            const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+            // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
+            // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
 
 
-                console.log("s3UploadResponse: ", s3UploadResponse);
+            console.log("s3UploadResponse: ", s3UploadResponse);
+
+            formValuesObj["s3FileName"] = pdfCopy.name;
+
+            const mysqlPostResponse = await postProfile(formValuesObj);
+            console.log("mysqlPostResponse: ", mysqlPostResponse);
+
+            const profiles = await getProfiles();
+            console.log("profiles: ", profiles);
+        }
+
+        // if (alertMsg) {
+        //     alert(alertMsg);
+        // } else {
+        //     if (!signedIn) {
+        //         alert("You must be signed in to upload a pdf")
+        //     } else {
+        //         const pdf = await getPDF();
+        //         const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
+        //         console.log("pdfCopy: ", pdfCopy);
+
+        //         const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+        //         // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
+        //         // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
+
+
+        //         console.log("s3UploadResponse: ", s3UploadResponse);
 
                 
 
-                formValuesObj["s3FileName"] = pdfCopy.name;
+        //         formValuesObj["s3FileName"] = pdfCopy.name;
 
-                const mysqlPostResponse = await postProfile(formValuesObj);
-                console.log("mysqlPostResponse: ", mysqlPostResponse);
+        //         const mysqlPostResponse = await postProfile(formValuesObj);
+        //         console.log("mysqlPostResponse: ", mysqlPostResponse);
 
-                const profiles = await getProfiles();
-                console.log("profiles: ", profiles);
-            }
-        }
+        //         const profiles = await getProfiles();
+        //         console.log("profiles: ", profiles);
+        //     }
+        // }
     }
 
 

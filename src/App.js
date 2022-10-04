@@ -1,36 +1,21 @@
 import './App.scss';
-import FileUploader from './components/FileUploader/FileUploader';
-import FileUploaderContainer from './containers/FileUploaderContainer/FileUploaderContainer';
+import { useEffect, useRef, useState } from 'react';
+
 import LOCAL_API from "./data/localAPI.mjs";
 import AWS_API from './data/awsAPI.mjs';
 import validator from './data/patchValidator.mjs';
 
 import { isValidSignInToken } from "./data/signInTokenValidator.mjs";
-import S3DownloadComponent from './components/S3DownloadComponent/S3DownloadComponent';
-
-import LoginButton from './components/LoginButton/LoginButton';
-import LogoutButton from './components/LogoutButton/LogoutButton';
 
 import SearchResults from './containers/SearchResults/SearchResults';
-import { useEffect, useRef, useState } from 'react';
 import Header from './containers/Header/Header';
 import Footer from './containers/Footer/Footer';
-// import UploadForm from './containers/UploadForm/UploadForm';
-// cart-upload
-
-
-
-// ---BEGIN
-// import './App.scss';
-// import FileUploader from './components/FileUploader/FileUploader';
 
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
-import UploadForm from './containers/UploadForm/UploadForm';
+import FileUploader from './components/FileUploader/FileUploader';
 
-// import SearchResults from './containers/SearchResults/SearchResults';
-// import {useEffect, useState} from 'react';
 
-// ---END
+import FileUploaderContainer from './containers/FileUploaderContainer/FileUploaderContainer';
 
 
 const TEST_SIGN_IN_TOKEN = "xyz789";
@@ -38,72 +23,6 @@ let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
 
 const localApiURL = LOCAL_API.getURL();
 const awsApiURL = AWS_API.getURL();
-
-
-// function App() {
-
-//     const [files, setFiles] = useState()
-//     const [ShoppingCartArr, setShoppingCartArr] = useState([])
-//     const [renderOptions, setRenderOptions] = useState()
-
-//     const getData = () => {
-//         fetch("http://localhost:3010/api/profiles")
-//         .then((response) => {
-//             return response.json()
-//         }) .then((data) => {
-//             setFiles(data)
-//         })
-//     }
-    
-//     const renderShoppingCart = () => {
-//         setRenderOptions("shoppingCartOption")
-//     }
-
-//     const renderUploadForm = () => {
-//         setRenderOptions("uploadFormOption")
-//     }
-
-//     const renderSearchResults = () => {
-//         setRenderOptions("searchResultsOption")
-//     }
-
-//     useEffect(getData, [])
-
-//     console.log(ShoppingCartArr)
-
-//     return (
-//         <div className="App">
-//             <nav className="nav__buttons">
-//                 <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
-//                 <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
-//                 <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
-//             </nav>
-//             {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
-//             {renderOptions == "uploadFormOption" ?
-//                 <FileUploaderContainer
-//                     postProfile={postProfile}
-//                     getProfiles={getProfiles}
-//                     getAwsFileNames={getAwsFileNames}
-//                     getAwsFile={getAwsFile}
-//                     getSignedDownloadURL={getSignedDownloadURL}
-//                     getSignedUploadURL={getSignedUploadURL}
-//                     signedIn={signedIn}
-//                 />
-//                 : ""
-//             }
-//             {renderOptions == "searchResultsOption" ? files && <SearchResults 
-//             ShoppingCartArr = {ShoppingCartArr}
-//             setShoppingCartArr={setShoppingCartArr}
-//             files={files}/>: ""}
-//             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
-//             ShoppingCartArr = {ShoppingCartArr}
-//             setShoppingCartArr={setShoppingCartArr}/> : ""}
-//         </div>
-//     );
-// }
-
-
-
 
 function App() {
     const [profiles, setProfiles] = useState([])
@@ -254,40 +173,6 @@ function App() {
     useEffect(getData, [])
 
     console.log(ShoppingCartArr)
-
-    // return (
-    //     <div className='SHOPPING-CART'>
-    //         <div className="App">
-    //             <nav className="nav__buttons">
-    //                 <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
-    //                 <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
-    //                 <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
-    //             </nav>
-    //             {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
-    //             {renderOptions == "uploadFormOption" ?
-    //                 <FileUploaderContainer
-    //                     postProfile={postProfile}
-    //                     getProfiles={getProfiles}
-    //                     getAwsFileNames={getAwsFileNames}
-    //                     getAwsFile={getAwsFile}
-    //                     getSignedDownloadURL={getSignedDownloadURL}
-    //                     getSignedUploadURL={getSignedUploadURL}
-    //                     signedIn={signedIn}
-    //                 />
-    //                 : ""
-    //             }
-    //             {renderOptions == "searchResultsOption" ? files && <SearchResults 
-    //             ShoppingCartArr = {ShoppingCartArr}
-    //             setShoppingCartArr={setShoppingCartArr}
-    //             files={files}/>: ""}
-    //             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
-    //             ShoppingCartArr = {ShoppingCartArr}
-    //             setShoppingCartArr={setShoppingCartArr}/> : ""}
-    //         </div>        
-    //     </div>
-
-
-    // );
 // -END---------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------
@@ -301,7 +186,6 @@ function App() {
             <Header />
 
             <div className='SHOPPING-CART'>
-            {/* <div className="App"> */}
                 <nav className="nav__buttons">
                     <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
                     <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
@@ -316,7 +200,7 @@ function App() {
                         getAwsFile={getAwsFile}
                         getSignedDownloadURL={getSignedDownloadURL}
                         getSignedUploadURL={getSignedUploadURL}
-                        signedIn={signedIn}
+                        // signedIn={signedIn}
                     />
                     : ""
                 }
@@ -327,8 +211,7 @@ function App() {
                 {renderOptions == "shoppingCartOption" ? <ShoppingCart 
                 ShoppingCartArr = {ShoppingCartArr}
                 setShoppingCartArr={setShoppingCartArr}/> : ""}
-            {/* </div>         */}
-        </div>
+            </div>
 
 
 

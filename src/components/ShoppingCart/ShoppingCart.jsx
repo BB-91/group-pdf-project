@@ -16,8 +16,8 @@ const ShoppingCart = (props) =>{
         return (
         <div key={index}>
             <p>{file.firstName} {file.lastName}</p>
-            <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
-            <p>{file.cohort_year}</p>
+            <p>{file.city}, {file.region}, {file.zipCode}, {file.country}</p>
+            <p>{file.cohortYear}</p>
             <p>{file.id}</p>
             <button id={file.id} onClick={removeFromShoppingCart}>Remove</button>
          </div>
@@ -28,8 +28,8 @@ const ShoppingCart = (props) =>{
     //     return (
     //     <div>
     //         <p>{file.firstName} {file.lastName}</p>
-    //         <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
-    //         <p>{file.cohort_year}</p>
+    //         <p>{file.city}, {file.region}, {file.zipCode}, {file.country}</p>
+    //         <p>{file.cohortYear}</p>
     //         <p>{file.id}</p>
     //         <button id={file.id} onClick={removeFromShoppingCart}>Remove</button>
     //      </div>
@@ -42,10 +42,10 @@ const ShoppingCart = (props) =>{
         {label: 'First Name', key: 'firstName'},
         {label: 'Last Name', key: 'lastName'},
         {label: 'City', key: 'city'},
-        {label: 'State', key: 'state'},
+        {label: 'State', key: 'region'},
         {label: 'ZipCode', key: 'zipCode'},
         {label: 'Country', key: 'country'},
-        {label: 'Cohort Year', key: 'cohort_year'},
+        {label: 'Cohort Year', key: 'cohortYear'},
         {label: 'ID', key: 'id'}
     ]
 

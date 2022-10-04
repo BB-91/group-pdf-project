@@ -8,7 +8,8 @@ const KEY = {
 
 const FileUploaderContainer = (props) => {
     const [cards, setCards] = useState([])
-    const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getSignedDownloadURL, getSignedUploadURL, signedIn } = props;
+    // const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getSignedDownloadURL, getSignedUploadURL, signedIn } = props;
+    const { postProfile, getProfiles, getAwsFileNames, getAwsFile, getSignedDownloadURL, getSignedUploadURL } = props;
     const controllerFileInputRef = useRef(null);
 
     // file uploader allows selecting multiple files, saved as an array.
@@ -28,7 +29,7 @@ const FileUploaderContainer = (props) => {
                     getProfiles={getProfiles}
                     pdf={pdf}
                     key={index}
-                    signedIn={signedIn}
+                    // signedIn={signedIn}
                     getSignedDownloadURL={getSignedDownloadURL}
                     getSignedUploadURL={getSignedUploadURL}
                 />
