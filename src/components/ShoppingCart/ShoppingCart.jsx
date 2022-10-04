@@ -41,9 +41,8 @@ const ShoppingCart = (props) =>{
     return (
         <div>
             <h1>CART</h1>
-            <CSVLink data={data} headers={headers}>Export To CSV</CSVLink>      
-            {ShoppingCartDisplay}
-            
+            <CSVLink filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>      
+            {ShoppingCartDisplay}     
         </div>
     )
 }
