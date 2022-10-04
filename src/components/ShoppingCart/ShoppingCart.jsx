@@ -4,7 +4,7 @@ import ProfileCard from "../ProfileCard/ProfileCard"
 import {CSVLink, CSVDownload} from 'react-csv';
 
 const ShoppingCart = (props) =>{
-    const {ShoppingCartArr, setShoppingCartArr, files} = props
+    const {ShoppingCartArr, setShoppingCartArr} = props
     const [showCart, setShowCart] = useState()
 
     const removeFromShoppingCart = (event) => {
@@ -37,11 +37,15 @@ const ShoppingCart = (props) =>{
         {label: 'ID', key: 'id'}
     ]
 
+    const clearShoppingCart = () => {
+        setShoppingCartArr([])
+    }
 
     return (
         <div>
-            <h1>CART</h1>
-            <CSVLink filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>      
+            <h1>Shopping Cart</h1>
+            <CSVLink filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>
+            <button onClick={clearShoppingCart}>Clear Shopping Cart</button>      
             {ShoppingCartDisplay}     
         </div>
     )

@@ -1,7 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&family=Sora&family=Space+Mono&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Rubik" 
+}
+
+.nav__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #4B2F7E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+
+    .nav__button {
+        border: none;
+        background-color: #4B2F7E;
+        color: white;
+        font-size: 25px;
+
+    }
 }
 
 // .App {

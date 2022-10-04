@@ -32,20 +32,17 @@ function App() {
         setRenderOptions("searchResultsOption")
     }
 
-    // const renderDifferentOptions = () => {
-    //     renderOptions == "shoppingCartOption" ? 
-    // }
-
     useEffect(getData, [])
 
     console.log(ShoppingCartArr)
 
-
     return (
         <div className="App">
-            <button onClick={renderUploadForm}>upload form</button>
-            <button onClick={renderSearchResults}>search results</button>
-            <button onClick={renderShoppingCart}>shopping cart</button>
+            <nav className="nav__buttons">
+                <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
+                <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
+                <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
+            </nav>
             {renderOptions == "uploadFormOption" ? <UploadForm/> : ""}
             {renderOptions == "searchResultsOption" ? files && <SearchResults 
             ShoppingCartArr = {ShoppingCartArr}
@@ -53,8 +50,7 @@ function App() {
             files={files}/>: ""}
             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
             ShoppingCartArr = {ShoppingCartArr}
-            setShoppingCartArr={setShoppingCartArr}
-            files={files}/> : ""}
+            setShoppingCartArr={setShoppingCartArr}/> : ""}
         </div>
     );
 }

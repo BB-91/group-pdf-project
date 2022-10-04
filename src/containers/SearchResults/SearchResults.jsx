@@ -7,7 +7,7 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
 
-    const {removeButton, setRemoveButton, ShoppingCartArr, setShoppingCartArr, files} = props;
+    const {ShoppingCartArr, setShoppingCartArr, files} = props;
     
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
@@ -40,7 +40,6 @@ const SearchResults = (props) => {
         return (
             <>
                 <ProfileCard 
-                //  index = {ShoppingCartDisplay.indexOf()}
                 firstName = {file.firstName} 
                 lastName = {file.lastName} 
                 city = {file.city} 
@@ -49,33 +48,32 @@ const SearchResults = (props) => {
                 country = {file.country}
                 cohort_year = {file.cohort_year}
                 id = {file.id}
-                // addToArray={addToArray}
                 file={file}
                 ShoppingCartArr={ShoppingCartArr}
                 setShoppingCartArr={setShoppingCartArr}
-                removeButton={removeButton}
-                setRemoveButton={setRemoveButton}
                 />
-                {/* <button onClick={addToArray(file)}>add to cart</button> */}
             </>
         )
     })
     return (
-        <>
-            <SearchBar 
-            setReturnResults={setReturnResults}/>
-            {files && <FilterCheckboxes 
-            checkResults={checkResults}
-            files={files}
-            setCheckResults={setCheckResults}/>}
-            {files && <DateDropdown 
-            files={files}
-            dateResults={dateResults}
-            setDateResults={setDateResults}
-            profileYear={profileYear}
-            setProfileYear={setProfileYear}/>}
+        <div className="search__page">
+            <h2>Search Profiles</h2>
+            <div>
+                <SearchBar
+                setReturnResults={setReturnResults}/>
+                {files && <FilterCheckboxes 
+                checkResults={checkResults}
+                files={files}
+                setCheckResults={setCheckResults}/>}
+                {files && <DateDropdown 
+                files={files}
+                dateResults={dateResults}
+                setDateResults={setDateResults}
+                profileYear={profileYear}
+                setProfileYear={setProfileYear}/>}
+            </div>
             {mappedFiles}
-        </>
+        </div>
     )
 }
 
