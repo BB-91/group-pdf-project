@@ -17,6 +17,7 @@ import Header from './containers/Header/Header';
 import Footer from './containers/Footer/Footer';
 // import UploadForm from './containers/UploadForm/UploadForm';
 
+// cart-upload
 
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
