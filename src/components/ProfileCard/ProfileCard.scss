@@ -1,58 +1,60 @@
 .profile-card {
     background-color: white;
-
     border: 2px solid black;
-    width: 30vw;
-    margin: 10px 0;
+    // width: 30vw;
+    // width: 100%;
+    width: 300px;
+    margin: 10px;
     border-radius: 10px;
     padding: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    // justify-content: flex-end;
+
+    align-content: space-between;
+
+    box-shadow: 4px 4px 4px black;
+}
+
+.profile-card__contents {
     text-align: center;
 
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: 0.05rem;
+    row-gap: 0.3rem;
 
-    justify-items: center;
+    
     // justify-content: center;
-    // align-items: center;
-    // align-content: center;
+    // align-items: left;
+    // align-content: flex-start;
+    align-content: flex-start;
+
+
+    // justify-items: center;
+    // // justify-content: center;
+    // // align-items: center;
+    // // align-content: center;
 }
 
 .profile-card__name-row{
     width: 100%;
-    background-color: greenyellow;
-
     font-size: 20px;
     font-weight: bold;
-    // text-align: center;
-
-    display: flex;
-    flex-wrap: wrap;
-    // display: grid;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-
-    span {
-        margin: 0 4px;
-    }
-
-    // display: flex;
-
-    // background-color: red;
-
-    
-
-
-    // background-color: black;
-
-    // grid-auto-flow: column;
-    // grid-template-columns: auto auto;
-    // grid-template-columns: 1fr;
-    // grid-template-columns: 1fr 1fr;
-    // column-gap: 0.5rem;
 }
+
+.profile-card__address-row-1,
+.profile-card__address-row-2,
+.profile-card__cohort-row {
+    font-size: 16px;
+    font-style: italic;
+}
+
+// .profile-card__address-row,
+// .profile-card__cohort-row {
+//     font-size: 16px;
+// }
 
 // .name-row > span {
 //     background-color: red;
@@ -63,12 +65,62 @@
 //     background-color: red;
 // }
 
-.profile-card__address-row,
-.profile-card__cohort-row {
-    font-size: 16px;
-    text-align: center;
 
-    display: grid;
-    grid-auto-flow: column;
-    column-gap: 0.3rem;    
+
+// .profile-card__address-row,
+// .profile-card__cohort-row {
+//     font-size: 16px;
+//     text-align: center;
+
+//     display: grid;
+//     // grid-auto-flow: column;
+//     column-gap: 0.3rem;    
+// }
+
+
+// .add-to-cart-button {
+
+// }
+
+.add-to-cart-button {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+
+    border: none;
+    border: 2px solid black;
+    // height: 40px;
+    // width: 140px;
+
+    width: min(140px, 80%);
+
+    padding: 10px;
+
+    margin-top: 20px;
+
+    font-weight:800;
+
 }
+
+
+
+// @media screen and (min-width: 417px) {
+//     .profile-card {
+//         width: 45%;
+//     }
+// }
+
+
+
+// @media screen and (min-width: 1000px) {
+//     .profile-card {
+//         width: 30%;
+//     }
+// }
+
+
+// @media screen and (min-width: 1500px) {
+//     .profile-card {
+//         width: 22%;
+//     }
+// }

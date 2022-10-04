@@ -21,28 +21,24 @@ const ProfileCard = (props) => {
 
     return (
         <div className='profile-card'>
-            <div className='profile-card__name-row'>
-                <span>{firstName}</span>
-                <span>{lastName}</span>
+            <div className='profile-card__contents'>
+                <p className='profile-card__name-row'>{firstName} {lastName}</p>
+                <p className='profile-card__address-row-1'>{city}, {region}</p>
+                <p className='profile-card__address-row-2'>{zipCode}, {country}</p>
+                <p className='profile-card__cohort-row'>( {cohortYear} )</p>
             </div>
-            <div className='profile-card__address-row'>
-                <span>{city},</span>
-                <span>{region},</span>
-                <span>{zipCode},</span>
-                <span>{country}</span>
-            </div>
-            <div className='profile-card__cohort-row'>
-                {cohortYear}
-            </div>
-            {/* <p>{id}</p> */}
-
-            <button onClick={addToArray}>Add To Cart</button>
-
-            {/* {removeButton ? removeCard : addCard} */}
-            {/* <button onClick={addToArray}>add to cart</button>
-            <button id={id} onClick={removeFromArray}>Remove</button> */}
+            <button className='add-to-cart-button' onClick={addToArray}>Add To Cart</button>
         </div>
     )
+
+    // return (
+    //     <div className='profile-card'>
+    //         <p className='profile-card__name-row'>{firstName} {lastName}</p>
+    //         <p className='profile-card__address-row'>{city}, {region}, {zipCode}, {country}</p>
+    //         <p className='profile-card__cohort-row'>{cohortYear}</p>
+    //         <button className='add-to-cart-button' onClick={addToArray}>Add To Cart</button>
+    //     </div>
+    // )
 
     // return (
     //     <div className='profile-card'>

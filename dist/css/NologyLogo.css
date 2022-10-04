@@ -1,0 +1,8 @@
+.nology-logo {
+  --logo-width: 200px;
+  width: var(--logo-width);
+  height: calc(var(--logo-width) * 0.35);
+  background-image: url("/icons/Navbar-Logo-White.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}/*# sourceMappingURL=NologyLogo.css.map */

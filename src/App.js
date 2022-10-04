@@ -213,30 +213,7 @@ function App() {
                 setShoppingCartArr={setShoppingCartArr}/> : ""}
             </div>
 
-
-
-            {/* <main>
-                <FileUploaderContainer
-                    postProfile={postProfile}
-                    getProfiles={getProfiles}
-                    getAwsFileNames={getAwsFileNames}
-                    getAwsFile={getAwsFile}
-                    getSignedDownloadURL={getSignedDownloadURL}
-                    getSignedUploadURL={getSignedUploadURL}
-                    signedIn={signedIn}
-                />
-
-                {profiles && 
-                        <SearchResults 
-                            ShoppingCartArr = {ShoppingCartArr}
-                            setShoppingCartArr={setShoppingCartArr}
-                            files={profiles}
-                        />
-                }
-
-                <S3DownloadComponent signedIn={signedIn}/>
-
-            </main> */}
+            
             <Footer />
         </div>
     );

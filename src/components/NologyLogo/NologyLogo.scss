@@ -1,0 +1,22 @@
+// .nology-logo {
+//     --logo-width: 200px;
+//     width: var(--logo-width);
+//     // height: calc(var(--logo-width) * 0.5);
+//     height: calc(var(--logo-width) * 0.2);
+//     // height: auto;
+//     background-image: url('/icons/Navbar-Logo-White.svg'); // src folder
+//     background-repeat: no-repeat;
+//     background-size: contain;
+// }
+
+.nology-logo {
+    --logo-width: 200px;
+    width: var(--logo-width);
+    // height: calc(var(--logo-width) * 0.5);
+    height: calc(var(--logo-width) * 0.35);
+    // width: 100%;
+    // height: auto;
+    background-image: url('/icons/Navbar-Logo-White.svg'); // src folder
+    background-repeat: no-repeat;
+    background-size: contain;
+}

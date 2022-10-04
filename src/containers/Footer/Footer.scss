@@ -1,8 +1,113 @@
+
+// .Footer {
+//     background-color: black;
+//     color: white;
+//     width: 100%;
+//     height: 120px;
+//     // min-height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     position: sticky;
+//     top: 100%;
+
+//     // position: sticky;
+//     // bottom: 0;
+
+// }
+
 .Footer {
+    // position: absolute;
+    // bottom: 0;
+
+ 
+
+    margin-top: auto;
+
+    // min-height: 100vh;
     width: 100%;
-    height: 100px;
+}
+
+
+.Footer__contents {
+
+    // margin-top: auto;
+
+    // position: fixed;
+    // bottom: 0;   
+
+    // margin-top: auto;
     background-color: black;
     color: white;
-    position: absolute;
-    bottom: 0;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // margin-top: auto;
+
+    // position: sticky;
+    // // bottom: 0;
+    // // top: 100%;
+    // bottom: 0;
+
 }
+
+
+// .Footer__contents {
+//     background-color: black;
+//     color: white;
+//     width: 100%;
+//     height: 120px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+
+
+
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     position: sticky;
+//     // bottom: 0;
+//     // top: 100%;
+//     bottom: 0;
+
+// }
+
+
+// .Footer {
+//     height: 100vh;
+//     width: 100%;
+//     display: flex;
+//     justify-content: flex-end;
+
+// }
+
+
+
+// .Footer__contents {
+//     background-color: black;
+//     color: white;
+//     width: 100%;
+//     height: 120px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     position: sticky;
+//     bottom: 0;
+// }
+
+
+
+// .nology-logo {
+//     height: 400px;
+// }

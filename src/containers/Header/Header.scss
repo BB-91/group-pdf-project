@@ -11,16 +11,3 @@
     justify-content: space-between;
     padding: 10px;
 }
-
-:root {
-    --logo-width: 200px;
-}
-
-.nology-logo {
-    width: var(--logo-width);
-    height: var(--logo-width);
-    // height: auto;
-    background-image: url('/icons/Navbar-Logo-White.svg'); // src folder
-    background-repeat: no-repeat;
-    background-size: contain;
-}
