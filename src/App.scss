@@ -4,6 +4,35 @@
     box-sizing: border-box;
 }
 
+.button {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+    border: none;
+    cursor: pointer;    
+}
+
+
+
+// .login-button,
+// .logout-button {
+//     background-color: red;
+//     color: white;
+//     border-radius: 10px;
+//     font-size: 20px;
+//     font-weight: bold;
+//     width: 150px;
+//     border: none;
+//     cursor: pointer;
+// }
+
+main {
+    padding: 10px;
+}
+
 // .App {
 //   text-align: center;
 // }

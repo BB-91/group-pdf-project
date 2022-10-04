@@ -1,0 +1,26 @@
+.Header {
+    height: 120px;
+}
+
+.nav-bar {
+    height: 50%;
+    // background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+:root {
+    --logo-width: 200px;
+}
+
+.nology-logo {
+    width: var(--logo-width);
+    height: var(--logo-width);
+    // height: auto;
+    background-image: url('/icons/Navbar-Logo-White.svg'); // src folder
+    background-repeat: no-repeat;
+    background-size: contain;
+}

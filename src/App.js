@@ -13,6 +13,8 @@ import LogoutButton from './components/LogoutButton/LogoutButton';
 
 import SearchResults from './containers/SearchResults/SearchResults';
 import { useEffect, useRef, useState } from 'react';
+import Header from './containers/Header/Header';
+import Footer from './containers/Footer/Footer';
 // import UploadForm from './containers/UploadForm/UploadForm';
 
 
@@ -222,29 +224,30 @@ function App() {
 
     return (
         <div className="App">
-            <LoginButton />
-            <LogoutButton />
+            <Header />
+            <main>
+                <FileUploaderContainer
+                    postProfile={postProfile}
+                    getProfiles={getProfiles}
+                    getAwsFileNames={getAwsFileNames}
+                    getAwsFile={getAwsFile}
+                    getSignedDownloadURL={getSignedDownloadURL}
+                    getSignedUploadURL={getSignedUploadURL}
+                    signedIn={signedIn}
+                />
 
-            <FileUploaderContainer
-                postProfile={postProfile}
-                getProfiles={getProfiles}
-                getAwsFileNames={getAwsFileNames}
-                getAwsFile={getAwsFile}
-                getSignedDownloadURL={getSignedDownloadURL}
-                getSignedUploadURL={getSignedUploadURL}
-                signedIn={signedIn}
-            />
+                {profiles && 
+                        <SearchResults 
+                            ShoppingCartArr = {ShoppingCartArr}
+                            setShoppingCartArr={setShoppingCartArr}
+                            profiles={profiles}
+                        />
+                }
 
-            {profiles && 
-                    <SearchResults 
-                        ShoppingCartArr = {ShoppingCartArr}
-                        setShoppingCartArr={setShoppingCartArr}
-                        profiles={profiles}
-                    />
-            }
+                <S3DownloadComponent signedIn={signedIn}/>
 
-            <S3DownloadComponent signedIn={signedIn}/>
-
+            </main>
+            <Footer />
         </div>
     );
 }

@@ -20,6 +20,7 @@ select {
   border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
+  margin-top: 20px;
   width: clamp(280px, 30%, 800px);
 }
 

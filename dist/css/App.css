@@ -2,4 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.button {
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 150px;
+  border: none;
+  cursor: pointer;
+}
+
+main {
+  padding: 10px;
 }/*# sourceMappingURL=App.css.map */

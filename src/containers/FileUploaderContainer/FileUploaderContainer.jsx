@@ -58,13 +58,32 @@ const FileUploaderContainer = (props) => {
     }
 
     return (
-        <div className='file-uploader-controller'>
-            {/* <input type="button" value="show-me-the-signed-url" onClick={handleShowMeSignedURLBtnClick}/>
-            <input type="button" value="test-btn" onClick={handleTestButtonClick}/> */}
-            <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
+        <div className='file-uploader-container'>
+            <div className='upload-wrapper'>
+                <label for={KEY.pdf} className="button custom-file-upload">
+                    Upload Profile PDF
+                </label>
+                <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
+            </div>
             {cards.length > 0 && cards}
         </div>
     )
+
+    // return (
+    //     <div className='file-uploader-container'>
+
+    //         <label for={KEY.pdf} className="button custom-file-upload">
+    //             Upload Profile PDF
+    //         </label>
+    //         {/* <input id="file-upload" type="file"/> */}
+
+    //         {/* <input type="button" value="show-me-the-signed-url" onClick={handleShowMeSignedURLBtnClick}/>
+    //         <input type="button" value="test-btn" onClick={handleTestButtonClick}/> */}
+    //         <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
+    //         {cards.length > 0 && cards}
+    //     </div>
+    // )
+
 }
 
 export default FileUploaderContainer;

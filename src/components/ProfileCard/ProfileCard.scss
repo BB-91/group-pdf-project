@@ -1,0 +1,38 @@
+.profile-card {
+    border: 2px solid black;
+    width: 35vw;
+    margin: 10px 0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.05rem;
+
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.name-row{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    display: grid;
+    // grid-auto-flow: column;
+    grid-template-columns: auto auto;
+    column-gap: 0.5rem;
+}
+
+.address-row,
+.cohort-row {
+    font-size: 16px;
+    text-align: center;
+
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 0.3rem;    
+}

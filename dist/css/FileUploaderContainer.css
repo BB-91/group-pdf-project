@@ -1,1 +1,12 @@
-/*# sourceMappingURL=FileUploaderContainer.css.map */
+input[type=file] {
+  background-color: greenyellow;
+  display: none;
+}
+
+.custom-file-upload {
+  padding: 10px;
+}
+
+.upload-wrapper {
+  margin-top: 10px;
+}/*# sourceMappingURL=FileUploaderContainer.css.map */

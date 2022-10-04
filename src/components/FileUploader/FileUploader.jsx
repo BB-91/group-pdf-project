@@ -296,7 +296,7 @@ const FileUploader = (props) => {
     const getChildComponentTreeAndSetProperties = () => {
         const childComponents = (
             <>
-                <h5>Upload a profile PDF</h5>
+                <h5>Profile Details</h5>
                 <form className='file-upload-form'>
                     {getNewFileInputElement()}
                     

@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import "./ProfileCard.scss";
 
 const ProfileCard = (props) =>{
     const { profile, ShoppingCartArr, setShoppingCartArr } = props;
@@ -30,18 +31,72 @@ const ProfileCard = (props) =>{
     const addCard = (<button onClick={addToArray}>add to cart</button>)
     const removeCard = (<button id={id} onClick={removeFromArray}>Remove</button>)
 
-return (
-    <>
-        <p>{firstName} {lastName}</p>
-        <p>{city}, {region}, {zipCode}, {country}</p>
-        <p>{cohortYear}</p>
-        <p>{id}</p>
-        {removeButton ? removeCard : addCard}
-        {/* <button onClick={addToArray}>add to cart</button>
-        <button id={id} onClick={removeFromArray}>Remove</button> */}
-    </>
-)
+    return (
+        <div className='profile-card'>
+            <div className='name-row'>
+                <span>{firstName}</span>
+                <span>{lastName}</span>
+            </div>
+            <div className='address-row'>
+                <span>{city},</span>
+                <span>{region},</span>
+                <span>{zipCode},</span>
+                <span>{country}</span>
+            </div>
+            <div className='cohort-row'>
+                {cohortYear}
+            </div>
+            {/* <p>{id}</p> */}
+            {removeButton ? removeCard : addCard}
+            {/* <button onClick={addToArray}>add to cart</button>
+            <button id={id} onClick={removeFromArray}>Remove</button> */}
+        </div>
+    )
+
+    // return (
+    //     <div className='profile-card'>
+    //         <div className='name-row'>
+    //             <span>{firstName}</span>
+    //             <span>{lastName}</span>
+    //         </div>
+    //         <div className='address-row'>
+    //             <span>{city},</span>
+    //             <span>{region},</span>
+    //             <span>{zipCode},</span>
+    //             <span>{country}</span>
+    //         </div>
+    //         <p>{cohortYear}</p>
+    //         {/* <p>{id}</p> */}
+    //         {removeButton ? removeCard : addCard}
+    //         {/* <button onClick={addToArray}>add to cart</button>
+    //         <button id={id} onClick={removeFromArray}>Remove</button> */}
+    //     </div>
+    // )
+
+    // return (
+    //     <div className='profile-card'>
+    //         <p>{firstName} {lastName}</p>
+    //         <p>{city}, {region}, {zipCode}, {country}</p>
+    //         <p>{cohortYear}</p>
+    //         <p>{id}</p>
+    //         {removeButton ? removeCard : addCard}
+    //         {/* <button onClick={addToArray}>add to cart</button>
+    //         <button id={id} onClick={removeFromArray}>Remove</button> */}
+    //     </div>
+    // )
+
+    // return (
+    //     <>
+    //         <p>{firstName} {lastName}</p>
+    //         <p>{city}, {region}, {zipCode}, {country}</p>
+    //         <p>{cohortYear}</p>
+    //         <p>{id}</p>
+    //         {removeButton ? removeCard : addCard}
+    //         {/* <button onClick={addToArray}>add to cart</button>
+    //         <button id={id} onClick={removeFromArray}>Remove</button> */}
+    //     </>
+    // )
 
 }
 
-export default ProfileCard
+export default ProfileCard;
