@@ -18,11 +18,91 @@ import Footer from './containers/Footer/Footer';
 // import UploadForm from './containers/UploadForm/UploadForm';
 // cart-upload
 
+
+
+// ---BEGIN
+// import './App.scss';
+// import FileUploader from './components/FileUploader/FileUploader';
+
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import UploadForm from './containers/UploadForm/UploadForm';
+
+// import SearchResults from './containers/SearchResults/SearchResults';
+// import {useEffect, useState} from 'react';
+
+// ---END
+
+
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
 
 const localApiURL = LOCAL_API.getURL();
 const awsApiURL = AWS_API.getURL();
+
+
+// function App() {
+
+//     const [files, setFiles] = useState()
+//     const [ShoppingCartArr, setShoppingCartArr] = useState([])
+//     const [renderOptions, setRenderOptions] = useState()
+
+//     const getData = () => {
+//         fetch("http://localhost:3010/api/profiles")
+//         .then((response) => {
+//             return response.json()
+//         }) .then((data) => {
+//             setFiles(data)
+//         })
+//     }
+    
+//     const renderShoppingCart = () => {
+//         setRenderOptions("shoppingCartOption")
+//     }
+
+//     const renderUploadForm = () => {
+//         setRenderOptions("uploadFormOption")
+//     }
+
+//     const renderSearchResults = () => {
+//         setRenderOptions("searchResultsOption")
+//     }
+
+//     useEffect(getData, [])
+
+//     console.log(ShoppingCartArr)
+
+//     return (
+//         <div className="App">
+//             <nav className="nav__buttons">
+//                 <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
+//                 <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
+//                 <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
+//             </nav>
+//             {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
+//             {renderOptions == "uploadFormOption" ?
+//                 <FileUploaderContainer
+//                     postProfile={postProfile}
+//                     getProfiles={getProfiles}
+//                     getAwsFileNames={getAwsFileNames}
+//                     getAwsFile={getAwsFile}
+//                     getSignedDownloadURL={getSignedDownloadURL}
+//                     getSignedUploadURL={getSignedUploadURL}
+//                     signedIn={signedIn}
+//                 />
+//                 : ""
+//             }
+//             {renderOptions == "searchResultsOption" ? files && <SearchResults 
+//             ShoppingCartArr = {ShoppingCartArr}
+//             setShoppingCartArr={setShoppingCartArr}
+//             files={files}/>: ""}
+//             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
+//             ShoppingCartArr = {ShoppingCartArr}
+//             setShoppingCartArr={setShoppingCartArr}/> : ""}
+//         </div>
+//     );
+// }
+
+
 
 
 function App() {
@@ -139,10 +219,120 @@ function App() {
         }
     })
 
+
+
+// -START---------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+    const [files, setFiles] = useState()
+    // const [ShoppingCartArr, setShoppingCartArr] = useState([])
+    const [renderOptions, setRenderOptions] = useState()
+
+    const getData = () => {
+        fetch("http://localhost:3010/api/profiles")
+        .then((response) => {
+            return response.json()
+        }) .then((data) => {
+            setFiles(data)
+        })
+    }
+    
+    const renderShoppingCart = () => {
+        setRenderOptions("shoppingCartOption")
+    }
+
+    const renderUploadForm = () => {
+        setRenderOptions("uploadFormOption")
+    }
+
+    const renderSearchResults = () => {
+        setRenderOptions("searchResultsOption")
+    }
+
+    useEffect(getData, [])
+
+    console.log(ShoppingCartArr)
+
+    // return (
+    //     <div className='SHOPPING-CART'>
+    //         <div className="App">
+    //             <nav className="nav__buttons">
+    //                 <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
+    //                 <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
+    //                 <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
+    //             </nav>
+    //             {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
+    //             {renderOptions == "uploadFormOption" ?
+    //                 <FileUploaderContainer
+    //                     postProfile={postProfile}
+    //                     getProfiles={getProfiles}
+    //                     getAwsFileNames={getAwsFileNames}
+    //                     getAwsFile={getAwsFile}
+    //                     getSignedDownloadURL={getSignedDownloadURL}
+    //                     getSignedUploadURL={getSignedUploadURL}
+    //                     signedIn={signedIn}
+    //                 />
+    //                 : ""
+    //             }
+    //             {renderOptions == "searchResultsOption" ? files && <SearchResults 
+    //             ShoppingCartArr = {ShoppingCartArr}
+    //             setShoppingCartArr={setShoppingCartArr}
+    //             files={files}/>: ""}
+    //             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
+    //             ShoppingCartArr = {ShoppingCartArr}
+    //             setShoppingCartArr={setShoppingCartArr}/> : ""}
+    //         </div>        
+    //     </div>
+
+
+    // );
+// -END---------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+
+
+
     return (
         <div className="App">
             <Header />
-            <main>
+
+            <div className='SHOPPING-CART'>
+            {/* <div className="App"> */}
+                <nav className="nav__buttons">
+                    <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
+                    <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
+                    <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
+                </nav>
+                {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
+                {renderOptions == "uploadFormOption" ?
+                    <FileUploaderContainer
+                        postProfile={postProfile}
+                        getProfiles={getProfiles}
+                        getAwsFileNames={getAwsFileNames}
+                        getAwsFile={getAwsFile}
+                        getSignedDownloadURL={getSignedDownloadURL}
+                        getSignedUploadURL={getSignedUploadURL}
+                        signedIn={signedIn}
+                    />
+                    : ""
+                }
+                {renderOptions == "searchResultsOption" ? files && <SearchResults 
+                ShoppingCartArr = {ShoppingCartArr}
+                setShoppingCartArr={setShoppingCartArr}
+                files={files}/>: ""}
+                {renderOptions == "shoppingCartOption" ? <ShoppingCart 
+                ShoppingCartArr = {ShoppingCartArr}
+                setShoppingCartArr={setShoppingCartArr}/> : ""}
+            {/* </div>         */}
+        </div>
+
+
+
+            {/* <main>
                 <FileUploaderContainer
                     postProfile={postProfile}
                     getProfiles={getProfiles}
@@ -163,10 +353,84 @@ function App() {
 
                 <S3DownloadComponent signedIn={signedIn}/>
 
-            </main>
+            </main> */}
             <Footer />
         </div>
     );
 }
 
 export default App;
+
+
+// import './App.scss';
+// import FileUploader from './components/FileUploader/FileUploader';
+// import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+// import SearchResults from './containers/SearchResults/SearchResults';
+// import UploadForm from './containers/UploadForm/UploadForm';
+// import {useEffect, useState} from 'react';
+
+
+// function App() {
+
+//     const [files, setFiles] = useState()
+//     const [ShoppingCartArr, setShoppingCartArr] = useState([])
+//     const [renderOptions, setRenderOptions] = useState()
+
+//     const getData = () => {
+//         fetch("http://localhost:3010/api/profiles")
+//         .then((response) => {
+//             return response.json()
+//         }) .then((data) => {
+//             setFiles(data)
+//         })
+//     }
+    
+//     const renderShoppingCart = () => {
+//         setRenderOptions("shoppingCartOption")
+//     }
+
+//     const renderUploadForm = () => {
+//         setRenderOptions("uploadFormOption")
+//     }
+
+//     const renderSearchResults = () => {
+//         setRenderOptions("searchResultsOption")
+//     }
+
+//     useEffect(getData, [])
+
+//     console.log(ShoppingCartArr)
+
+//     return (
+//         <div className="App">
+//             <nav className="nav__buttons">
+//                 <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
+//                 <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
+//                 <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
+//             </nav>
+//             {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
+//             {renderOptions == "uploadFormOption" ?
+//                 <FileUploaderContainer
+//                     postProfile={postProfile}
+//                     getProfiles={getProfiles}
+//                     getAwsFileNames={getAwsFileNames}
+//                     getAwsFile={getAwsFile}
+//                     getSignedDownloadURL={getSignedDownloadURL}
+//                     getSignedUploadURL={getSignedUploadURL}
+//                     signedIn={signedIn}
+//                 />
+//                 : ""
+//             }
+//             {renderOptions == "searchResultsOption" ? files && <SearchResults 
+//             ShoppingCartArr = {ShoppingCartArr}
+//             setShoppingCartArr={setShoppingCartArr}
+//             files={files}/>: ""}
+//             {renderOptions == "shoppingCartOption" ? <ShoppingCart 
+//             ShoppingCartArr = {ShoppingCartArr}
+//             setShoppingCartArr={setShoppingCartArr}/> : ""}
+//         </div>
+//     );
+// }
+
+// export default App;
+

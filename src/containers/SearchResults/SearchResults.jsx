@@ -6,136 +6,106 @@ import DateDropdown from "../../components/DateDropdown/DateDropdown";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
-    const {ShoppingCartArr, setShoppingCartArr, profiles} = props;
+
+    const {ShoppingCartArr, setShoppingCartArr, files} = props;
     
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
     const [dateResults, setDateResults] = useState([])
     const [profileYear, setProfileYear] = useState([])
 
-    const filteredProfiles = checkResults.filter((profile) => {
-        const lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
-        const splitResults = returnResults.split(" ");
-        let allSplitResultsMatch = true;
-
-        for (let i=0; i<splitResults.length; i++) {
-            const splitResult = splitResults[i];
-            let matchFound = false;
-
-            for (let n=0; n<lowerProfileValues.length; n++) {
-                const value = lowerProfileValues[n];
-                if (value.includes(splitResult)) {
-                    matchFound = true;
-                    break;
-                }
-            }
-
-            if (!matchFound) {
-                allSplitResultsMatch = false;
-                break;
-            }
-
-        }
-
-        return allSplitResultsMatch;
+    const filteredFiles = checkResults.filter((file) => {
+        return (
+            file.firstName.toLowerCase().includes(returnResults) ||
+            file.lastName.toLowerCase().includes(returnResults) ||
+            file.city.toLowerCase().includes(returnResults) ||
+            file.country.toLowerCase().includes(returnResults) ||
+            file.state.toLowerCase().includes(returnResults) ||
+            file.zipCode.toLowerCase().includes(returnResults) ||
+            file.cohort_year == returnResults
+            )
     })
 
     console.log("Date result " + dateResults);
-    const searchYearFilter = filteredProfiles.filter((profile) => {
-        if (dateResults === "all" || dateResults === "") {
-            return profile;
+    const searchYearFilter = filteredFiles.filter((file) => {
+        if (dateResults == "all" || dateResults == "") {
+            return file
         } else {
-            return profile.cohortYear === dateResults;
+            return file.cohort_year == dateResults
         }
+        
     })
 
-    const mappedProfiles = searchYearFilter.map((profile, index) => {
+    const mappedFiles = searchYearFilter.map((file, index) => {
         return (
             <>
                 <ProfileCard
-                    profile={profile}
+                    firstName = {file.firstName} 
+                    lastName = {file.lastName} 
+                    city = {file.city} 
+                    state = {file.state}
+                    zipcode = {file.zipcode}
+                    country = {file.country}
+                    cohort_year = {file.cohort_year}
+                    id = {file.id}
+                    file={file}
                     ShoppingCartArr={ShoppingCartArr}
                     setShoppingCartArr={setShoppingCartArr}
+
                     key={index}
                 />
-                {/* <button onClick={addToArray(profile)}>add to cart</button> */}
             </>
         )
     })
 
-    // const mappedProfiles = searchYearFilter.map((profile) => {
-    //     const { id, cohortYear, firstName, lastName, country, city, region, zipCode } = profile;
-
+    // const mappedFiles = searchYearFilter.map((file) => {
     //     return (
     //         <>
     //             <ProfileCard 
-    //                 profile={profile}
-    //                 id={id}
-    //                 cohortYear={cohortYear}
-    //                 firstName={firstName} 
-    //                 lastName={lastName} 
-    //                 country={country}
-    //                 city={city} 
-    //                 region={region}
-    //                 zipCode={zipCode}
-    //                 //  index = {ShoppingCartDisplay.indexOf()}
-    //                 // state = {profile.state}
-    //                 // zipcode = {profile.zipcode}
-    //                 // addToArray={addToArray}
+    //                 firstName = {file.firstName} 
+    //                 lastName = {file.lastName} 
+    //                 city = {file.city} 
+    //                 state = {file.state}
+    //                 zipcode = {file.zipcode}
+    //                 country = {file.country}
+    //                 cohort_year = {file.cohort_year}
+    //                 id = {file.id}
+    //                 file={file}
     //                 ShoppingCartArr={ShoppingCartArr}
     //                 setShoppingCartArr={setShoppingCartArr}
-    //             />
-    //             {/* <button onClick={addToArray(profile)}>add to cart</button> */}
-    //         </>
-    //     )
-    // })
 
-    // const mappedProfiles = searchYearFilter.map((profile) => {
-    //     return (
-    //         <>
-    //             <ProfileCard 
-    //                 //  index = {ShoppingCartDisplay.indexOf()}
-    //                 firstName = {profile.firstName} 
-    //                 lastName = {profile.lastName} 
-    //                 city = {profile.city} 
-    //                 state = {profile.state}
-    //                 zipcode = {profile.zipcode}
-    //                 country = {profile.country}
-    //                 cohortYear = {profile.cohortYear}
-    //                 id = {profile.id}
-    //                 // addToArray={addToArray}
-    //                 profile={profile}
-    //                 ShoppingCartArr={ShoppingCartArr}
-    //                 setShoppingCartArr={setShoppingCartArr}
+                    
     //             />
-    //             {/* <button onClick={addToArray(profile)}>add to cart</button> */}
     //         </>
     //     )
     // })
 
 
     return (
-        <>
-            <SearchBar 
-            setReturnResults={setReturnResults}/>
-            {profiles && 
-                    <FilterCheckboxes 
-                        checkResults={checkResults}
-                        profiles={profiles}
-                        setCheckResults={setCheckResults}
-                    />
-            }
-            {profiles && 
-                    <DateDropdown 
-                        profiles={profiles}
-                        dateResults={dateResults}
-                        setDateResults={setDateResults}
-                        profileYear={profileYear}
-                        setProfileYear={setProfileYear}
-                    />
-            }
-            {mappedProfiles}
-        </>
+        <div className="search__page">
+            <h2>Search Profiles</h2>
+            <div>
+                <SearchBar
+                    setReturnResults={setReturnResults}/>
+                    {files && 
+                        <FilterCheckboxes 
+                            checkResults={checkResults}
+                            files={files}
+                            setCheckResults={setCheckResults}
+                        />
+                    }
+                    {files &&
+                        <DateDropdown 
+                            files={files}
+                            dateResults={dateResults}
+                            setDateResults={setDateResults}
+                            profileYear={profileYear}
+                            setProfileYear={setProfileYear}
+                        />
+                    }
+            </div>
+            {mappedFiles}
+        </div>
     )
 }
 

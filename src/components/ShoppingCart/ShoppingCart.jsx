@@ -12,9 +12,9 @@ const ShoppingCart = (props) =>{
         setShoppingCartArr(ShoppingCartArr.filter(profile => profile.id != profileId))
     }
 
-    const ShoppingCartDisplay = ShoppingCartArr.map(file => {
+    const ShoppingCartDisplay = ShoppingCartArr.map((file, index) => {
         return (
-        <div>
+        <div key={index}>
             <p>{file.firstName} {file.lastName}</p>
             <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
             <p>{file.cohort_year}</p>
@@ -23,6 +23,18 @@ const ShoppingCart = (props) =>{
          </div>
         )
     });
+
+    // const ShoppingCartDisplay = ShoppingCartArr.map((file) => {
+    //     return (
+    //     <div>
+    //         <p>{file.firstName} {file.lastName}</p>
+    //         <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
+    //         <p>{file.cohort_year}</p>
+    //         <p>{file.id}</p>
+    //         <button id={file.id} onClick={removeFromShoppingCart}>Remove</button>
+    //      </div>
+    //     )
+    // });
 
     const data = ShoppingCartArr;
 
