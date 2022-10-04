@@ -10,13 +10,14 @@ const SearchBar = (props) => {
     }
     
     return (
-        <>
-            <input type="search" 
+        <div  className="search__bar">
+            <input
+            type="search" 
             placeholder="Search!"
             onInput={handleSearchInput}
             ></input>
             
-        </>
+        </div>
     )
 
     

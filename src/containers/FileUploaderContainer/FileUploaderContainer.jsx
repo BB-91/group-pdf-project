@@ -60,7 +60,7 @@ const FileUploaderContainer = (props) => {
     return (
         <div className='file-uploader-container'>
             <div className='upload-wrapper'>
-                <label for={KEY.pdf} className="custom-file-upload">
+                <label htmlFor={KEY.pdf} className="custom-file-upload">
                     Upload Profile PDF
                 </label>
                 <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />

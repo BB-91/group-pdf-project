@@ -1,54 +1,52 @@
 // import "./ShoppingCart.scss"
 import { useState } from "react"
 import ProfileCard from "../ProfileCard/ProfileCard"
+import {CSVLink, CSVDownload} from 'react-csv';
 
 const ShoppingCart = (props) =>{
-    const {ShoppingCartArr} = props
+    const {ShoppingCartArr, setShoppingCartArr} = props
     const [showCart, setShowCart] = useState()
-    
-    const removeFromCart = () =>{
-       console.log(ShoppingCartArr[0])
-        }
-    
 
-        const ShoppingCartDisplay = ShoppingCartArr.map(profile => {
-            return (
-                <div>
-                    <ProfileCard profile={profile}/>
-                </div>
-            )
-        });
+    const removeFromShoppingCart = (event) => {
+        const profileId = event.target.getAttribute("id")
+        setShoppingCartArr(ShoppingCartArr.filter(profile => profile.id != profileId))
+    }
 
+    const ShoppingCartDisplay = ShoppingCartArr.map(file => {
+        return (
+        <div>
+            <p>{file.firstName} {file.lastName}</p>
+            <p>{file.city}, {file.state}, {file.zipCode}, {file.country}</p>
+            <p>{file.cohort_year}</p>
+            <p>{file.id}</p>
+            <button id={file.id} onClick={removeFromShoppingCart}>Remove</button>
+         </div>
+        )
+    });
 
-    // const ShoppingCartDisplay = ShoppingCartArr.map(profile => {
-    //     return (
-    //         // const {  }
+    const data = ShoppingCartArr;
 
-    //         <div>
-    //             <ProfileCard 
-    //                 //  index = {ShoppingCartDisplay.indexOf()}
-    //                 firstName = {profile.firstName} 
-    //                 lastName = {profile.lastName} 
-    //                 city = {profile.city} 
-    //                 // state = {profile.state}
-    //                 region = {profile.state}
-    //                 zipcode = {profile.zipcode}
-    //                 country = {profile.country}
-    //                 cohortYear = {profile.cohortYear}
-    //             />
-    //         </div>
-    //     )
-    // });
+    const headers = [
+        {label: 'First Name', key: 'firstName'},
+        {label: 'Last Name', key: 'lastName'},
+        {label: 'City', key: 'city'},
+        {label: 'State', key: 'state'},
+        {label: 'ZipCode', key: 'zipCode'},
+        {label: 'Country', key: 'country'},
+        {label: 'Cohort Year', key: 'cohort_year'},
+        {label: 'ID', key: 'id'}
+    ]
 
-////container for each profile line
-//render with button to take out of cart
-// togle 
-
+    const clearShoppingCart = () => {
+        setShoppingCartArr([])
+    }
 
     return (
         <div>
-            <h1>CART</h1>      
-            {ShoppingCartDisplay}
+            <h1>Shopping Cart</h1>
+            <CSVLink filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>
+            <button onClick={clearShoppingCart}>Clear Shopping Cart</button>      
+            {ShoppingCartDisplay}     
         </div>
     )
 }

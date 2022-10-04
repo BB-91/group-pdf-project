@@ -16,7 +16,6 @@ import { useEffect, useRef, useState } from 'react';
 import Header from './containers/Header/Header';
 import Footer from './containers/Footer/Footer';
 // import UploadForm from './containers/UploadForm/UploadForm';
-
 // cart-upload
 
 const TEST_SIGN_IN_TOKEN = "xyz789";
@@ -26,68 +25,9 @@ const localApiURL = LOCAL_API.getURL();
 const awsApiURL = AWS_API.getURL();
 
 
-
-
 function App() {
     const [profiles, setProfiles] = useState([])
     const [ShoppingCartArr, setShoppingCartArr] = useState([])
-
-
-
-    
-
-   
-
-
-    // const getSignedDownloadURL = async (filename) => {
-    //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
-    //     console.log("signedURL: ", signedURL);
-    //     return signedURL;
-    // }
-
-    // const getSignedDownloadURL = async (filename) => {
-    //     console.log("filename: ", filename)
-    //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`).then(res => { return res.json(); })
-    //     // const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
-    //     const signedURL = await fetch(`http://localhost:3050/getsignedurl/${filename}`);
-    //     console.log("signedURL: ", signedURL);
-    //     // const jsFromJson = await signedURL.json();
-    //     // console.log("jsFromJson: ", jsFromJson);
-    //     // console.log()
-    //     return signedURL;
-    // }
-
-    // const getSignedDownloadURL = async (filename) => {
-    //     console.log("filename: ", filename)
-
-    //     const res = await fetch(`http://localhost:3050/getsignedurl/${filename}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             // 'Accept': '*/*',
-    //             'Content-Type': 'application/json',
-    //             'Content-Length': '<calculated when request is sent>',
-    //             'Host': '<calculated when request is sent>',
-    //             // 'Accept': '*/*',
-    //             'Accept': 'application/json',
-    //             'Accept-Encoding': 'gzip, deflate, br',
-    //             'Connection': 'keep-alive'
-    //         },
-    //         // body: formData
-    //     })
-    //     // .then(res => res.json());
-
-    //     console.log("res:", res);
-
-    //     const resObj = await res.json();
-
-    //     console.log("resObj: ", resObj);
-
-    //     const preSignedUrl = resObj.preSignedUrl;
-
-    //     console.log("preSignedUrl: ", preSignedUrl);
-    //     return preSignedUrl;
-    // }
-
 
     const ENDPOINT = {
         upload: 'getSignedUploadUrl/',
@@ -199,30 +139,6 @@ function App() {
         }
     })
 
-    // const initShoppingCartData = async () => {
-    //     const profiles = await getProfiles();
-
-
-    //     fetch("http://localhost:3010/api/profiles")
-    //     .then((response) => {
-    //         return response.json()
-    //     }) .then((data) => {
-    //         setFiles(data)
-    //     })
-    // }
-
-
-    // return (
-    //     <div className="App">
-    //         <UploadForm/>
-    //         {files && <SearchResults 
-    //         ShoppingCartArr = {ShoppingCartArr}
-    //         setShoppingCartArr={setShoppingCartArr}
-    //         files={files}/>}
-    //         {/* <ShoppingCart ShoppingCartArr = {ShoppingCartArr}/> */}
-    //     </div>
-    // );
-
     return (
         <div className="App">
             <Header />
@@ -241,7 +157,7 @@ function App() {
                         <SearchResults 
                             ShoppingCartArr = {ShoppingCartArr}
                             setShoppingCartArr={setShoppingCartArr}
-                            profiles={profiles}
+                            files={profiles}
                         />
                 }
 
