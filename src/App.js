@@ -9,6 +9,7 @@ function App() {
 
     const [files, setFiles] = useState()
     const [ShoppingCartArr, setShoppingCartArr] = useState([])
+    const [renderOptions, setRenderOptions] = useState()
 
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
@@ -18,13 +19,22 @@ function App() {
             setFiles(data)
         })
     }
-
-    // const testFunc = () => {
-    //     setShoppingCartArr("helloo")
-    // }
-
-    // useEffect(testFunc, [])
     
+    const renderShoppingCart = () => {
+        setRenderOptions("shoppingCartOption")
+    }
+
+    const renderUploadForm = () => {
+        setRenderOptions("uploadFormOption")
+    }
+
+    const renderSearchResults = () => {
+        setRenderOptions("searchResultsOption")
+    }
+
+    // const renderDifferentOptions = () => {
+    //     renderOptions == "shoppingCartOption" ? 
+    // }
 
     useEffect(getData, [])
 
@@ -33,15 +43,18 @@ function App() {
 
     return (
         <div className="App">
-            <UploadForm/>
-            {files && <SearchResults 
+            <button onClick={renderUploadForm}>upload form</button>
+            <button onClick={renderSearchResults}>search results</button>
+            <button onClick={renderShoppingCart}>shopping cart</button>
+            {renderOptions == "uploadFormOption" ? <UploadForm/> : ""}
+            {renderOptions == "searchResultsOption" ? files && <SearchResults 
             ShoppingCartArr = {ShoppingCartArr}
             setShoppingCartArr={setShoppingCartArr}
-            files={files}/>}
-            <ShoppingCart 
+            files={files}/>: ""}
+            {renderOptions == "shoppingCartOption" ? <ShoppingCart 
             ShoppingCartArr = {ShoppingCartArr}
             setShoppingCartArr={setShoppingCartArr}
-            files={files}/>
+            files={files}/> : ""}
         </div>
     );
 }
