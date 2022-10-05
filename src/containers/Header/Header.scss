@@ -17,6 +17,7 @@
 
 .nav__buttons{
     display: flex;
+    margin-right: 5%;
     
 }
 
@@ -27,9 +28,11 @@
         color: var(--primary-button-color);
     }
 
-    padding-right: 20px;
+    padding-right: 20%;
     background-color: transparent;
     color: white;
     font-weight: bold;
     border: none;
+    font-size: 20px;
+    
 }

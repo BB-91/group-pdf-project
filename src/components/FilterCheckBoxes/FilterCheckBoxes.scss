@@ -1,0 +1,14 @@
+.check__boxes {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 15px;
+    font-size: 22px;
+    position: relative;
+    bottom: 1px;
+}
+
+.check__box {
+    display: flex;
+    flex-direction: row-reverse;
+}

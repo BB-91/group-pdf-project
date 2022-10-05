@@ -19,13 +19,18 @@
 }
 
 .button {
-    background-color: var(--primary-button-color);
+    // background-color: var(--primary-button-color);
+    background-color: #410e8f;
+    height: 60px;
+    // background-color: transparent;
     color: white;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
-    width: 150px;
+    width: auto;
     border: none;
+    padding-left: 30px;
+    padding-right: 30px;
     cursor: pointer;    
 }
 
