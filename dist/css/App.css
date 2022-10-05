@@ -10,6 +10,7 @@
 :root {
   --primary-button-color: #F43268;
   --wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);
+  --centered-shadow: 0px 0px 10px black;
 }
 
 .button {

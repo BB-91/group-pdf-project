@@ -54,7 +54,7 @@ const FileUploaderContainer = (props) => {
                 <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
             </div>
             <div className="upload__card">
-            {cards.length > 0 && cards}
+                {cards.length > 0 && cards}
             </div>
         </div>
     )

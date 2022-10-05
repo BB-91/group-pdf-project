@@ -17,7 +17,8 @@ select {
   display: grid;
   row-gap: var(--row-gap);
   grid-template-columns: 1fr;
-  border: 2px solid black;
+  border: none;
+  box-shadow: var(--centered-shadow);
   border-radius: 10px;
   padding: 10px;
   margin-top: 20px;

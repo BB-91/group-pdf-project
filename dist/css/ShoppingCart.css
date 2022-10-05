@@ -58,7 +58,7 @@ h1 {
   grid-template-columns: 1fr;
   justify-items: center;
   align-content: space-between;
-  box-shadow: 0px 0px 10px black;
+  box-shadow: var(--centered-shadow);
 }
 
 .profile-card__contents {

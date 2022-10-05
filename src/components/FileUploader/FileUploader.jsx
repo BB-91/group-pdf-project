@@ -33,7 +33,11 @@ const FileUploader = (props) => {
     const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL, pdf } = props;
 
     const pdfEmbedRef = useRef(null);
+    // const fileNameDisplayerRef = useRef(null);
+
     const fileInputElementRef = useRef(null);
+
+
 
     const pdfRef = useRef(null); // runs once
     pdfRef.current = pdf; // runs every render
@@ -237,9 +241,9 @@ const FileUploader = (props) => {
         let selectElement = null;
 
         if (isRequired) {
-            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected} required>{optionsWithDisabledDefault}</select>)
+            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected} defaultValue='2022' required>{optionsWithDisabledDefault}</select>)
         } else {
-            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected}> {optionsWithDisabledDefault}</select>)
+            selectElement = (<select ref={keyRefObj[key]} name={key} className={key} onChange={handleOptionSelected} defaultValue='2022'> {optionsWithDisabledDefault}</select>)
         }
 
         return selectElement;
@@ -247,6 +251,7 @@ const FileUploader = (props) => {
 
 
     const getNewEmbedElement = () => {
+
         const embedElement = <embed ref={element => pdfEmbedRef.current = element} src='' type="application/pdf" width="70px" height="90px"/>
         pdfEmbedRef.current = embedElement;
         showForm();
@@ -297,7 +302,11 @@ const FileUploader = (props) => {
                             {/* {getNewSelectElement(KEY.region, STATE_OPTIONS_ELEMENTS)} */}
                             {getNewSelectElement(KEY.region, [])}
                             {getNewTextInputElement(KEY.zipCode)}
-                            {getNewEmbedElement()}
+                            {/* uploaded file name here instead of pdf preview */}
+                            {/* <p ref={fileNameDisplayerRef} className='uploaded-file-name-displayer'>FILE NAME HERE</p> */}
+                            {/* <p ref={fileNameDisplayerRef} className='uploaded-file-name-displayer'>{pdf.name}</p> */}
+                            <p className='uploaded-file-name-displayer'>{pdf.name}</p>
+                            {/* {getNewEmbedElement()} */}
                         </div>
 
                         {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
