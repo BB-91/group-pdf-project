@@ -30,13 +30,14 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    // const { postProfile, getProfiles, signedIn, getSignedDownloadURL, getSignedUploadURL } = props;
-    const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL } = props;
+    const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL, pdf } = props;
 
     const pdfEmbedRef = useRef(null);
     const fileInputElementRef = useRef(null);
 
-    const pdfRef = useRef(props.pdf);
+    const pdfRef = useRef(null); // runs once
+    pdfRef.current = pdf; // runs every render
+
     const cohortYearRef = useRef(null);
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -57,7 +58,6 @@ const FileUploader = (props) => {
         [KEY.zipCode]: zipCodeRef,
         [KEY.keywords]: keywordsRef,
     }
-
 
     const getPDF = async () => {
         const fileInputElement = fileInputElementRef.current;
@@ -151,50 +151,21 @@ const FileUploader = (props) => {
             const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
             console.log("pdfCopy: ", pdfCopy);
 
+            // ------ WITHOUT SIGNED URL --------------------------------------------------
             const s3UploadResponse = await s3Uploader.upload(pdfCopy);
+            // ----------------------------------------------------------------------------
+            // ------ WITH SIGNED URL -----------------------------------------------------
             // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
             // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
-
-
-            console.log("s3UploadResponse: ", s3UploadResponse);
+            // ----------------------------------------------------------------------------
 
             formValuesObj["s3FileName"] = pdfCopy.name;
 
             const mysqlPostResponse = await postProfile(formValuesObj);
-            console.log("mysqlPostResponse: ", mysqlPostResponse);
 
             const profiles = await getProfiles();
             console.log("profiles: ", profiles);
         }
-
-        // if (alertMsg) {
-        //     alert(alertMsg);
-        // } else {
-        //     if (!signedIn) {
-        //         alert("You must be signed in to upload a pdf")
-        //     } else {
-        //         const pdf = await getPDF();
-        //         const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
-        //         console.log("pdfCopy: ", pdfCopy);
-
-        //         const s3UploadResponse = await s3Uploader.upload(pdfCopy);
-        //         // const signedUploadURL = await getSignedUploadURL(pdfCopy.name);
-        //         // const s3UploadResponse = await s3Uploader.upload(pdfCopy, signedUploadURL);
-
-
-        //         console.log("s3UploadResponse: ", s3UploadResponse);
-
-                
-
-        //         formValuesObj["s3FileName"] = pdfCopy.name;
-
-        //         const mysqlPostResponse = await postProfile(formValuesObj);
-        //         console.log("mysqlPostResponse: ", mysqlPostResponse);
-
-        //         const profiles = await getProfiles();
-        //         console.log("profiles: ", profiles);
-        //     }
-        // }
     }
 
 
@@ -219,14 +190,6 @@ const FileUploader = (props) => {
             fileReader.readAsDataURL(pdf);
         }
     }
-
-    // const handleFileInputChange = async (event) => {
-    //     fileInputElementRef.current = event.target;
-    //     console.log(`------- debugging FileUploader.handleFileInputChange --------`)
-    //     console.log("fileInputElementRef.current.files: ", fileInputElementRef.current.files);
-    //     showForm();
-    // }
-
 
     const getNewTextInputElement = (key, placeholderSuffix = "", isRequired = true) => {
         const suffixedPlaceholder = getPlaceholder(key) + placeholderSuffix;
@@ -294,13 +257,6 @@ const FileUploader = (props) => {
 
         return selectElement;
     }
-
-    // const getNewFileInputElement = () => { // REACT ELEMENT VERSION
-    //     const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onChange={handleFileInputChange} />;
-    //     // const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onInput={handleFileInputChange} />;
-    //     if (!pdfRef.current) { throw new Error(`pdfRef not set`); }
-    //     return fileInputElement;
-    // }
 
 
     const getNewEmbedElement = () => {

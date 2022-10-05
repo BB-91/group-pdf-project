@@ -3,7 +3,7 @@ import { useState } from "react"
 import ProfileCard from "../ProfileCard/ProfileCard"
 import {CSVLink, CSVDownload} from 'react-csv';
 import { saveCSV, saveTSV } from "../../data/textFileSaver.mjs";
-import { port } from "../../data/s3ServerData.mjs";
+import { serverURL } from "../../data/s3ServerData.mjs";
 
 
 const ShoppingCart = (props) =>{
@@ -34,7 +34,8 @@ const ShoppingCart = (props) =>{
                     let value = profile[header];
                     if (header == "s3FileName") {
                         // header = "downloadLink";
-                        value = `http://localhost:${port}/download/` + value;
+                        // value = `http://localhost:${port}/download/` + value;
+                        value = `${serverURL}/download/` + value;
                     }
 
                     row.push(value);

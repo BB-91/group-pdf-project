@@ -15,6 +15,8 @@ const FileUploaderContainer = (props) => {
     // file uploader allows selecting multiple files, saved as an array.
     const getPDFs = async () => {
         const files = await controllerFileInputRef.current.files;
+        console.log(`-------- debugging FileUploaderContainer.getPDFs ---------`)
+        console.log("files: ", files)
         const pdfs = Object.values(files);
         if (pdfs) {
             return pdfs;
@@ -44,21 +46,24 @@ const FileUploaderContainer = (props) => {
         const controllerFileInputElement = event.target;
         controllerFileInputRef.current = controllerFileInputElement;
         const pdfs = await getPDFs();
+
+        console.log("pdfs: ", pdfs)
+
         const profileCards = getProfileCardsFromPDF(pdfs);
         setCards(profileCards);
     }
 
-    const handleTestButtonClick = async () => {
-        console.log("clicked the test button.");
-        console.log("--- ATTEMPTING TO GET AWS FILENAMES ----");
-        const awsFileNames = await getAwsFileNames();
-        console.log("awsFileNames: ", awsFileNames);
+    // const handleTestButtonClick = async () => {
+    //     console.log("clicked the test button.");
+    //     console.log("--- ATTEMPTING TO GET AWS FILENAMES ----");
+    //     const awsFileNames = await getAwsFileNames();
+    //     console.log("awsFileNames: ", awsFileNames);
 
-        const DEBUG_TEST_FILENAME = "fish.jpg";
-        console.log(`--- ATTEMPTING TO DOWNLOAD AWS FILE: ${DEBUG_TEST_FILENAME}  ----`);
-        const downloadFileResult = await getAwsFile(DEBUG_TEST_FILENAME);
-        console.log("downloadFileResult: ", downloadFileResult);
-    }
+    //     const DEBUG_TEST_FILENAME = "fish.jpg";
+    //     console.log(`--- ATTEMPTING TO DOWNLOAD AWS FILE: ${DEBUG_TEST_FILENAME}  ----`);
+    //     const downloadFileResult = await getAwsFile(DEBUG_TEST_FILENAME);
+    //     console.log("downloadFileResult: ", downloadFileResult);
+    // }
 
     return (
         <div className='file-uploader-container'>
