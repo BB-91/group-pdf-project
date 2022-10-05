@@ -66,11 +66,16 @@ const FileUploader = (props) => {
             if (!pdfRef.current) {
                 throw new Error("fileInputElement and pdfRef.current are undefined/null");
             } else {
+                console.log("pdfRef: ", pdfRef);
+                console.log("pdfRef.current: ", pdfRef.current)
                 return pdfRef.current;
             }
 
         } else {
             const pdfs = await fileInputElement.files;
+            console.log(`-------- DEBUGGING getPDF --------`)
+            console.log("pdfs: ", pdfs)
+
             if (pdfs) {
                 return pdfs[pdfs.length - 1]; // get the most recently uploaded file
             }
@@ -194,7 +199,11 @@ const FileUploader = (props) => {
 
 
     const showForm = async () => {
+        console.log("showing form");
+
         const pdf = await getPDF();
+        console.log("pdf: ", pdf)
+
         if (pdf) {
             pdfRef.current = pdf;
             const fileReader = new FileReader();
@@ -211,10 +220,12 @@ const FileUploader = (props) => {
         }
     }
 
-    const handleFileInputChange = async (event) => {
-        fileInputElementRef.current = event.target;
-        showForm();
-    }
+    // const handleFileInputChange = async (event) => {
+    //     fileInputElementRef.current = event.target;
+    //     console.log(`------- debugging FileUploader.handleFileInputChange --------`)
+    //     console.log("fileInputElementRef.current.files: ", fileInputElementRef.current.files);
+    //     showForm();
+    // }
 
 
     const getNewTextInputElement = (key, placeholderSuffix = "", isRequired = true) => {
@@ -284,11 +295,12 @@ const FileUploader = (props) => {
         return selectElement;
     }
 
-    const getNewFileInputElement = () => { // REACT ELEMENT VERSION
-        const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onChange={handleFileInputChange} />;
-        if (!pdfRef.current) { throw new Error(`pdfRef not set`); }
-        return fileInputElement;
-    }
+    // const getNewFileInputElement = () => { // REACT ELEMENT VERSION
+    //     const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onChange={handleFileInputChange} />;
+    //     // const fileInputElement = <input ref={keyRefObj[KEY.pdf]} type="file" name={KEY.pdf} className={KEY.pdf} accept=".pdf" onInput={handleFileInputChange} />;
+    //     if (!pdfRef.current) { throw new Error(`pdfRef not set`); }
+    //     return fileInputElement;
+    // }
 
 
     const getNewEmbedElement = () => {
@@ -317,12 +329,19 @@ const FileUploader = (props) => {
         return yearOptions;
     }
 
+    const TEST_HANDLE_FILE_CHANGE = () => {
+        console.log('FILE CHANGED.');
+    }
+
+
     const getChildComponentTreeAndSetProperties = () => {
         const childComponents = (
             <>
+                
+
                 <h5>Profile Details</h5>
                 <form className='file-upload-form'>
-                    {getNewFileInputElement()}
+                    {/* {getNewFileInputElement()} */}
                     
                     <>
                         <div className="row cohort-row">
