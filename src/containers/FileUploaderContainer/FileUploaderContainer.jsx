@@ -39,6 +39,8 @@ const FileUploaderContainer = (props) => {
     }   
 
     const handleFileInputChange = async (event) => {
+        console.log(`----- DEBUGGING FileUploadContainer.handleFileInputChange ---------- `)
+
         const controllerFileInputElement = event.target;
         controllerFileInputRef.current = controllerFileInputElement;
         const pdfs = await getPDFs();
