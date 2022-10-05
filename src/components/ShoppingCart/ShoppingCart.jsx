@@ -17,7 +17,7 @@ const ShoppingCart = (props) =>{
 
 
     const _saveProfileLinksAs = (extension) => {
-        if (!ShoppingCartArr) {
+        if (!ShoppingCartArr.length) {
             alert(`Nothing in cart`);
         } else {
             const firstProfile = ShoppingCartArr[0];
@@ -94,13 +94,18 @@ const ShoppingCart = (props) =>{
     }
 
     return (
-        <div>
+        <div className="shopping-cart">
             <h1>Shopping Cart</h1>
+            <div className="shopping-cart__button-row">
+                <button className="button-primary" onClick={saveProfileLinksAsCSV}>Export to CSV</button>
+                <button className="button-primary" onClick={saveProfileLinksAsTSV}>Export to TSV</button>
+                <button className="button-primary" onClick={clearShoppingCart}>Clear Shopping Cart</button>      
+            </div>
 
-            <button onClick={saveProfileLinksAsCSV}>Export to CSV</button>
-            <button onClick={saveProfileLinksAsTSV}>Export to TSV</button>
-            <button onClick={clearShoppingCart}>Clear Shopping Cart</button>      
-            {ShoppingCartDisplay}     
+            <div className="shopping-cart__cards_wrapper">
+                {ShoppingCartDisplay}     
+            </div>
+
         </div>
     )
 }

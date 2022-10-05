@@ -19,21 +19,6 @@ input[type=file] {
   display: none;
 }
 
-.custom-file-upload {
-  --padding: 10px;
-  position: relative;
-  top: var(--padding);
-  padding: var(--padding);
-  background-color: var(--primary-button-color);
-  color: white;
-  border-radius: 10px;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  width: 150px;
-  cursor: pointer;
-}
-
 .upload-wrapper {
   margin-top: 10px;
 }/*# sourceMappingURL=FileUploaderContainer.css.map */

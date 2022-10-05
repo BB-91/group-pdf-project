@@ -26,6 +26,22 @@
   cursor: pointer;
 }
 
+.button-primary {
+  --padding: 10px;
+  position: relative;
+  top: var(--padding);
+  padding: var(--padding);
+  background-color: var(--primary-button-color);
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  width: 200px;
+  cursor: pointer;
+  text-align: center;
+}
+
 main {
   padding: 10px;
 }/*# sourceMappingURL=App.css.map */

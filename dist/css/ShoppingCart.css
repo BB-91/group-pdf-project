@@ -1,3 +1,22 @@
+.shopping-cart {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.shopping-cart__button-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+}
+
+.shopping-cart__cards_wrapper {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .cart__commands {
   display: flex;
   flex-direction: row;
