@@ -15,7 +15,7 @@ const FilterCheckboxes = (props) => {
     
     const USAProfiles = files.filter((file) => {
         return (
-            file.country.includes("USA")
+            file.country.includes("US")
         )
     })
 
@@ -27,28 +27,28 @@ const FilterCheckboxes = (props) => {
 
     const AUSProfiles = files.filter((file) => {
         return (
-            file.country.includes("AUS")
+            file.country.includes("AU")
         )
     })
 
     const USAUKProfiles = files.filter((file) => {
         return (
-            file.country.includes("USA") ||
+            file.country.includes("US") ||
             file.country.includes("UK")
         )
     })
 
     const USAAUSProfiles = files.filter((file) => {
         return (
-            file.country.includes("USA") ||
-            file.country.includes("AUS")
+            file.country.includes("US") ||
+            file.country.includes("AU")
         )
     })
 
     const UKAUSProfiles = files.filter((file) => {
         return (
             file.country.includes("UK") ||
-            file.country.includes("AUS")
+            file.country.includes("AU")
         )
     })
 
@@ -88,9 +88,9 @@ const FilterCheckboxes = (props) => {
 
     return (
         <div title="checkBoxes" className="check__boxes">
-            <div className="check__box"><input type="checkbox" onClick={handleIsUSA}/>USA</div>
+            <div className="check__box"><input type="checkbox" onClick={handleIsUSA}/>US</div>
             <div className="check__box"><input type="checkbox" onClick={handleIsUK}/>UK</div>
-            <div className="check__box"><input type="checkbox" onClick={handleIsAUS}/>AUS</div>
+            <div className="check__box"><input type="checkbox" onClick={handleIsAUS}/>AU</div>
         </div>
     )
 }
