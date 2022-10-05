@@ -13,17 +13,6 @@ input[type="file"] {
     // margin-bottom: 10px;
 }
 
-// .button {
-//     background-color: red;
-//     color: white;
-//     border-radius: 10px;
-//     font-size: 20px;
-//     font-weight: bold;
-//     width: 150px;
-//     border: none;
-//     cursor: pointer;    
-// }
-
 
 
 .custom-file-upload {
@@ -32,7 +21,7 @@ input[type="file"] {
     top: var(--padding);
     padding: var(--padding);
 
-    background-color: red;
+    background-color: var(--primary-button-color);
     color: white;
 
     border-radius: 10px;

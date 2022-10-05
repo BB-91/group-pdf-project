@@ -9,4 +9,20 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
+}
+
+.nav__buttons {
+  display: flex;
+}
+
+.nav__button {
+  cursor: pointer;
+  padding-right: 20px;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+.nav__button:hover {
+  color: var(--primary-button-color);
 }/*# sourceMappingURL=Header.css.map */

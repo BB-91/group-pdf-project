@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+    color: #341662;
 }
 
 
@@ -9,8 +13,13 @@
 //     min-height: 100vh;
 // }
 
+:root {
+    --primary-button-color: #F43268;
+    --wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);
+}
+
 .button {
-    background-color: red;
+    background-color: var(--primary-button-color);
     color: white;
     border-radius: 10px;
     font-size: 20px;
@@ -20,34 +29,6 @@
     cursor: pointer;    
 }
 
-
-
-// .login-button,
-// .logout-button {
-//     background-color: red;
-//     color: white;
-//     border-radius: 10px;
-//     font-size: 20px;
-//     font-weight: bold;
-//     width: 150px;
-//     border: none;
-//     cursor: pointer;
-// }
-
-// body {
-//     width: 100vw;
-//     height: 100vh;
-// }
-
-// .App {
-//     min-width: 100vw;
-//     // width: 100%;
-//     min-height: 100vh;
-//     // width: 100vw;
-//     // height: 100vh;
-//     // display: flex;
-//     // flex-direction: column;
-// }
 
 main {
     padding: 10px;

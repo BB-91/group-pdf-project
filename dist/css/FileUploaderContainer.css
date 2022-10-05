@@ -11,7 +11,7 @@ input[type=file] {
   position: relative;
   top: var(--padding);
   padding: var(--padding);
-  background-color: red;
+  background-color: var(--primary-button-color);
   color: white;
   border-radius: 10px;
   border: none;

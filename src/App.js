@@ -158,17 +158,17 @@ function App() {
         })
     }
     
-    const renderShoppingCart = () => {
-        setRenderOptions("shoppingCartOption")
-    }
+    // const renderShoppingCart = () => {
+    //     setRenderOptions("shoppingCartOption")
+    // }
 
-    const renderUploadForm = () => {
-        setRenderOptions("uploadFormOption")
-    }
+    // const renderUploadForm = () => {
+    //     setRenderOptions("uploadFormOption")
+    // }
 
-    const renderSearchResults = () => {
-        setRenderOptions("searchResultsOption")
-    }
+    // const renderSearchResults = () => {
+    //     setRenderOptions("searchResultsOption")
+    // }
 
     useEffect(getData, [])
 
@@ -183,14 +183,18 @@ function App() {
 
     return (
         <div className="App">
-            <Header />
+            <Header setRenderOptions={setRenderOptions} />
 
             <div className='SHOPPING-CART'>
-                <nav className="nav__buttons">
+
+
+                {/* <nav className="nav__buttons">
                     <button className="nav__button" onClick={renderUploadForm}>Upload PDFs</button>
                     <button className="nav__button" onClick={renderSearchResults}>Search Profiles</button>
                     <button className="nav__button" onClick={renderShoppingCart}>Shopping Cart</button>
-                </nav>
+                </nav> */}
+
+
                 {/* {renderOptions == "uploadFormOption" ? <UploadForm/> : ""} */}
                 {renderOptions == "uploadFormOption" ?
                     <FileUploaderContainer
