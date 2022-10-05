@@ -154,7 +154,6 @@ const FileUploader = (props) => {
             formValuesObj["s3FileName"] = pdfCopy.name;
 
             const mysqlPostResponse = await postProfile(formValuesObj);
-
             const profiles = await getProfiles();
         }
     }

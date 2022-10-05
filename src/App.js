@@ -75,6 +75,8 @@ function App() {
         })
         .then(res => res.json())
 
+        console.log(`posted profile to database: `, profile);
+        console.log(`postResponse: `, postResponse);
         return postResponse;
     }
 

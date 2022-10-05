@@ -16,6 +16,9 @@ class S3Uploader {
             },
             body: formData
         })
+
+        console.log('uploaded file to S3: ', file);
+        console.log('uploadResponse: ', uploadResponse);
     }
 }
 
