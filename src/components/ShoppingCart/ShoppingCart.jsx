@@ -1,4 +1,4 @@
-// import "./ShoppingCart.scss"
+import "./ShoppingCart.scss"
 import { useState } from "react"
 import ProfileCard from "../ProfileCard/ProfileCard"
 import {CSVLink, CSVDownload} from 'react-csv';
@@ -14,12 +14,14 @@ const ShoppingCart = (props) =>{
 
     const ShoppingCartDisplay = ShoppingCartArr.map((file, index) => {
         return (
-        <div key={index}>
-            <p>{file.firstName} {file.lastName}</p>
-            <p>{file.city}, {file.region}, {file.zipCode}, {file.country}</p>
-            <p>{file.cohortYear}</p>
-            <p>{file.id}</p>
-            <button id={file.id} onClick={removeFromShoppingCart}>Remove</button>
+        <div className="cart__profile" key={index}>
+            <div className='profile-card__contents'>
+                <p className='profile-card__name-row'>{file.firstName} {file.lastName}</p>
+                <p className='profile-card__address-row-1'>{file.city}, {file.region} </p>
+                <p className='profile-card__address-row-2'>{file.zipCode}, {file.country}</p>
+                <p className='profile-card__cohort-row'>{file.cohortYear}</p>
+            </div>
+            <button className="remove__button" id={file.id} onClick={removeFromShoppingCart}>Remove</button>
          </div>
         )
     });
@@ -56,9 +58,13 @@ const ShoppingCart = (props) =>{
     return (
         <div>
             <h1>Shopping Cart</h1>
-            <CSVLink filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>
-            <button onClick={clearShoppingCart}>Clear Shopping Cart</button>      
-            {ShoppingCartDisplay}     
+            <div className="cart__commands">
+                <CSVLink className="csv__link" filename={"Nology-Profiles.csv"} data={data} headers={headers}>Export To CSV</CSVLink>
+                <button className="clear__cart" onClick={clearShoppingCart}>Clear Shopping Cart</button>    
+            </div>
+            <div className="profile-card-wrapper">
+            {ShoppingCartDisplay} 
+            </div>      
         </div>
     )
 }

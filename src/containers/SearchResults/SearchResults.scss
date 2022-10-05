@@ -12,4 +12,42 @@
 .profile-card-wrapper {
     display: flex;
     flex-wrap: wrap;
+    border-top: 1px solid #F43268;
+    border-left: 1px solid #F43268;
+    border-radius: 15px;
+}
+
+.search__heading {
+    text-align: center;
+    font-size: 35px;
+}
+
+.search__body {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    gap: 7px;
+}
+
+.filter__options {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #F43268;
+    border-right: 1px solid #F43268;
+    border-radius: 15px;
+    
+
+    .search__bar {
+        margin: 10px;
+        text-align: center;
+        width: relative;
+
+    }
+
+    .filter__checkboxes {
+        margin: 10px;
+    }
+
+    .date__dropdown {
+        margin: 10px;
+    }
 }

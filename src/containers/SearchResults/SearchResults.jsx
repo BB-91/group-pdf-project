@@ -85,17 +85,19 @@ const SearchResults = (props) => {
 
     return (
         <div className="search__page">
-            <h2>Search Profiles</h2>
-            <div>
-                <SearchBar
-                    setReturnResults={setReturnResults}/>
+            <h2 className="search__heading">Search Profiles</h2>
+            <div className="search__body">
+                <div className="filter__options">
+                    <SearchBar
+                        setReturnResults={setReturnResults}
+                        className="search__bar"/>
                     {files && 
                         <FilterCheckboxes 
                             checkResults={checkResults}
                             files={files}
                             setCheckResults={setCheckResults}
-                        />
-                    }
+                            className="filter__checkboxes"/>
+                        }
                     {files &&
                         <DateDropdown 
                             files={files}
@@ -103,12 +105,12 @@ const SearchResults = (props) => {
                             setDateResults={setDateResults}
                             profileYear={profileYear}
                             setProfileYear={setProfileYear}
-                        />
-                    }
-            </div>
-            
-            <div className="profile-card-wrapper">
-                {mappedFiles}
+                            className="date__dropdrown"/>
+                        }
+                </div>
+                <div className="profile-card-wrapper">
+                    {mappedFiles}
+                </div>
             </div>
 
         </div>

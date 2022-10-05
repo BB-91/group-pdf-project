@@ -14,7 +14,7 @@ const DateDropdown = (props) => {
 
     return (
         <>
-            <select title="select" value={dateResults} onChange={handleChange}>
+            <select className="dropdown" title="select" value={dateResults} onChange={handleChange}>
                 <option name="all" value="all">All</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>

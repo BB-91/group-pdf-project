@@ -2,7 +2,21 @@
 .file-uploader-container {
     // background-color: black;
     height: 300px;
-    // margin-bottom: 20px;
+    // margin-bottom: 20px
+
+}
+
+.upload-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px;
+}
+
+.upload__card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 input[type="file"] {

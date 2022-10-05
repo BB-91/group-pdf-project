@@ -88,10 +88,10 @@ const FilterCheckboxes = (props) => {
     useEffect(countryProfiles, [isUSA, isUK, isAUS])
 
     return (
-        <div title="checkBoxes">
-            <input type="checkbox" onClick={handleIsUSA}/>USA
-            <input type="checkbox" onClick={handleIsUK}/>UK
-            <input type="checkbox" onClick={handleIsAUS}/>AUS
+        <div title="checkBoxes" className="check__boxes">
+            <div className="check__box"><input type="checkbox" onClick={handleIsUSA}/>USA</div>
+            <div className="check__box"><input type="checkbox" onClick={handleIsUK}/>UK</div>
+            <div className="check__box"><input type="checkbox" onClick={handleIsAUS}/>AUS</div>
         </div>
     )
 }
