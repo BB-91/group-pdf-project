@@ -33,8 +33,6 @@ const ShoppingCart = (props) =>{
                 headers.forEach(header => {
                     let value = profile[header];
                     if (header == "s3FileName") {
-                        // header = "downloadLink";
-                        // value = `http://localhost:${port}/download/` + value;
                         value = `${serverURL}/download/` + value;
                     }
 
@@ -78,9 +76,6 @@ const ShoppingCart = (props) =>{
     }
 
     const ShoppingCartDisplay = ShoppingCartArr.map((file, index) => {
-        console.log(`----- DEGBUGGING DOWNLOAD URL FILENAME --------`)
-        console.log("file: ", file)
-
         return (
         <div className="cart__profile" key={index}>
             <div className='profile-card__contents'>

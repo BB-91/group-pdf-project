@@ -12,12 +12,4 @@ const Footer = () => {
     )
 }
 
-// const Footer = () => {
-//   return (
-//     <div className='Footer'>
-//         <NologyLogo />
-//     </div>
-//   )
-// }
-
 export default Footer;

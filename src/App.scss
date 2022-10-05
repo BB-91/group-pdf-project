@@ -8,21 +8,14 @@
     color: #341662;
 }
 
-
-// body {
-//     min-height: 100vh;
-// }
-
 :root {
     --primary-button-color: #F43268;
     --wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);
 }
 
 .button {
-    // background-color: var(--primary-button-color);
     background-color: #410e8f;
     height: 60px;
-    // background-color: transparent;
     color: white;
     border-radius: 10px;
     font-size: 19px;
@@ -38,7 +31,3 @@
 main {
     padding: 10px;
 }
-
-// .App {
-//   text-align: center;
-// }

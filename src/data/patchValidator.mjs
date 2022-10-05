@@ -1,3 +1,5 @@
+import { errorLog } from "./permanentLog.mjs"
+
 class Validator {
     constructor() {
         this.assertNonArrayObj = this.assertNonArrayObj.bind(this);
@@ -23,14 +25,14 @@ class Validator {
 
     assertArray(array) {
         if (!array || typeof(array) !== "object" || !Array.isArray(array)) {
-            console.log(`Not an array: `, array);
+            errorLog(`Not an array: `, array);
             throw new Error(`Expected array. Got ${typeof(array)}, ${array}`);
         }
     }
 
     assertNonArrayObj(obj) {
         if (!obj || typeof(obj) !== "object" || Array.isArray(obj)) {
-            console.log(`Not a non-array object: `, obj);
+            errorLog(`Not a non-array object: `, obj);
             throw new Error(`Expected non-array object data type. Got ${typeof(obj)}, ${obj}`);
         }
     }
@@ -39,7 +41,7 @@ class Validator {
         this.assertNonArrayObj(obj);
         const keys = Object.keys(obj);
         if (keys.length !== 1) {
-            console.log("obj: ", obj)
+            errorLog("obj: ", obj)
             throw new Error(`Expected obj with 1 key. Got: ${keys.length}`)
         };
         return keys[0];
@@ -49,7 +51,7 @@ class Validator {
         this.assertNonArrayObj(obj);
         const values = Object.values(obj);
         if (values.length !== 1) {
-            console.log("obj: ", obj)
+            errorLog("obj: ", obj)
             throw new Error(`Expected obj with 1 value. Got: ${values.length}`)
         };
         return values[0];
@@ -62,12 +64,12 @@ class Validator {
         const { WHERE, UPDATE } = this;
 
         if (keys.length !== 2) {
-            console.log("body: ", body);
+            errorLog("body: ", body);
             throw new Error(`Expected body obj with 2 keys. Got ${keys.length}.`)
         };
     
         if (!keys.includes(WHERE)) {
-            console.log("body: ", body);
+            errorLog("body: ", body);
             throw new Error(`Missing required key '${WHERE}' in body.`)
         }
 
@@ -75,7 +77,7 @@ class Validator {
         const updateKeyIndex = 1 - whereKeyIndex; // 0 or 1 (if length == 2 (asserted above))
         const updateKey = keys[updateKeyIndex];
         if (updateKey === WHERE) {
-            console.log("body: ", body);
+            errorLog("body: ", body);
             throw new Error(`Two '${WHERE}' keys found. No updateKey found.`)
         }
     

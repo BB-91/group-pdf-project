@@ -69,7 +69,6 @@ const FilterCheckboxes = (props) => {
             setCheckResults(files)
         } else if (isUSA == false && isUK == false && isAUS == false) {
             setCheckResults(files)
-            console.log("all false")
         }
     }
 

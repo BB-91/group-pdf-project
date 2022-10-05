@@ -6,11 +6,6 @@
  * @returns 
  */
  const _saveAs = (headers, rows, filename, extension) => {
-    console.log(`DEBUGGING INSIDE _saveAs`)
-    console.log("headers: ", headers);
-    console.log("filename: ", filename);
-    console.log("extension: ", extension);
-
     let delimiter = ','
 
     switch (extension) {

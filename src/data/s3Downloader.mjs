@@ -1,4 +1,3 @@
-// import { serverURL } from "./serverData.mjs";
 import { serverURL } from "./s3ServerData.mjs";
 import validExtensions from "./validExtensions.mjs";
 

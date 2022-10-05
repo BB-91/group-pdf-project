@@ -66,16 +66,11 @@ const FileUploader = (props) => {
             if (!pdfRef.current) {
                 throw new Error("fileInputElement and pdfRef.current are undefined/null");
             } else {
-                console.log("pdfRef: ", pdfRef);
-                console.log("pdfRef.current: ", pdfRef.current)
                 return pdfRef.current;
             }
 
         } else {
             const pdfs = await fileInputElement.files;
-            console.log(`-------- DEBUGGING getPDF --------`)
-            console.log("pdfs: ", pdfs)
-
             if (pdfs) {
                 return pdfs[pdfs.length - 1]; // get the most recently uploaded file
             }
@@ -103,8 +98,6 @@ const FileUploader = (props) => {
         });
 
         obj[KEY.pdf] = await getPDF();
-        console.log("getFormValuesAsObj obj: ", obj);
-
         return obj;
     }
 
@@ -149,7 +142,6 @@ const FileUploader = (props) => {
         } else {
             const pdf = await getPDF();
             const pdfCopy = getFileCopyWithRandomName(pdf, getUploadFileNamePrefix(formValuesObj));
-            console.log("pdfCopy: ", pdfCopy);
 
             // ------ WITHOUT SIGNED URL --------------------------------------------------
             const s3UploadResponse = await s3Uploader.upload(pdfCopy);
@@ -164,16 +156,12 @@ const FileUploader = (props) => {
             const mysqlPostResponse = await postProfile(formValuesObj);
 
             const profiles = await getProfiles();
-            console.log("profiles: ", profiles);
         }
     }
 
 
     const showForm = async () => {
-        console.log("showing form");
-
         const pdf = await getPDF();
-        console.log("pdf: ", pdf)
 
         if (pdf) {
             pdfRef.current = pdf;
@@ -284,11 +272,6 @@ const FileUploader = (props) => {
 
         return yearOptions;
     }
-
-    const TEST_HANDLE_FILE_CHANGE = () => {
-        console.log('FILE CHANGED.');
-    }
-
 
     const getChildComponentTreeAndSetProperties = () => {
         const childComponents = (

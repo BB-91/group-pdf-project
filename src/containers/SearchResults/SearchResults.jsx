@@ -26,7 +26,6 @@ const SearchResults = (props) => {
             )
     })
 
-    console.log("Date result " + dateResults);
     const searchYearFilter = filteredFiles.filter((file) => {
         if (dateResults == "all" || dateResults == "") {
             return file
@@ -44,44 +43,18 @@ const SearchResults = (props) => {
                     lastName = {file.lastName} 
                     city = {file.city} 
                     region = {file.region}
-                    // zipCode = {file.zipCode}
                     zipCode = {file.zipCode}
                     country = {file.country}
-                    // cohortYear = {file.cohortYear}
                     cohortYear = {file.cohortYear}
                     id = {file.id}
                     file={file}
                     ShoppingCartArr={ShoppingCartArr}
                     setShoppingCartArr={setShoppingCartArr}
-
                     key={index}
                 />
             </>
         )
     })
-
-    // const mappedFiles = searchYearFilter.map((file) => {
-    //     return (
-    //         <>
-    //             <ProfileCard 
-    //                 firstName = {file.firstName} 
-    //                 lastName = {file.lastName} 
-    //                 city = {file.city} 
-    //                 region = {file.region}
-    //                 zipCode = {file.zipCode}
-    //                 country = {file.country}
-    //                 cohortYear = {file.cohortYear}
-    //                 id = {file.id}
-    //                 file={file}
-    //                 ShoppingCartArr={ShoppingCartArr}
-    //                 setShoppingCartArr={setShoppingCartArr}
-
-                    
-    //             />
-    //         </>
-    //     )
-    // })
-
 
     return (
         <div className="search__page">
