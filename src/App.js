@@ -17,6 +17,8 @@ import FileUploader from './components/FileUploader/FileUploader';
 
 import FileUploaderContainer from './containers/FileUploaderContainer/FileUploaderContainer';
 
+// download link = AWS_server_url:port/download/S3_filename
+
 
 const TEST_SIGN_IN_TOKEN = "xyz789";
 let signedIn = isValidSignInToken(TEST_SIGN_IN_TOKEN);
