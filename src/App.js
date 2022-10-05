@@ -55,7 +55,7 @@ function App() {
         const signedURL = await _getSignedURL(filename, ENDPOINT.upload)
         return signedURL;
     }
-    
+
     const getProfiles = async () => {
         const profiles = await fetch(localApiURL).then(res => { return res.json(); })
         return profiles;
@@ -67,13 +67,13 @@ function App() {
         const postResponse = await fetch(localApiURL, {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
 
             body: JSON.stringify(profile)
         })
-        .then(res => res.json())
+            .then(res => res.json())
 
         console.log(`posted profile to database: `, profile);
         console.log(`postResponse: `, postResponse);
@@ -99,11 +99,11 @@ function App() {
 
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
-        .then((response) => {
-            return response.json()
-        }) .then((data) => {
-            setFiles(data)
-        })
+            .then((response) => {
+                return response.json()
+            }).then((data) => {
+                setFiles(data)
+            })
     }
 
     useEffect(getData, [])
@@ -122,16 +122,43 @@ function App() {
                     />
                     : ""
                 }
-                {renderOptions == "searchResultsOption" ? files && <SearchResults 
-                ShoppingCartArr = {ShoppingCartArr}
-                setShoppingCartArr={setShoppingCartArr}
-                files={files}/>: ""}
-                {renderOptions == "shoppingCartOption" ? <ShoppingCart 
-                ShoppingCartArr = {ShoppingCartArr}
-                setShoppingCartArr={setShoppingCartArr}/> : ""}
+
+                {(renderOptions == "searchResultsOption" && files) &&
+                    <SearchResults
+                        ShoppingCartArr={ShoppingCartArr}
+                        setShoppingCartArr={setShoppingCartArr}
+                        files={files}
+                    />
+                }
+
+                {/* {renderOptions == "searchResultsOption" ? files &&
+                    <SearchResults
+                        ShoppingCartArr={ShoppingCartArr}
+                        setShoppingCartArr={setShoppingCartArr}
+                        files={files}
+                    />
+                    : ""} */}
+
+
+                {(renderOptions == "shoppingCartOption") &&
+                    <ShoppingCart
+                        ShoppingCartArr={ShoppingCartArr}
+                        setShoppingCartArr={setShoppingCartArr}
+                    />
+                }
+
+                {/* {renderOptions == "shoppingCartOption" ?
+                    <ShoppingCart
+                        ShoppingCartArr={ShoppingCartArr}
+                        setShoppingCartArr={setShoppingCartArr}
+                    />
+                    : ""} */}
+
+
+
             </div>
 
-            
+
             {/* <Footer /> */}
         </div>
     );

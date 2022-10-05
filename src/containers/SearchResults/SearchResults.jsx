@@ -11,7 +11,7 @@ const SearchResults = (props) => {
     
     const [returnResults, setReturnResults] = useState("")
     const [checkResults, setCheckResults] = useState([])
-    const [dateResults, setDateResults] = useState([])
+    const [dateResults, setDateResults] = useState('all')
     const [profileYear, setProfileYear] = useState([])
 
     const filteredFiles = checkResults.filter((file) => {
@@ -37,7 +37,7 @@ const SearchResults = (props) => {
 
     const mappedFiles = searchYearFilter.map((file, index) => {
         return (
-            <>
+            <div key={index}>
                 <ProfileCard
                     firstName = {file.firstName} 
                     lastName = {file.lastName} 
@@ -50,9 +50,8 @@ const SearchResults = (props) => {
                     file={file}
                     ShoppingCartArr={ShoppingCartArr}
                     setShoppingCartArr={setShoppingCartArr}
-                    key={index}
                 />
-            </>
+            </div>
         )
     })
 
