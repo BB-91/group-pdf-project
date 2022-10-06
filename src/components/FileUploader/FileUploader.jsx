@@ -31,7 +31,7 @@ const bulletedList = (strings, symbol = "•") => {
 }
 
 const FileUploader = (props) => {
-    const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL, pdf } = props;
+    const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL, pdf, setFiles } = props;
     const [buttonText, setButtonText] = useState('Upload');
 
     const fileInputElementRef = useRef(null);
@@ -175,8 +175,9 @@ const FileUploader = (props) => {
                 button.toggleAttribute('disabled', true);
                 uploaderWrapper.current.classList.toggle('uploaded');
                 setButtonText("Succeeded!");
+                const profiles = await getProfiles();
+                setFiles(profiles);
             }
-            // const profiles = await getProfiles();
         }
     }
 

@@ -6,7 +6,6 @@ import DateDropdown from "../../components/DateDropdown/DateDropdown";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const SearchResults = (props) => {
-
     const {ShoppingCartArr, setShoppingCartArr, files} = props;
     
     const [returnResults, setReturnResults] = useState("")

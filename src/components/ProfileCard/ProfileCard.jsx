@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import "./ProfileCard.scss";
 
 const ProfileCard = (props) => {
     const { ShoppingCartArr, setShoppingCartArr, id, file, city, region, zipCode, country, cohortYear, firstName, lastName } = props;
-
+    
     const getShoppingCartIndex = () => {
         let index = -1;
         for (let i=0; i<ShoppingCartArr.length; i++) {
@@ -21,11 +20,23 @@ const ProfileCard = (props) => {
     }
 
     const getCartButtonText = () => {
-        return isInShoppingCart() ? "Remove from Cart" : "Add to Cart";
+        const inCart = isInShoppingCart();
+        const text = inCart ? "Remove from Cart" : "Add to Cart";
+
+
+        return text;
+    }
+
+    const getCartClassesStr = () => {
+        const classes = ['add-to-cart-button']
+        if (isInShoppingCart()) {
+            classes.push('in-cart');
+        }
+
+        return classes.join(' ');
     }
 
     const handleCartButtonClick = (event) => {
-        const element = event.target;
         const index = getShoppingCartIndex();
         const inCart = (index >= 0);
 
@@ -33,7 +44,7 @@ const ProfileCard = (props) => {
             setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, file]);
 
         } else {
-            if (index == -1) {
+            if (index === -1) {
                 throw new Error(`inCart: ${inCart}, but file not found in ShoppingCartArr`);
             }
 
@@ -41,8 +52,6 @@ const ProfileCard = (props) => {
             arrCopy.splice(index, 1);
             setShoppingCartArr(arrCopy);
         }
-        
-        element.classList.toggle("in-cart");
     }
 
     return (
@@ -53,7 +62,7 @@ const ProfileCard = (props) => {
                 <p className='profile-card__address-row-2'>{zipCode}, {country}</p>
                 <p className='profile-card__cohort-row'>( {cohortYear} )</p>
             </div>
-            <button className='add-to-cart-button' onClick={handleCartButtonClick}>{getCartButtonText()}</button>
+            <button className={getCartClassesStr()} onClick={handleCartButtonClick}>{getCartButtonText()}</button>
         </div>
     )
 }

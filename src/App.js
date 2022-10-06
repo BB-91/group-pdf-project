@@ -132,6 +132,7 @@ function App() {
                             getProfiles={getProfiles}
                             getSignedDownloadURL={getSignedDownloadURL}
                             getSignedUploadURL={getSignedUploadURL}
+                            setFiles={setFiles}
                         />
                         : ""
                     }
