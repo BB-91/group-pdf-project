@@ -24,13 +24,14 @@ const ProfileCard = (props) => {
         return isInShoppingCart() ? "Remove from Cart" : "Add to Cart";
     }
 
-
-    const handleCartButtonClick = () => {
+    const handleCartButtonClick = (event) => {
+        const element = event.target;
         const index = getShoppingCartIndex();
         const inCart = (index >= 0);
 
         if (!inCart) {
             setShoppingCartArr(ShoppingCartArr => [...ShoppingCartArr, file]);
+
         } else {
             if (index == -1) {
                 throw new Error(`inCart: ${inCart}, but file not found in ShoppingCartArr`);
@@ -40,6 +41,8 @@ const ProfileCard = (props) => {
             arrCopy.splice(index, 1);
             setShoppingCartArr(arrCopy);
         }
+        
+        element.classList.toggle("in-cart");
     }
 
     return (

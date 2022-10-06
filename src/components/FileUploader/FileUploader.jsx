@@ -296,21 +296,28 @@ const FileUploader = (props) => {
                             {getNewTextInputElement(KEY.lastName)}
                         </div>
 
-                        <div className="row location-row">
+                        <div className="row location-row-1">
                             {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
                             {getNewTextInputElement(KEY.city)}
-                            {/* {getNewSelectElement(KEY.region, STATE_OPTIONS_ELEMENTS)} */}
+                        </div>
+                        <div className="row location-row-2">
                             {getNewSelectElement(KEY.region, [])}
                             {getNewTextInputElement(KEY.zipCode)}
-                            {/* uploaded file name here instead of pdf preview */}
-                            {/* <p ref={fileNameDisplayerRef} className='uploaded-file-name-displayer'>FILE NAME HERE</p> */}
-                            {/* <p ref={fileNameDisplayerRef} className='uploaded-file-name-displayer'>{pdf.name}</p> */}
-                            <p className='uploaded-file-name-displayer'>{pdf.name}</p>
-                            {/* {getNewEmbedElement()} */}
                         </div>
 
+                        {/* <div className="row location-row">
+                            {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
+                            {getNewTextInputElement(KEY.city)}
+                            {getNewSelectElement(KEY.region, [])}
+                            {getNewTextInputElement(KEY.zipCode)}
+                        </div> */}
+
+                        <p className='uploaded-file-name-displayer'>{pdf.name}</p>
+
                         {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
-                        <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                    
+                        {/* <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
+                        {/* <button className='button-primary upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
+                        <button className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                    
                     </>
                     
                 </form>

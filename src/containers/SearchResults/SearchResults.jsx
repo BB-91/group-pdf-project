@@ -14,16 +14,32 @@ const SearchResults = (props) => {
     const [dateResults, setDateResults] = useState('all')
     const [profileYear, setProfileYear] = useState([])
 
-    const filteredFiles = checkResults.filter((file) => {
-        return (
-            file.firstName.toLowerCase().includes(returnResults) ||
-            file.lastName.toLowerCase().includes(returnResults) ||
-            file.city.toLowerCase().includes(returnResults) ||
-            file.country.toLowerCase().includes(returnResults) ||
-            file.region.toLowerCase().includes(returnResults) ||
-            file.zipCode.toLowerCase().includes(returnResults) ||
-            file.cohortYear == returnResults
-            )
+    // const filteredProfiles = checkResults.filter((profile) => {
+    const filteredFiles = checkResults.filter((profile) => {
+        const lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
+        const splitResults = returnResults.split(" ");
+        let allSplitResultsMatch = true;
+
+        for (let i=0; i<splitResults.length; i++) {
+            const splitResult = splitResults[i];
+            let matchFound = false;
+
+            for (let n=0; n<lowerProfileValues.length; n++) {
+                const value = lowerProfileValues[n];
+                if (value.includes(splitResult)) {
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (!matchFound) {
+                allSplitResultsMatch = false;
+                break;
+            }
+
+        }
+
+        return allSplitResultsMatch;
     })
 
     const searchYearFilter = filteredFiles.filter((file) => {

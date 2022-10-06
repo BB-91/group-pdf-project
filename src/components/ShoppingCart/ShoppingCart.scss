@@ -1,21 +1,13 @@
 .shopping-cart {
     display: grid;
     grid-template-columns: 1fr;
-
-    // justify-content: center;
-    // align-items: center;
-
-    // align-content: center;
     justify-items: center;
-    // column-gap: 30px;
-
 }
 
 
 .shopping-cart__button-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    // margin: 0 auto;
     column-gap: 30px;
 
 }
@@ -24,8 +16,6 @@
     margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
-
-    // align-items: center;
     justify-content: center;
 }
 
@@ -74,7 +64,6 @@ h1 {
     justify-items: center;
 
     align-content: space-between;
-    // box-shadow: 0px 0px 10px black;
     box-shadow: var(--centered-shadow);
 }
 
@@ -112,8 +101,7 @@ h1 {
     cursor: pointer;
 
     &:hover{
-        font-style: italic;
-
+        font-weight: 900;
     }
 
     width: min(140px, 80%);

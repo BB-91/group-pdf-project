@@ -1,87 +1,61 @@
-:root {
-    --row-gap: 5px;
-    --column-gap: 3%;
-    --column-width: 30%;
-    --scaled-column-width: clamp( 200px, 50%, 300px );
-    --column-count: 1;
-    --padding: 0.2rem;
-}
-
 input,
 select {
     height: 1.5rem;
-    padding-left: var(--padding);
+    padding-left: 4px;
+    border-radius: 4px;
+    border: none;
+
+    margin: 4px;
+
+    border: 1px solid #ccd0d5;
+    background-color: #f5f6f7;
 }
 
 .file-uploader {
+
+    margin: 15px;
+
+    width: 400px;
+
     display: grid;
-    row-gap: var(--row-gap);
-
-    grid-template-columns: 1fr;
-
-    // border: 2px solid black;
-    border:  none;
+    grid-template-columns: 100%;
     box-shadow: var(--centered-shadow);
-
     border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
-    width: clamp(280px, 30%, 800px);
+    padding: 12px;
 }
 
 .file-upload-form{ 
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: var(--row-gap);
-
-    justify-content: flex-start; 
-    width: 100%;
+    row-gap: 4px;
 }
-
 
 button {
-    width: var(--column-width);
-    padding: var(--padding) 0;
+    padding: 8px 15px;
+    background-color: var(--primary-button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 160px;
+    margin: 0 auto;
 }
 
+
 .name-row,
-.location-row {
+.location-row-1,
+.location-row-2 {
     display: grid;
-    grid-template-columns: var(--scaled-column-width);
-    row-gap: var(--row-gap);
-    justify-content: left;
+    grid-template-columns: repeat(2, 45%);
+    column-gap: 20px;
 }
 
 .keywords {
-    width: var(--scaled-column-width);
+    width: 93%;
 }
 
-@media screen and (min-width: 1100px){
-    :root {
-        --column-width: 40%;
-        --column-count: 2;
-    }
 
-    .name-row,
-    .location-row {
-        display: grid;
-        grid-template-columns: repeat(var(--column-count), var(--column-width));
-        justify-content: left;
-        column-gap: var(--column-gap);
-    }
-        
-    .keywords {
-        width: calc(
-                    ( var(--column-width) * var(--column-count) )
-                    +
-                    ( var(--column-gap) * calc(var(--column-count) - 1) ) 
-        );
-    }
-}
-
-@media screen and (min-width: 1660px){
-    :root {
-        --column-width: 30%;
-        --column-count: 3;
-    }
+.uploaded-file-name-displayer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

@@ -33,16 +33,19 @@
 }
 
 .add-to-cart-button {
-  color: var(--primary-button-color);
   border-radius: 10px;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: min(140px, 80%);
+  width: min(200px, 80%);
   padding: 10px;
   margin-top: 20px;
   font-weight: 800;
+  color: rgb(84, 200, 0);
 }
 .add-to-cart-button:hover {
-  font-style: italic;
+  font-weight: 900;
+}
+.add-to-cart-button.in-cart {
+  color: var(--primary-button-color);
 }/*# sourceMappingURL=ProfileCard.css.map */
