@@ -19,6 +19,10 @@ select {
   padding: 12px;
 }
 
+.uploader-wrapper.uploaded {
+  opacity: 0.6;
+}
+
 .file-upload-form {
   display: grid;
   grid-template-columns: 1fr;
@@ -33,6 +37,11 @@ button {
   border-radius: 4px;
   width: 160px;
   margin: 0 auto;
+}
+button:disabled {
+  background-color: rgb(99, 165, 0);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .name-row,

@@ -12,7 +12,6 @@ select {
 }
 
 .file-uploader {
-
     margin: 15px;
 
     width: 400px;
@@ -22,6 +21,12 @@ select {
     box-shadow: var(--centered-shadow);
     border-radius: 10px;
     padding: 12px;
+}
+
+.uploader-wrapper {
+    &.uploaded {
+        opacity: 0.6;
+    }
 }
 
 .file-upload-form{ 
@@ -38,6 +43,23 @@ button {
     border-radius: 4px;
     width: 160px;
     margin: 0 auto;
+
+    &:disabled {
+        background-color: rgb(99, 165, 0);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // &.disabled {
+    //     color: gray;
+    //     cursor: not-allowed;
+        
+    // }
+
+    // &.succeeded {
+    //     content: ;
+    // }
+
 }
 
 

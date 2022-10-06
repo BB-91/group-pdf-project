@@ -4,6 +4,7 @@ import { COUNTRIES_OBJ, COUNTRY_OPTIONS_ELEMENTS } from "../../data/statesAndCou
 import { getTitleCaseFromCamelCase, doubleCharsRemoved } from '../../data/util.mjs';
 import s3Uploader from '../../data/s3Uploader.mjs';
 import { getFileCopyWithRandomName } from '../../data/randomFileNameGenerator.mjs';
+import { useState } from 'react';
 
 // keys from the backend 'Profile' Sequelize model (except 'id', since it's auto-incrementing)
 const KEY = {
@@ -31,12 +32,10 @@ const bulletedList = (strings, symbol = "•") => {
 
 const FileUploader = (props) => {
     const { postProfile, getProfiles, getSignedDownloadURL, getSignedUploadURL, pdf } = props;
-
-    const pdfEmbedRef = useRef(null);
-    // const fileNameDisplayerRef = useRef(null);
+    const [buttonText, setButtonText] = useState('Upload');
 
     const fileInputElementRef = useRef(null);
-
+    const uploaderWrapper = useRef(null);
 
 
     const pdfRef = useRef(null); // runs once
@@ -114,8 +113,11 @@ const FileUploader = (props) => {
         return uploadFileNamePrefix;
     }
 
-    const handleSubmitButtonClick = async (event) => {
+    const handleSubmitButtonClick = async (event) => { 
         event.preventDefault();
+
+        const button = event.target;
+
         const formValuesObj = await getFormValuesAsObj();
         const keysWithUndefinedValues = [];
 
@@ -156,29 +158,25 @@ const FileUploader = (props) => {
             // ----------------------------------------------------------------------------
 
             formValuesObj["s3FileName"] = pdfCopy.name;
-
             const mysqlPostResponse = await postProfile(formValuesObj);
-            const profiles = await getProfiles();
-        }
-    }
+            const postErrorMessages = []
 
+            if ( !mysqlPostResponse || mysqlPostResponse.message !== "Created") {
+                postErrorMessages.push(`Couldn't upload to S3`);
+            }
+            
+            if (!s3UploadResponse || s3UploadResponse.statusText !== "OK") {
+                postErrorMessages.push(`Couldn't post to database`);             
+            }
 
-    const showForm = async () => {
-        const pdf = await getPDF();
-
-        if (pdf) {
-            pdfRef.current = pdf;
-            const fileReader = new FileReader();
-
-            fileReader.addEventListener("load", () => {
-                const embedElement = pdfEmbedRef.current;
-                if (embedElement && embedElement instanceof HTMLElement) {
-                    embedElement.setAttribute("src", fileReader.result);
-                }
-                }, false);
-
-
-            fileReader.readAsDataURL(pdf);
+            if (postErrorMessages.length) {
+                alert(postErrorMessages.join("\n"));
+            } else {
+                button.toggleAttribute('disabled', true);
+                uploaderWrapper.current.classList.toggle('uploaded');
+                setButtonText("Succeeded!");
+            }
+            // const profiles = await getProfiles();
         }
     }
 
@@ -249,15 +247,6 @@ const FileUploader = (props) => {
         return selectElement;
     }
 
-
-    const getNewEmbedElement = () => {
-
-        const embedElement = <embed ref={element => pdfEmbedRef.current = element} src='' type="application/pdf" width="70px" height="90px"/>
-        pdfEmbedRef.current = embedElement;
-        showForm();
-        return embedElement;
-    }
-
     const getYearRangeOptions = (minYear, maxYear) => {
         if (maxYear <= minYear) {
             throw new Error(`maxYear (${maxYear}) not greater than minYear (${minYear})`);
@@ -280,47 +269,48 @@ const FileUploader = (props) => {
     const getChildComponentTreeAndSetProperties = () => {
         const childComponents = (
             <>
-                
+                <div ref={uploaderWrapper} className='uploader-wrapper'>
+                    <h5>Profile Details</h5>
+                    <form className='file-upload-form'>
+                        {/* {getNewFileInputElement()} */}
+                        
+                        <>
+                            <div className="row cohort-row">
+                                {getNewSelectElement(KEY.cohortYear, getYearRangeOptions(2019, 2023))}
+                            </div>
 
-                <h5>Profile Details</h5>
-                <form className='file-upload-form'>
-                    {/* {getNewFileInputElement()} */}
-                    
-                    <>
-                        <div className="row cohort-row">
-                            {getNewSelectElement(KEY.cohortYear, getYearRangeOptions(2019, 2023))}
-                        </div>
+                            <div className="row name-row">
+                                {getNewTextInputElement(KEY.firstName)}
+                                {getNewTextInputElement(KEY.lastName)}
+                            </div>
 
-                        <div className="row name-row">
-                            {getNewTextInputElement(KEY.firstName)}
-                            {getNewTextInputElement(KEY.lastName)}
-                        </div>
+                            <div className="row location-row-1">
+                                {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
+                                {getNewTextInputElement(KEY.city)}
+                            </div>
+                            <div className="row location-row-2">
+                                {getNewSelectElement(KEY.region, [])}
+                                {getNewTextInputElement(KEY.zipCode)}
+                            </div>
 
-                        <div className="row location-row-1">
-                            {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
-                            {getNewTextInputElement(KEY.city)}
-                        </div>
-                        <div className="row location-row-2">
-                            {getNewSelectElement(KEY.region, [])}
-                            {getNewTextInputElement(KEY.zipCode)}
-                        </div>
+                            {/* <div className="row location-row">
+                                {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
+                                {getNewTextInputElement(KEY.city)}
+                                {getNewSelectElement(KEY.region, [])}
+                                {getNewTextInputElement(KEY.zipCode)}
+                            </div> */}
 
-                        {/* <div className="row location-row">
-                            {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
-                            {getNewTextInputElement(KEY.city)}
-                            {getNewSelectElement(KEY.region, [])}
-                            {getNewTextInputElement(KEY.zipCode)}
-                        </div> */}
+                            <p className='uploaded-file-name-displayer'>{pdf.name}</p>
 
-                        <p className='uploaded-file-name-displayer'>{pdf.name}</p>
-
-                        {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
-                        {/* <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
-                        {/* <button className='button-primary upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
-                        <button className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                    
-                    </>
-                    
-                </form>
+                            {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
+                            {/* <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
+                            {/* <button className='button-primary upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
+                            {/* <button ref={uploadButtonRef} className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
+                            <button className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>{buttonText}</button>                    
+                        </>
+                        
+                    </form>
+                </div>
             </>
         )
         return childComponents;

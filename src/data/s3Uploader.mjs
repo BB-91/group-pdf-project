@@ -19,6 +19,8 @@ class S3Uploader {
 
         console.log('uploaded file to S3: ', file);
         console.log('uploadResponse: ', uploadResponse);
+
+        return uploadResponse;
     }
 }
 
