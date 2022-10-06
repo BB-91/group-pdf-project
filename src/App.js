@@ -158,6 +158,14 @@ function App() {
 
 
 
+            { !isAuthenticated &&
+                
+                <div className='sign-in-prompt-wrapper'>
+                    Please sign in to view and upload consultant profiles
+                </div>
+            }
+
+
 
             {/* <Footer /> */}
         </div>

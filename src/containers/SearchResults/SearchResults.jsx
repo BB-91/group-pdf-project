@@ -13,6 +13,7 @@ const SearchResults = (props) => {
     const [dateResults, setDateResults] = useState('all')
     const [profileYear, setProfileYear] = useState([])
 
+
     // const filteredProfiles = checkResults.filter((profile) => {
     const filteredFiles = checkResults.filter((profile) => {
         const lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
@@ -73,18 +74,23 @@ const SearchResults = (props) => {
     return (
         <div className="search__page">
             <h2 className="search__heading">Search Profiles</h2>
+            <h3 className="search__counter">Profiles in cart: {ShoppingCartArr.length}</h3>
+
             <div className="search__body">
                 <div className="filter__options">
                     <SearchBar
                         setReturnResults={setReturnResults}
-                        className="search__bar"/>
+                        className="search__bar"
+                    />
+
                     {files && 
                         <FilterCheckboxes 
                             checkResults={checkResults}
                             files={files}
                             setCheckResults={setCheckResults}
                             className="filter__checkboxes"/>
-                        }
+                    }
+
                     {files &&
                         <DateDropdown 
                             files={files}
@@ -92,8 +98,9 @@ const SearchResults = (props) => {
                             setDateResults={setDateResults}
                             profileYear={profileYear}
                             setProfileYear={setProfileYear}
-                            className="date__dropdrown"/>
-                        }
+                            className="date__dropdrown"
+                        />
+                    }
                 </div>
                 <div className="profile-card-wrapper">
                     {mappedFiles}

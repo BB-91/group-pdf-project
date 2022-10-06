@@ -45,4 +45,14 @@
 
 main {
   padding: 10px;
+}
+
+.sign-in-prompt-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100%;
+  margin-top: 50px;
+  justify-items: center;
+  font-size: 28px;
+  font-weight: 600;
 }/*# sourceMappingURL=App.css.map */

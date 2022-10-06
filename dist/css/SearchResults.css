@@ -16,6 +16,11 @@
   font-size: 35px;
 }
 
+.search__counter {
+  text-align: center;
+  margin: 4px 0 8px 0;
+}
+
 .search__body {
   display: grid;
   grid-template-columns: 1fr 7fr;
