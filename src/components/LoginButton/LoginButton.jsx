@@ -1,12 +1,18 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import "./login-button.scss";
 
-const LoginButton = ()=>{
-    const {loginWithRedirect,isAuthenticated} = useAuth0();
+const LoginButton = (props)=>{
+    const { useAuth0, setLoggedIn } = props;
+    const {loginWithRedirect, isAuthenticated } = useAuth0();
     
+    const handleLoginButtonClick = async () => {
+        const res = await loginWithRedirect();
+        console.log("res: ", res);
+        setLoggedIn(isAuthenticated);
+    }
+
     return(
         !isAuthenticated && (
-            <button className="button login-button" onClick={()=>loginWithRedirect()}>
+            <button className="button login-button" onClick={handleLoginButtonClick}>
                 Sign In
          </button>
         )

@@ -1,12 +1,16 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import "./LogoutButton.scss";
 
-const LogoutButton = ()=>{
-    const {logout, user, isAuthenticated} = useAuth0();
+const LogoutButton = (props)=>{
+    const { useAuth0, setLoggedIn } = props;
+    const {logout, isAuthenticated } = useAuth0();
+
+    const handleLogoutButtonClick = async () => {
+        logout(setLoggedIn(false));
+    }
 
     return (
         isAuthenticated && (
-            <button className="button logout-button" onClick={()=>logout()}>
+            <button className="button logout-button" onClick={handleLogoutButtonClick}>
                 Sign Out
          </button>
         )

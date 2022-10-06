@@ -12,11 +12,21 @@ import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 import FileUploaderContainer from './containers/FileUploaderContainer/FileUploaderContainer';
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const localApiURL = LOCAL_API.getURL();
 
 function App() {
-    const [profiles, setProfiles] = useState([])
-    const [ShoppingCartArr, setShoppingCartArr] = useState([])
+    const [profiles, setProfiles] = useState([]);
+    const [ShoppingCartArr, setShoppingCartArr] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const { isAuthenticated } = useAuth0();
+
+
+
+
+    // console.log("loggedIn: ", loggedIn);
+
 
     const ENDPOINT = {
         upload: 'getSignedUploadUrl/',
@@ -94,8 +104,9 @@ function App() {
         }
     })
 
-    const [files, setFiles] = useState()
-    const [renderOptions, setRenderOptions] = useState()
+    const [files, setFiles] = useState();
+    const [renderOptions, setRenderOptions] = useState();
+    
 
     const getData = () => {
         fetch("http://localhost:3010/api/profiles")
@@ -110,53 +121,41 @@ function App() {
 
     return (
         <div className="App">
-            <Header setRenderOptions={setRenderOptions} />
+            
+            <Header setRenderOptions={setRenderOptions} useAuth0={useAuth0} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
 
-            <div className='SHOPPING-CART'>
-                {renderOptions == "uploadFormOption" ?
-                    <FileUploaderContainer
-                        postProfile={postProfile}
-                        getProfiles={getProfiles}
-                        getSignedDownloadURL={getSignedDownloadURL}
-                        getSignedUploadURL={getSignedUploadURL}
-                    />
-                    : ""
-                }
+            { isAuthenticated && 
+                <div className='SHOPPING-CART'>
+                    {renderOptions == "uploadFormOption" ?
+                        <FileUploaderContainer
+                            postProfile={postProfile}
+                            getProfiles={getProfiles}
+                            getSignedDownloadURL={getSignedDownloadURL}
+                            getSignedUploadURL={getSignedUploadURL}
+                        />
+                        : ""
+                    }
 
-                {(renderOptions == "searchResultsOption" && files) &&
-                    <SearchResults
-                        ShoppingCartArr={ShoppingCartArr}
-                        setShoppingCartArr={setShoppingCartArr}
-                        files={files}
-                    />
-                }
-
-                {/* {renderOptions == "searchResultsOption" ? files &&
-                    <SearchResults
-                        ShoppingCartArr={ShoppingCartArr}
-                        setShoppingCartArr={setShoppingCartArr}
-                        files={files}
-                    />
-                    : ""} */}
+                    {(renderOptions == "searchResultsOption" && files) &&
+                        <SearchResults
+                            ShoppingCartArr={ShoppingCartArr}
+                            setShoppingCartArr={setShoppingCartArr}
+                            files={files}
+                        />
+                    }
 
 
-                {(renderOptions == "shoppingCartOption") &&
-                    <ShoppingCart
-                        ShoppingCartArr={ShoppingCartArr}
-                        setShoppingCartArr={setShoppingCartArr}
-                    />
-                }
+                    {(renderOptions == "shoppingCartOption") &&
+                        <ShoppingCart
+                            ShoppingCartArr={ShoppingCartArr}
+                            setShoppingCartArr={setShoppingCartArr}
+                        />
+                    }
 
-                {/* {renderOptions == "shoppingCartOption" ?
-                    <ShoppingCart
-                        ShoppingCartArr={ShoppingCartArr}
-                        setShoppingCartArr={setShoppingCartArr}
-                    />
-                    : ""} */}
+                </div>           
+            }
 
 
-
-            </div>
 
 
             {/* <Footer /> */}
