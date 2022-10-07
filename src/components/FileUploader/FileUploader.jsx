@@ -273,8 +273,6 @@ const FileUploader = (props) => {
                 <div ref={uploaderWrapper} className='uploader-wrapper'>
                     <h5>Profile Details</h5>
                     <form className='file-upload-form'>
-                        {/* {getNewFileInputElement()} */}
-                        
                         <>
                             <div className="row cohort-row">
                                 {getNewSelectElement(KEY.cohortYear, getYearRangeOptions(2019, 2023))}
@@ -293,20 +291,8 @@ const FileUploader = (props) => {
                                 {getNewSelectElement(KEY.region, [])}
                                 {getNewTextInputElement(KEY.zipCode)}
                             </div>
-
-                            {/* <div className="row location-row">
-                                {getNewSelectElement(KEY.country, COUNTRY_OPTIONS_ELEMENTS)}
-                                {getNewTextInputElement(KEY.city)}
-                                {getNewSelectElement(KEY.region, [])}
-                                {getNewTextInputElement(KEY.zipCode)}
-                            </div> */}
-
                             <p className='uploaded-file-name-displayer'>{pdf.name}</p>
-
                             {getNewTextInputElement(KEY.keywords, " (comma-separated)")}
-                            {/* <button type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
-                            {/* <button className='button-primary upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
-                            {/* <button ref={uploadButtonRef} className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>Upload</button>                     */}
                             <button className='upload-pdf-button' type="submit" onClick={handleSubmitButtonClick}>{buttonText}</button>                    
                         </>
                         

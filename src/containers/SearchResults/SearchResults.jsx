@@ -13,8 +13,6 @@ const SearchResults = (props) => {
     const [dateResults, setDateResults] = useState('all')
     const [profileYear, setProfileYear] = useState([])
 
-
-    // const filteredProfiles = checkResults.filter((profile) => {
     const filteredFiles = checkResults.filter((profile) => {
         const lowerProfileValues = Object.values(profile).map(value => String(value).toLowerCase());
         const splitResults = returnResults.split(" ");

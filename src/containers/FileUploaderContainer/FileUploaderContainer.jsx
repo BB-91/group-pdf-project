@@ -20,22 +20,30 @@ const FileUploaderContainer = (props) => {
         }
     }
 
-    const getProfileCardsFromPDF = (pdfs) => {
-        return pdfs.map((pdf, index) => {
-            return (
-                <FileUploader
-                    postProfile={postProfile}
-                    getProfiles={getProfiles}
-                    pdf={pdf}
-                    key={index}
-                    getSignedDownloadURL={getSignedDownloadURL}
-                    getSignedUploadURL={getSignedUploadURL}
-                    setFiles={setFiles}
-                />
-            )
+    const cardsCreatedCounterRef = useRef(0);
 
-        })   
-    }   
+    const getProfileCardsFromPDF = (pdfs) => {
+        const profileCards = [];
+
+        pdfs.forEach(pdf => {
+            cardsCreatedCounterRef.current += 1;
+            const createdCardIndex = cardsCreatedCounterRef.current;
+
+            const profileCard = <FileUploader
+                postProfile={postProfile}
+                getProfiles={getProfiles}
+                pdf={pdf}
+                key={createdCardIndex}
+                getSignedDownloadURL={getSignedDownloadURL}
+                getSignedUploadURL={getSignedUploadURL}
+                setFiles={setFiles}
+            />
+
+            profileCards.push(profileCard);
+        })
+
+        return profileCards;
+    }
 
     const handleFileInputChange = async (event) => {
         const controllerFileInputElement = event.target;
@@ -49,7 +57,6 @@ const FileUploaderContainer = (props) => {
         <div className='file-uploader-container'>
             <div className='upload-wrapper'>
                 <label htmlFor={KEY.pdf} className="button-primary custom-file-upload">
-                {/* <label htmlFor={KEY.pdf} className="custom-file-upload"> */}
                     Upload Profile PDF
                 </label>
                 <input type="file" name={KEY.pdf} id={KEY.pdf} accept=".pdf" multiple onChange={handleFileInputChange} />
